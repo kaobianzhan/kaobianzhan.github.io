@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<title>友链</title>
+<meta charset="utf-8" />
+<meta name="keywords" content="" />
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=5"
+/>
+<meta name="generator" content="Hexo 7.0.0">
+
+<style>
+body {
+	margin: 0;
+	font-size: 1.35em;
+}
+
+@media screen and (max-width: 768px) {
+	body {
+		font-size: 1.1em;
+	}
+}
+
+body * {
+	font-family: Noto Serif SC;
+}
+
+a {
+	transition: color 0.2s ease;
+	text-decoration: none;
+	color: #000;
+} 
+
+a:hover {
+	color: #aa874b;
+}
+
+::selection {
+	background-color: #aa874b;
+	color: #fff;
+}
+::-moz-selection {
+	background-color: #aa874b;
+	color: #fff;
+}
+
+.container {
+	max-width: 45em;
+	margin: 0 auto;
+	padding: 0 1em;
+}
+
+.header {
+	height: 4em;
+	background-color: transparent;
+	line-height: 4em;
+	background-color: #fff;
+	border-bottom: 2px solid #eee;
+}
+
+.header.home {
+	background-color: #f6f3ed;
+	border-bottom: 2px solid #f6f3ed;
+}
+
+.header .container {
+	display: flex;
+	flex-direction: row;
+}
+
+.header .logo {
+	font-weight: 700;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 10em;
+}
+
+.header .nav {
+	display: flex;
+	flex-direction: row;
+	list-style: none;
+	margin: 0;
+	margin-left: auto;
+}
+
+.header .nav .nav-item {
+	margin-left: 1.5em;
+}
+
+.content {
+	min-height: calc(100vh - 10em);
+}
+
+.content.home {
+	background-color: #fff;
+}
+
+.content .banner {
+	background-color: #f7f3ed;
+	display: block;
+	position: relative;
+	padding: 5rem 0;
+}
+
+.content.home .banner {
+	margin-bottom: calc(1.5rem + 4rem);
+}
+
+.content .banner h1 {
+	text-align: center;
+	color: #aa874b;
+	display: block;
+	margin: 0 auto;
+}
+
+.content.home .banner {
+	padding: 3rem 0;
+}
+
+.content .banner .search {
+	position: relative;
+	bottom: -4.5rem;
+	width: 100%;
+}
+
+.content .banner .search form {
+	background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgb(170 135 75 / 15%);
+    width: 74%;
+    margin: auto 13%;
+    position: relative;
+	display: flex;
+}
+
+.content .banner .search #search_value {
+	width: 100%;
+	border: none;
+	background-color: transparent;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	box-sizing: border-box;
+	outline: 0;
+}
+
+.content .banner .search .submit {
+	border: none;
+	background-color: transparent;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	box-sizing: border-box;
+	outline: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.content .banner .search form {
+		width: 90%;
+		margin: auto 5%;
+	}
+}
+
+.content .category {
+	margin-top: 2em;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.content .category .category-item {
+	flex: 0 0 calc(25% - 1.5em);
+	max-width: calc(25% - 1.5em);
+	margin: 0;
+	margin-right: 2em;
+	margin-bottom: 2em;
+}
+
+.content .category .category-item:nth-child(4n + 4) {
+	margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+	.content .category .category-item {
+		flex: 0 0 calc(33.3333333333333% - 0.66666666666666666em);
+		max-width: calc(33.3333333333333% - 0.66666666666666666em);
+		margin-right: 1em;
+		margin-bottom: 1em;
+
+	}
+	.content .category .category-item:nth-child(4n + 4) {
+		margin-right: 1em;
+	}
+	.content .category .category-item:nth-child(3n + 3) {
+		margin-right: 0;
+	}
+}
+
+.content .category .category-item .cover {
+	width: 100%;
+    padding-bottom: 144%;
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    border-radius: 3px;
+    background-color: #f6f3ed;
+	background-size: cover;
+}
+
+.content .category .category-item .cover h1 {
+	background-color: #f6f3ed;
+    margin: 2.5em 1.6em;
+    text-align: center;
+    font-size: .9em;
+    padding: .5em;
+    border: 2px solid #A1615A;
+    box-shadow: 0 0 0 5px #f6f3ed;
+    color: #000!important;
+	background-color: #f6f3ed;
+    box-shadow: 0 0 0 5px #f6f3ed;
+}
+
+.content .category .category-item .cover.red {
+	background-image: url(../image/p0452_m.jpg);
+}
+
+.content .category .category-item .cover.red h1 {
+	border: 2px solid #A1615A;
+}
+
+.content .category .category-item .cover.purple {
+	background-image: url(../image/p0459_m.jpg);
+}
+
+.content .category .category-item .cover.purple h1 {
+	border: 2px solid #a2839c;
+}
+
+.content .category .category-item .cover.gray {
+	background-image: url(../image/p0402_m.jpg);
+}
+
+.content .category .category-item .cover.gray h1 {
+	border: 2px solid #989399;
+}
+
+.content .category .category-item .cover.blue {
+	background-image: url(../image/p0438_m.jpg);
+}
+
+.content .category .category-item .cover.blue h1 {
+	border: 2px solid #424f60;
+}
+
+.content .category .category-item .cover.green {
+	background-image: url(../image/p0440_m.jpg);
+}
+
+.content .category .category-item .cover.green h1 {
+	border: 2px solid #3f4c54;
+}
+
+.content .category .category-item .cover img {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+.content .category .category-item .title {
+	margin-top: 5px;
+	line-height: 1em;
+	font-family: Noto Serif SC;
+	text-align: center;
+}
+
+.content .post {
+	font-family: Noto Serif SC;
+	padding: 3em 0;
+}
+
+.content .post .date {
+	text-align: right;
+}
+
+.content .info {
+	width: 100%;
+	text-align: center;
+	padding-top: 1rem;
+}
+
+.content .post-nav {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row-reverse
+}
+
+.content .post-nav span {
+	display: block;
+	color: #bfbfbf;
+}
+
+.content .post-nav > * {
+	width: 50%;
+}
+
+.content .post-nav .new {
+	text-align: right;
+}
+
+.content .other {
+	background-color: #f4f4f4;
+	padding: 3em 0;
+}
+
+.content .catalogue {
+	list-style: none;
+	padding-left: 0;
+	margin: 3em 0;
+}
+
+.content .catalogue li {
+	line-height: 1em;
+    margin: 2em 0;
+}
+
+.content .catalogue li a {
+	display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+}
+
+.content .catalogue .title {
+	background: #fff;
+    z-index: 1;
+    margin-right: 5em;
+    padding-right: 1em;
+}
+
+.content .catalogue .date {
+	width: 100%;
+    text-align: right;
+    position: absolute;
+    right: 0;
+}
+
+.content .catalogue .date:before {
+    content: " ";
+    width: 100%;
+    border-bottom: 1px dashed #000;
+    position: absolute;
+    top: 50%;
+    right: 0;
+}
+
+.content .catalogue .date span {
+	background: #fff;
+	z-index: 1;
+	padding-left: 1em;
+	position: relative;
+}
+
+.content .catalogue .hidden {
+	display: none;
+}
+
+.content .catalogue .display {
+	display: block;
+}
+
+.content .archive .display-btn {
+	cursor: pointer;
+}
+
+.content .tag-unordered {
+	word-break: break-word;
+}
+
+.content .tag-unordered .list-count::before {
+	content: "("
+}
+
+.content .tag-unordered .list-count::after {
+	content: ")"
+}
+
+.comment {
+	padding: 3em 1em;
+}
+
+.comment .utterances {
+	max-width: 100%;
+}
+
+.footer {
+	background-color: #f7f3ed;
+    border-top: 2px solid #eee;
+}
+
+.footer a {
+	color: #aa874b;
+}
+
+.footer-content {
+    height: 6em;
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+	font-size: 2.2rem;
+}
+
+.footer-right {
+	font-size: 1.1rem;
+	text-align: right;
+	max-width: calc(100% - 14em);
+}
+
+.footer-links a {
+	margin-left: .5em;
+}
+
+article p {
+	line-height: 1.5em;
+}
+
+article a {
+	color: #aa874b;
+	word-break: break-all;
+}
+
+article > table {
+	margin: 1em 0;
+    padding: 0;
+	border-collapse: collapse;
+}
+
+article > table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+
+article > table tr:nth-child(2n), article > thead {
+    background-color: #f8f8f8;
+}
+
+article > table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 16px;
+}
+
+article > table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 16px;
+}
+
+article > table tr th:first-child, article > table tr td:first-child {
+    margin-top: 0;
+}
+
+article > table tr th:last-child, article > table tr td:last-child {
+    margin-bottom: 0;
+}
+
+article blockquote {
+	margin: 0;
+}
+
+article > blockquote {
+    margin-left: -1em;
+    border-left: 4px solid #aa874b;
+    padding-left: calc(1em - 4px);
+	font-style: italic;
+	color: #777;
+}
+
+.highlight {
+	padding: 0 0.5em;
+    background: #fdf6e3;
+    color: #657b83;
+	margin: 0;
+	border-radius: 3px;
+}
+
+.highlight * {
+	font-family: monospace;
+}
+
+.highlight .line {
+	padding: 0 1em;
+}
+
+.highlight .gutter {
+	border-right: 1px solid #aa874b;
+}
+
+article code {
+	background-color: #f7f3ed;
+	color: #aa874b;
+	padding: 0 7px;
+	border-radius: 3px;
+	margin: auto .2em;
+}
+
+article pre,
+article pre code {
+	margin: 0;
+}
+
+article ul {
+	list-style: square;
+}
+
+article a:hover {
+	text-decoration: underline;
+}
+
+article del,
+article s {
+	color: #888;
+}
+
+article img {
+	max-width: 100%;
+}
+
+article h1 {
+	font-size: 2em;
+}
+
+article .catalogue {
+	margin: auto!important;
+}
+</style>
+
+        <div class="header  ">
+    <div class="container">
+        <a class="logo" href="/" title=""></a>
+        <ul class="nav">
+
+               <li class="nav-item"><a href="/">首页</a></li>
+
+               <li class="nav-item"><a href="/archives">归档</a></li>
+
+               <li class="nav-item"><a href="/gallery/gallery">相册</a></li>
+
+			   <li class="nav-item"><a href="/links/links">友链</a></li>
+			   
+               <li class="nav-item"><a href="/about/about">关于</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+	<div class="banner">
+		<div class="container">
+			<h1>友链</h1>
+		</div>
+	</div>
+
+<br />
+<div class="page-friends page-common">
+		<div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">博客站点</div>
+		<ul class="readers-list clearfix">
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://shouluke.github.io/"><div>家乡印象</div></a></li>
+
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://blinkfox.github.io/"><div>闪烁之狐</div></a></li>
+
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://blog.anheyu.com"><div>安知鱼</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://blog.saop.cc/"><div>定の栈</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://kuhehe.github.io/"><div>小小呵</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.zywvvd.com/"><div>CangLan</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://shiroka.top/"><div>shiroka</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.wrxinyue.org/"><div>WRXinYue</div></a></li>
+		
+		</ul>
+		
+		<div class="link-title wow rollIn animated" style="visibility: visible; animation-name: rollIn;">网址导航</div>
+		<ul class="readers-list clearfix">
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.baidu.com/"><div>百度一下</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.google.com.hk/"><div>谷歌搜索</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://cn.bing.com/"><div>必应搜索</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.sogou.com/"><div>搜狗搜索</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.so.com/"><div>360搜索</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://fanyi.baidu.com/mtpe-individual/multimodal?aldtype=16047#/auto/zh"><div>百度翻译</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://fanyi.sogou.com/text?keyword=&transfrom=auto&transto=en&model=general"><div>搜狗翻译</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://fanyi.youdao.com/index.html?ref=www.gwxzt.com&wd=&eqid=d39587820005d0b10000000665b1cd9a#/"><div>有道翻译</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.iciba.com/translate?type=text"><div>爱词霸翻译</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://fanyi.so.com/?src=tab_web#"><div>360翻译</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://fanyi.qq.com/"><div>腾讯翻译君</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://map.baidu.com/@12542544,3234098,13z"><div>百度地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.amap.com/"><div>高德地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://map.qq.com/"><div>腾讯地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://cn.bing.com/maps?cp=nq46t8tdbfs2&lvl=11.0"><div>必应地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://map.tianditu.gov.cn/"><div>天地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://www.onegreen.net/maps/List/List_711.html"><div>地图窝</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://map.sogou.com/hybrid.html"><div>搜狗地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://www.wxno.com/"><div>卫星在线</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.earthol.org/"><div>地球在线街景</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://map.360.cn/"><div>360地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://livingatlas.arcgis.com/wayback/#active=47963&mapCenter=112.72367%2C28.00585%2C16"><div>历史影像地图</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.xitmi.com/"><div>系统迷</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=16&filter=lastpost&orderby=lastpost&typeid=232"><div>吾爱软件专区</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.ghxi.com/"><div>果核剥壳</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.yxssp.com/"><div>异星软件空间</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://hexo.io/zh-cn/"><div>Hexo</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://github.com/"><div>GitHub</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://ident.familysearch.org/identity/login/?state=https://www.familysearch.org/records/images/"><div>FamilySearch</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://hunan.tianditu.gov.cn/TDTHN/tjxz/hunanshixian.html"><div>天地图·湖南</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://book.kongfz.com/179505/5394559285/"><div>孔夫子旧书网</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://tv.cctv.com/live/index.shtml?spm=C28340.PdNvWY0LYxCP.E3alv6pYzpwM.1/"><div>央视网直播</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://tv.haoqu99.com/1/cctv1.html"><div>好趣网直播</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.gdtv.cn/tvChannelDetail/43"><div>荔枝网直播</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.cxtvlive.com/live-tv/nhk-world"><div>CXTV Live</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://app.plex.tv/desktop/#!/live-tv"><div>PlexTV</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.cnr.cn/gbzb/"><div>央广网直播</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.ximalaya.com/radio/"><div>喜马拉雅FM</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.qingting.fm/radiopage/"><div>蜻蜓FM</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://rtv.220123.xyz/radio/?273"><div>中文试听网</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.liaofuzhan.com/"><div>Leaface</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.douyin.com/?recommend=1"><div>抖音</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.kuaishou.com/new-reco/"><div>快手</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.bilibili.com/"><div>哔哩哔哩</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.ixigua.com/"><div>西瓜视频</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.yanaifei.net/"><div>鸭奈飞影视</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://music.163.com/"><div>网易云音乐</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.kugou.com/mixsong/75qmza25.html?fromsearch=%E7%97%B4%E6%83%85%E5%86%A2"><div>酷狗音乐</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.kuwo.cn/search/list?key=%E7%97%B4%E6%83%85%E7%A7%8D"><div>酷我音乐</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://y.qq.com/"><div>QQ音乐</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://www.akuziti.com/"><div>在线字体转换器</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.aies.cn/"><div>在线繁体字转换</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://cli.im/"><div>草料二维码</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.iloveimg.com/zh-cn"><div>图片编辑</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.wetools.com/emoji/"><div>微工具</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="http://www.yedict.com/"><div>字海网</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://tiqu.cc/"><div>视频下载器</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.imgurl.org/vip/manage/upload"><div>ImgURL图床</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://sapicd.qhjack.top/"><div>sapic图床</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://waline.js.org/"><div>Waline</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.ventoy.net/cn/download.html"><div>Ventoy</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://dmfw.mca.gov.cn/search.html"><div>国家地名信息库</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://www.microsoft.com/zh-cn/software-download/windows8ISO"><div> Win8.1光盘映像</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://netcut.cn/"><div>网络剪贴板</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://excalidraw.com/"><div>在线画布</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://musetransfer.com/"><div>在线文件传输</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://pan666.net/"><div>阿里盘资源共享</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://png3d.com/?ref=www.qssily.com"><div>图片3D转换</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://font.chinaz.com/?page=2"><div>站长字体</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://eng.m.fontke.com/tool/rgb/"><div>RGB颜色查询</div></a></li>
+		
+		<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a href="https://tool.dvgod.com/index.html?ref=www.qssily.com"><div>万能对话生成器</div></a></li>
+				
+	    </ul>
+		
+		</div>
+		
+		<style>
+			.clearfix {zoom:1;}
+            .clearfix:after {content:'.';display:block;visibility:hidden;height:0;clear:both;}
+            .readers-list {list-style:none;}
+            .readers-list *{margin:0;padding:0;}
+            .readers-list li{position:relative;float:left;margin-top:20px!important;padding:0 10px;}
+            .readers-list li a{display:block;border-radius:7px;padding-left:15px;transition:all .3s;color: white;}
+            .readers-list li a div{padding:30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:999;}
+            .readers-list li a div:first-child{border-bottom:1px dashed #eee;font-size:1.3em;color:#3299CC;}
+            .readers-list li a:hover {
+	        -webkit-transform: translateY(-6px);
+	        transform: translateY(-6px);
+	        box-shadow: 0 26px 40px -24px rgba(0,0,0,0.3);
+		}
+			.link-title {
+			position: relative;
+			left: -19px;
+			display: inline-block;
+			margin: 20px 0;
+			font-size: 15px;
+			padding: 0 30px 0 25px;
+			height: 45px;
+			line-height: 45px;
+			border-radius: 0 350px 35px 0;
+			background: #CC3299;
+			color: #fff;
+			}
+			@media(min-width:768px){
+				.readers-list li{width:30%;}
+			}
+			@media(max-width:767px){
+				.readers-list li{width:100%;}
+			}
+
+			.page-common ul li, .page-common ol li {
+				margin-bottom: 20px;
+			}
+			.page-friends ul {
+				padding: 0;
+				margin: 0;
+			}
+		</style>
+<br />
+
+<div class="footer">
+    <div class="container">
+       <div class="footer-content">
+        <div class="footer-left">
+          </div>
+        <div class="footer-right">
+    <div calss="footer-copyright">版权 &copy; 2024
+  </div>
+  <div class="translate-style">
+		繁/简：<a id="translateLink" href="javascript:translatePage();">繁體
+		</a>
+		</div>
+		<script type="text/javascript" src="/js/tw_cn.js"></script>
+		<script type="text/javascript">
+		var defaultEncoding = 2;
+		var translateDelay = 0;
+		var cookieDomain = "https://kaobianzhan.github.io/";
+		var msgToTraditionalChinese = "繁體";
+		var msgToSimplifiedChinese = "简体";
+		var translateButtonId = "translateLink";
+		translateInitilization();
+		</script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+	new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
+<span id="timeDate">载入天数...</span>
+
+<script>
+var now = new Date();
+function createtime() {
+var grt= new Date("05/10/2024");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+}
+setInterval("createtime()",250);
+</script>
+ </div>
+  </div>
+   </div>
+    </div>
+
+<style>
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 85px;
+  right: 45px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+</style>
+
+<button onclick="topFunction()" id="myBtn" title="回顶部">⬆</button>
+<script>
+window.onscroll = function() {scrollFunction()};
+ 
+function scrollFunction() {console.log(121);
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("myBtn").style.display = "block";
+    } else {
+        document.getElementById("myBtn").style.display = "none";
+    }
+}
+ 
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
+		<!-- 页面点击小红心 -->
+		<script type="text/javascript" src="/js/clicklove.js"></script>
+		<!-- 鼠标移动特效 -->
+		<script async src="/js/fairyDustCursor.js"></script>
