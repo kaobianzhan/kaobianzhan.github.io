@@ -1,0 +1,3004 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>NexT主题在归档、分类、标签页面引入ECharts动态图表</title>
+    <url>/posts/c64c42f8.html</url>
+    <content><![CDATA[<p>本文教程主要针对Hexo博客NexT主题，对博客文章的归档、分类、标签页面绘制统计图。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>1.下载cheerio插件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i cheerio --save</span><br></pre></td></tr></table></figure>
+
+<p>2、创建一个charts.js<br>在blog&#x2F;themes&#x2F;next&#x2F;scripts&#x2F;helpers文件夹里创建一个charts.js文件，然后复制粘贴下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const cheerio = require(&#x27;cheerio&#x27;)</span><br><span class="line">const moment = require(&#x27;moment&#x27;)</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(&#x27;after_render:html&#x27;, function (locals) &#123;</span><br><span class="line">  const $ = cheerio.load(locals)</span><br><span class="line">  const post = $(&#x27;#posts-chart&#x27;)</span><br><span class="line">  const tag = $(&#x27;#tags-chart&#x27;)</span><br><span class="line">  const category = $(&#x27;#categories-chart&#x27;)</span><br><span class="line">  const htmlEncode = false</span><br><span class="line"></span><br><span class="line">  if (post.length &gt; 0 || tag.length &gt; 0 || category.length &gt; 0) &#123;</span><br><span class="line">    if (post.length &gt; 0 &amp;&amp; $(&#x27;#postsChart&#x27;).length === 0) &#123;</span><br><span class="line">      if (post.attr(&#x27;data-encode&#x27;) === &#x27;true&#x27;) htmlEncode = true</span><br><span class="line">      post.after(postsChart(post.attr(&#x27;data-start&#x27;)))</span><br><span class="line">    &#125;</span><br><span class="line">    if (tag.length &gt; 0 &amp;&amp; $(&#x27;#tagsChart&#x27;).length === 0) &#123;</span><br><span class="line">      if (tag.attr(&#x27;data-encode&#x27;) === &#x27;true&#x27;) htmlEncode = true</span><br><span class="line">      tag.after(tagsChart(tag.attr(&#x27;data-length&#x27;)))</span><br><span class="line">    &#125;</span><br><span class="line">    if (category.length &gt; 0 &amp;&amp; $(&#x27;#categoriesChart&#x27;).length === 0) &#123;</span><br><span class="line">      if (category.attr(&#x27;data-encode&#x27;) === &#x27;true&#x27;) htmlEncode = true</span><br><span class="line">      category.after(categoriesChart(category.attr(&#x27;data-parent&#x27;)))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (htmlEncode) &#123;</span><br><span class="line">      return $.root().html().replace(/&amp;amp;#/g, &#x27;&amp;#&#x27;)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return $.root().html()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return locals</span><br><span class="line">  &#125;</span><br><span class="line">&#125;, 15)</span><br><span class="line"></span><br><span class="line">function postsChart (startMonth) &#123;</span><br><span class="line">  const startDate = moment(startMonth || &#x27;2020-01&#x27;)</span><br><span class="line">  const endDate = moment()</span><br><span class="line"></span><br><span class="line">  const monthMap = new Map()</span><br><span class="line">  const dayTime = 3600 * 24 * 1000</span><br><span class="line">  for (let time = startDate; time &lt;= endDate; time += dayTime) &#123;</span><br><span class="line">    const month = moment(time).format(&#x27;YYYY-MM&#x27;)</span><br><span class="line">    if (!monthMap.has(month)) &#123;</span><br><span class="line">      monthMap.set(month, 0)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  hexo.locals.get(&#x27;posts&#x27;).forEach(function (post) &#123;</span><br><span class="line">    const month = post.date.format(&#x27;YYYY-MM&#x27;)</span><br><span class="line">    if (monthMap.has(month)) &#123;</span><br><span class="line">      monthMap.set(month, monthMap.get(month) + 1)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  const monthArr = JSON.stringify([...monthMap.keys()])</span><br><span class="line">  const monthValueArr = JSON.stringify([...monthMap.values()])</span><br><span class="line"></span><br><span class="line">  return `</span><br><span class="line">  &lt;script id=&quot;postsChart&quot;&gt;</span><br><span class="line">    var color = &#x27;#007AFF&#x27;</span><br><span class="line">    var postsChart = echarts.init(document.getElementById(&#x27;posts-chart&#x27;), &#x27;light&#x27;);</span><br><span class="line">    var postsOption = &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line">        text: &#x27;文章发布统计图&#x27;,</span><br><span class="line">        x: &#x27;center&#x27;,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: &#123;</span><br><span class="line">        trigger: &#x27;axis&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      xAxis: &#123;</span><br><span class="line">        name: &#x27;日期&#x27;,</span><br><span class="line">        type: &#x27;category&#x27;,</span><br><span class="line">        boundaryGap: false,</span><br><span class="line">        nameTextStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisTick: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLabel: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLine: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          lineStyle: &#123;</span><br><span class="line">            color: color</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: $&#123;monthArr&#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      yAxis: &#123;</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;value&#x27;,</span><br><span class="line">        nameTextStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        splitLine: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        axisTick: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLabel: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLine: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          lineStyle: &#123;</span><br><span class="line">            color: color</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      series: [&#123;</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;line&#x27;,</span><br><span class="line">        smooth: true,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">            width: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        showSymbol: false,</span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">          opacity: 1,</span><br><span class="line">          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [&#123;</span><br><span class="line">            offset: 0,</span><br><span class="line">            color: &#x27;rgba(128, 255, 165)&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            offset: 1,</span><br><span class="line">            color: &#x27;rgba(1, 191, 236)&#x27;</span><br><span class="line">          &#125;])</span><br><span class="line">        &#125;,</span><br><span class="line">        areaStyle: &#123;</span><br><span class="line">          opacity: 1,</span><br><span class="line">          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [&#123;</span><br><span class="line">            offset: 0,</span><br><span class="line">            color: &#x27;rgba(128, 255, 165)&#x27;</span><br><span class="line">          &#125;, &#123;</span><br><span class="line">            offset: 1,</span><br><span class="line">            color: &#x27;rgba(1, 191, 236)&#x27;</span><br><span class="line">          &#125;])</span><br><span class="line">        &#125;,</span><br><span class="line">        data: $&#123;monthValueArr&#125;,</span><br><span class="line">        markLine: &#123;</span><br><span class="line">          data: [&#123;</span><br><span class="line">            name: &#x27;平均值&#x27;,</span><br><span class="line">            type: &#x27;average&#x27;,</span><br><span class="line">            label: &#123;</span><br><span class="line">              color: color</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;;</span><br><span class="line">    postsChart.setOption(postsOption);</span><br><span class="line">    window.addEventListener(&#x27;resize&#x27;, () =&gt; &#123; </span><br><span class="line">      postsChart.resize();</span><br><span class="line">    &#125;);</span><br><span class="line">    postsChart.on(&#x27;click&#x27;, &#x27;series&#x27;, (event) =&gt; &#123;</span><br><span class="line">      if (event.componentType === &#x27;series&#x27;) window.location.href = &#x27;/archives/&#x27; + event.name.replace(&#x27;-&#x27;, &#x27;/&#x27;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function tagsChart (len) &#123;</span><br><span class="line">  const tagArr = []</span><br><span class="line">  hexo.locals.get(&#x27;tags&#x27;).map(function (tag) &#123;</span><br><span class="line">    tagArr.push(&#123; name: tag.name, value: tag.length, path: tag.path &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  tagArr.sort((a, b) =&gt; &#123; return b.value - a.value &#125;)</span><br><span class="line"></span><br><span class="line">  const dataLength = Math.min(tagArr.length, len) || tagArr.length</span><br><span class="line">  const tagNameArr = []</span><br><span class="line">  for (let i = 0; i &lt; dataLength; i++) &#123;</span><br><span class="line">    tagNameArr.push(tagArr[i].name)</span><br><span class="line">  &#125;</span><br><span class="line">  const tagNameArrJson = JSON.stringify(tagNameArr)</span><br><span class="line">  const tagArrJson = JSON.stringify(tagArr)</span><br><span class="line"></span><br><span class="line">  return `</span><br><span class="line">  &lt;script id=&quot;tagsChart&quot;&gt;</span><br><span class="line">    var color = &#x27;#007AFF&#x27;</span><br><span class="line">    var tagsChart = echarts.init(document.getElementById(&#x27;tags-chart&#x27;), &#x27;light&#x27;);</span><br><span class="line">    var tagsOption = &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line">        text: &#x27;Top $&#123;dataLength&#125; 标签统计图&#x27;,</span><br><span class="line">        x: &#x27;center&#x27;,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: &#123;&#125;,</span><br><span class="line">      xAxis: &#123;</span><br><span class="line">        name: &#x27;标签&#x27;,</span><br><span class="line">        type: &#x27;category&#x27;,</span><br><span class="line">        nameTextStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisTick: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLabel: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          color: color,</span><br><span class="line">          interval: 0</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLine: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          lineStyle: &#123;</span><br><span class="line">            color: color</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: $&#123;tagNameArrJson&#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      yAxis: &#123;</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;value&#x27;,</span><br><span class="line">        splitLine: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        nameTextStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisTick: &#123;</span><br><span class="line">          show: false</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLabel: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          color: color</span><br><span class="line">        &#125;,</span><br><span class="line">        axisLine: &#123;</span><br><span class="line">          show: true,</span><br><span class="line">          lineStyle: &#123;</span><br><span class="line">            color: color</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      series: [&#123;</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;bar&#x27;,</span><br><span class="line">        data: $&#123;tagArrJson&#125;,</span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">          borderRadius: [5, 5, 0, 0],</span><br><span class="line">          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [&#123;</span><br><span class="line">            offset: 0,</span><br><span class="line">            color: &#x27;rgba(128, 255, 165)&#x27;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            offset: 1,</span><br><span class="line">            color: &#x27;rgba(1, 191, 236)&#x27;</span><br><span class="line">          &#125;])</span><br><span class="line">        &#125;,</span><br><span class="line">        emphasis: &#123;</span><br><span class="line">          itemStyle: &#123;</span><br><span class="line">            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [&#123;</span><br><span class="line">              offset: 0,</span><br><span class="line">              color: &#x27;rgba(128, 255, 195)&#x27;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              offset: 1,</span><br><span class="line">              color: &#x27;rgba(1, 211, 255)&#x27;</span><br><span class="line">            &#125;])</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        markLine: &#123;</span><br><span class="line">          data: [&#123;</span><br><span class="line">            name: &#x27;平均值&#x27;,</span><br><span class="line">            type: &#x27;average&#x27;,</span><br><span class="line">            label: &#123;</span><br><span class="line">              color: color</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;;</span><br><span class="line">    tagsChart.setOption(tagsOption);</span><br><span class="line">    window.addEventListener(&#x27;resize&#x27;, () =&gt; &#123; </span><br><span class="line">      tagsChart.resize();</span><br><span class="line">    &#125;);</span><br><span class="line">    tagsChart.on(&#x27;click&#x27;, &#x27;series&#x27;, (event) =&gt; &#123;</span><br><span class="line">      if(event.data.path) window.location.href = &#x27;/&#x27; + event.data.path;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function categoriesChart (dataParent) &#123;</span><br><span class="line">  const categoryArr = []</span><br><span class="line">  let categoryParentFlag = false</span><br><span class="line">  hexo.locals.get(&#x27;categories&#x27;).map(function (category) &#123;</span><br><span class="line">    if (category.parent) categoryParentFlag = true</span><br><span class="line">    categoryArr.push(&#123;</span><br><span class="line">      name: category.name,</span><br><span class="line">      value: category.length,</span><br><span class="line">      path: category.path,</span><br><span class="line">      id: category._id,</span><br><span class="line">      parentId: category.parent || &#x27;0&#x27;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">  categoryParentFlag = categoryParentFlag &amp;&amp; dataParent === &#x27;true&#x27;</span><br><span class="line">  categoryArr.sort((a, b) =&gt; &#123; return b.value - a.value &#125;)</span><br><span class="line">  function translateListToTree (data, parent) &#123;</span><br><span class="line">    let tree = []</span><br><span class="line">    let temp</span><br><span class="line">    data.forEach((item, index) =&gt; &#123;</span><br><span class="line">      if (data[index].parentId == parent) &#123;</span><br><span class="line">        let obj = data[index];</span><br><span class="line">        temp = translateListToTree(data, data[index].id);</span><br><span class="line">        if (temp.length &gt; 0) &#123;</span><br><span class="line">          obj.children = temp</span><br><span class="line">        &#125;</span><br><span class="line">        if (tree.indexOf())</span><br><span class="line">          tree.push(obj)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return tree</span><br><span class="line">  &#125;</span><br><span class="line">  const categoryNameJson = JSON.stringify(categoryArr.map(function (category) &#123; return category.name &#125;))</span><br><span class="line">  const categoryArrJson = JSON.stringify(categoryArr)</span><br><span class="line">  const categoryArrParentJson = JSON.stringify(translateListToTree(categoryArr, &#x27;0&#x27;))</span><br><span class="line"></span><br><span class="line">  return `</span><br><span class="line">  &lt;script id=&quot;categoriesChart&quot;&gt;</span><br><span class="line">    var color = &#x27;#007AFF&#x27;</span><br><span class="line">    var categoriesChart = echarts.init(document.getElementById(&#x27;categories-chart&#x27;), &#x27;light&#x27;);</span><br><span class="line">    var categoryParentFlag = $&#123;categoryParentFlag&#125;</span><br><span class="line">    var categoriesOption = &#123;</span><br><span class="line">      title: &#123;</span><br><span class="line">        text: &#x27;文章分类统计图&#x27;,</span><br><span class="line">        x: &#x27;center&#x27;,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      legend: &#123;</span><br><span class="line">        top: &#x27;bottom&#x27;,</span><br><span class="line">        data: $&#123;categoryNameJson&#125;,</span><br><span class="line">        textStyle: &#123;</span><br><span class="line">          color: color</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      tooltip: &#123;</span><br><span class="line">        trigger: &#x27;item&#x27;</span><br><span class="line">      &#125;,</span><br><span class="line">      series: []</span><br><span class="line">    &#125;;</span><br><span class="line">    categoriesOption.series.push(</span><br><span class="line">      categoryParentFlag ? </span><br><span class="line">      &#123;</span><br><span class="line">        nodeClick :false,</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;sunburst&#x27;,</span><br><span class="line">        radius: [&#x27;15%&#x27;, &#x27;90%&#x27;],</span><br><span class="line">        center: [&#x27;50%&#x27;, &#x27;55%&#x27;],</span><br><span class="line">        sort: &#x27;desc&#x27;,</span><br><span class="line">        data: $&#123;categoryArrParentJson&#125;,</span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">          borderColor: &#x27;#fff&#x27;,</span><br><span class="line">          borderWidth: 2,</span><br><span class="line">          emphasis: &#123;</span><br><span class="line">            focus: &#x27;ancestor&#x27;,</span><br><span class="line">            shadowBlur: 10,</span><br><span class="line">            shadowOffsetX: 0,</span><br><span class="line">            shadowColor: &#x27;rgba(255, 255, 255, 0.5)&#x27;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      :</span><br><span class="line">      &#123;</span><br><span class="line">        name: &#x27;文章篇数&#x27;,</span><br><span class="line">        type: &#x27;pie&#x27;,</span><br><span class="line">        radius: [30, 80],</span><br><span class="line">        roseType: &#x27;area&#x27;,</span><br><span class="line">        label: &#123;</span><br><span class="line">          color: color,</span><br><span class="line">          formatter: &#x27;&#123;b&#125; : &#123;c&#125; (&#123;d&#125;%)&#x27;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: $&#123;categoryArrJson&#125;,</span><br><span class="line">        itemStyle: &#123;</span><br><span class="line">          emphasis: &#123;</span><br><span class="line">            shadowBlur: 10,</span><br><span class="line">            shadowOffsetX: 0,</span><br><span class="line">            shadowColor: &#x27;rgba(255, 255, 255, 0.5)&#x27;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">    categoriesChart.setOption(categoriesOption);</span><br><span class="line">    window.addEventListener(&#x27;resize&#x27;, () =&gt; &#123; </span><br><span class="line">      categoriesChart.resize();</span><br><span class="line">    &#125;);</span><br><span class="line">    categoriesChart.on(&#x27;click&#x27;, &#x27;series&#x27;, (event) =&gt; &#123;</span><br><span class="line">      if(event.data.path) window.location.href = &#x27;/&#x27; + event.data.path;</span><br><span class="line">    &#125;);</span><br><span class="line">  &lt;/script&gt;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、引入ECharts.js<br>在blog&#x2F;themes&#x2F;next&#x2F;layout文件夹中找到_layout.njk文件，然后在&lt; title &gt;的下面引入js代码:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;title&gt;&#123;% block title %&#125;&#123;% endblock %&#125;&lt;/title&gt;(在此处下面引入js代码)</span><br><span class="line">&lt;script src=&quot;https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4、引入统计图</p>
+<blockquote>
+<p>归档页引入统计图<br>&ensp;&ensp;&ensp;&ensp;在blog&#x2F;themes&#x2F;next&#x2F;layout文件夹中找到archive.njk文件，然后在&lt; span &gt;的下面引入统计图<sub>（时间可自行调整）</sub>:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;span class=&quot;collection-header&quot;&gt;&#123;&#123; __(&#x27;cheers.&#x27; + cheers) &#125;&#125;! &#123;&#123; _p(&#x27;counter.archive_posts&#x27;, site.posts.length) &#125;&#125; &#123;&#123; __(&#x27;keep_on&#x27;) &#125;&#125;&lt;/span&gt;(在此处下面引入归档统计图代码)</span><br><span class="line">&lt;div id=&quot;posts-chart&quot; data-start=&quot;2024-01&quot; style=&quot;border-radius: 8px; height: 300px; padding: 10px;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在分类页使用统计图<br>&ensp;&ensp;&ensp;&ensp;在blog&#x2F;themes&#x2F;next&#x2F;layout文件夹中找到page.njk文件，然后在page.type &#x3D;&#x3D;&#x3D; ‘categories’下面引入分类统计图代码:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% elif page.type === &#x27;categories&#x27; %&#125;（在此处下面引入分类统计图代码）</span><br><span class="line">&lt;div id=&quot;categories-chart&quot; data-parent=&quot;true&quot; style=&quot;height: 300px; padding: 10px;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在标签页使用统计图<br>&ensp;&ensp;&ensp;&ensp;在blog&#x2F;themes&#x2F;next&#x2F;layout文件夹中找到page.njk文件，然后在page.type &#x3D;&#x3D;&#x3D; ‘tags’下面引入标签统计图代码:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.type === &#x27;tags&#x27; %&#125;（在此处下面引入标签统计图代码）</span><br><span class="line">&lt;div id=&quot;tags-chart&quot; data-length=&quot;10&quot; style=&quot;border-radius: 8px; height: 300px; padding: 10px;&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo博客添加ECharts动态图表</title>
+    <url>/posts/4d97f06a.html</url>
+    <content><![CDATA[<p>ECharts是一款基于JavaScript的数据可视化图表库，提供直观，生动，可交互，可个性化定制的数据可视化图表。Hexo博客可以通过安装hexo-tag-echarts插件，实现对数据的可视化呈现。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>1、下载ECharts插件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-tag-echarts --save</span><br></pre></td></tr></table></figure>
+
+<p>2、在blog&#x2F;node_modules&#x2F;hexo-tag-echarts&#x2F;template.html文件第一行下面引入下面的js。如果不添引入js，ECharts动态图表将无法显示。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/echarts-gl@1.1.1/dist/echarts-gl.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、在文章中插入Mermaid语法即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% echarts 400 &#x27;85%&#x27; %&#125;</span><br><span class="line">在这中间放ECharts动态图表代码</span><br><span class="line">&#123;% endecharts %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&ensp;&ensp;&ensp;&ensp;代码内容可自己编写，也可以去<a href="https://echarts.apache.org/examples/zh/index.html">ECharts官网</a>复制，然后粘贴到这里。以下是“雷达图浏览器占比变化”示例操作<sub>（其它图表操作一样）</sub>：</p>
+<div id="echarts1230" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts1230'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '浏览器比例',
+    subtext: '假数据',
+    top: 10,
+    left: 10
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    type: 'scroll',
+    bottom: 10,
+    data: (function () {
+      var list = [];
+      for (var i = 1; i <= 28; i++) {
+        list.push(i + 2000 + '');
+      }
+      return list;
+    })()
+  },
+  visualMap: {
+    top: 'middle',
+    right: 10,
+    color: ['red', 'yellow'],
+    calculable: true
+  },
+  radar: {
+    indicator: [
+      { text: '微软Edge浏览器', max: 400 },
+      { text: '360浏览器', max: 400 },
+      { text: '苹果Safari 浏览器', max: 400 },
+      { text: '火狐浏览器', max: 400 },
+      { text: '谷歌Chrome浏览器', max: 400 }
+    ]
+  },
+  series: (function () {
+    var series = [];
+    for (var i = 1; i <= 28; i++) {
+      series.push({
+        type: 'radar',
+        symbol: 'none',
+        lineStyle: {
+          width: 1
+        },
+        emphasis: {
+          areaStyle: {
+            color: 'rgba(0,250,0,0.3)'
+          }
+        },
+        data: [
+          {
+            value: [
+              (40 - i) * 10,
+              (38 - i) * 4 + 60,
+              i * 5 + 10,
+              i * 9,
+              (i * i) / 2
+            ],
+            name: i + 2000 + ''
+          }
+        ]
+      });
+    }
+    return series;
+  })()
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo博客添加ECharts动态图表</span><br><span class="line">date: 2024-11-28 16:29:35</span><br><span class="line">categories: Hexo博客</span><br><span class="line">tags:</span><br><span class="line">  - 博客搭建</span><br><span class="line">  - 主题配置</span><br><span class="line">  - 经验技巧</span><br><span class="line">top: true</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">&#123;% echarts 400 &#x27;85%&#x27; %&#125;</span><br><span class="line">option = &#123;</span><br><span class="line">  title: &#123;</span><br><span class="line">    text: &#x27;浏览器比例&#x27;,</span><br><span class="line">    subtext: &#x27;假数据&#x27;,</span><br><span class="line">    top: 10,</span><br><span class="line">    left: 10</span><br><span class="line">  &#125;,</span><br><span class="line">  tooltip: &#123;</span><br><span class="line">    trigger: &#x27;item&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  legend: &#123;</span><br><span class="line">    type: &#x27;scroll&#x27;,</span><br><span class="line">    bottom: 10,</span><br><span class="line">    data: (function () &#123;</span><br><span class="line">      var list = [];</span><br><span class="line">      for (var i = 1; i &lt;= 28; i++) &#123;</span><br><span class="line">        list.push(i + 2000 + &#x27;&#x27;);</span><br><span class="line">      &#125;</span><br><span class="line">      return list;</span><br><span class="line">    &#125;)()</span><br><span class="line">  &#125;,</span><br><span class="line">  visualMap: &#123;</span><br><span class="line">    top: &#x27;middle&#x27;,</span><br><span class="line">    right: 10,</span><br><span class="line">    color: [&#x27;red&#x27;, &#x27;yellow&#x27;],</span><br><span class="line">    calculable: true</span><br><span class="line">  &#125;,</span><br><span class="line">  radar: &#123;</span><br><span class="line">    indicator: [</span><br><span class="line">      &#123; text: &#x27;微软Edge浏览器&#x27;, max: 400 &#125;,</span><br><span class="line">      &#123; text: &#x27;360浏览器&#x27;, max: 400 &#125;,</span><br><span class="line">      &#123; text: &#x27;苹果Safari 浏览器&#x27;, max: 400 &#125;,</span><br><span class="line">      &#123; text: &#x27;火狐浏览器&#x27;, max: 400 &#125;,</span><br><span class="line">      &#123; text: &#x27;谷歌Chrome浏览器&#x27;, max: 400 &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  series: (function () &#123;</span><br><span class="line">    var series = [];</span><br><span class="line">    for (var i = 1; i &lt;= 28; i++) &#123;</span><br><span class="line">      series.push(&#123;</span><br><span class="line">        type: &#x27;radar&#x27;,</span><br><span class="line">        symbol: &#x27;none&#x27;,</span><br><span class="line">        lineStyle: &#123;</span><br><span class="line">          width: 1</span><br><span class="line">        &#125;,</span><br><span class="line">        emphasis: &#123;</span><br><span class="line">          areaStyle: &#123;</span><br><span class="line">            color: &#x27;rgba(0,250,0,0.3)&#x27;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        data: [</span><br><span class="line">          &#123;</span><br><span class="line">            value: [</span><br><span class="line">              (40 - i) * 10,</span><br><span class="line">              (38 - i) * 4 + 60,</span><br><span class="line">              i * 5 + 10,</span><br><span class="line">              i * 9,</span><br><span class="line">              (i * i) / 2</span><br><span class="line">            ],</span><br><span class="line">            name: i + 2000 + &#x27;&#x27;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    return series;</span><br><span class="line">  &#125;)()</span><br><span class="line">&#125;;</span><br><span class="line">&#123;% endecharts %&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="几种常用的ECharts图表"><a href="#几种常用的ECharts图表" class="headerlink" title="几种常用的ECharts图表"></a>几种常用的ECharts图表</h3><h4 id="折线图-line"><a href="#折线图-line" class="headerlink" title="折线图 line"></a>折线图 line</h4><div id="echarts29" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts29'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '堆积面积图'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#6a7985'
+      }
+    }
+  },
+  legend: {
+    data: ['邮箱', '联合广告', '视频广告', '直接', '搜索引擎']
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      boundaryGap: false,
+      data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天']
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: '邮箱',
+      type: 'line',
+      stack: 'Total',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+      data: [120, 132, 101, 134, 90, 230, 210]
+    },
+    {
+      name: '联合广告',
+      type: 'line',
+      stack: 'Total',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+      data: [220, 182, 191, 234, 290, 330, 310]
+    },
+    {
+      name: '视频广告',
+      type: 'line',
+      stack: 'Total',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+      data: [150, 232, 201, 154, 190, 330, 410]
+    },
+    {
+      name: '直接',
+      type: 'line',
+      stack: 'Total',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+      data: [320, 332, 301, 334, 390, 330, 320]
+    },
+    {
+      name: '搜索引擎',
+      type: 'line',
+      stack: 'Total',
+      label: {
+        show: true,
+        position: 'top'
+      },
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
+      },
+      data: [820, 932, 901, 934, 1290, 1330, 1320]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="柱状图-bar"><a href="#柱状图-bar" class="headerlink" title="柱状图 bar"></a>柱状图 bar</h4><div id="echarts818" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts818'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  xAxis: {
+    type: 'category',
+    data: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [120, 200, 150, 80, 70, 110, 130],
+      type: 'bar'
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="饼图-pie"><a href="#饼图-pie" class="headerlink" title="饼图 pie"></a>饼图 pie</h4><div id="echarts3546" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts3546'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '网站的推荐人',
+    subtext: '假数据',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: [
+        { value: 1048, name: '搜索引擎' },
+        { value: 735, name: '指导' },
+        { value: 580, name: '邮箱' },
+        { value: 484, name: '联合广告' },
+        { value: 300, name: '视频广告' }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="散点图-scatter"><a href="#散点图-scatter" class="headerlink" title="散点图 scatter"></a>散点图 scatter</h4><div id="echarts955" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts955'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '男女身高和体重分布',
+    subtext: '数据来源：亨氏2003'
+  },
+  grid: {
+    left: '3%',
+    right: '7%',
+    bottom: '7%',
+    containLabel: true
+  },
+  tooltip: {
+    // trigger: 'axis',
+    showDelay: 0,
+    formatter: function (params) {
+      if (params.value.length > 1) {
+        return (
+          params.seriesName +
+          ' :<br/>' +
+          params.value[0] +
+          'cm ' +
+          params.value[1] +
+          'kg '
+        );
+      } else {
+        return (
+          params.seriesName +
+          ' :<br/>' +
+          params.name +
+          ' : ' +
+          params.value +
+          'kg '
+        );
+      }
+    },
+    axisPointer: {
+      show: true,
+      type: 'cross',
+      lineStyle: {
+        type: 'dashed',
+        width: 1
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataZoom: {},
+      brush: {
+        type: ['rect', 'polygon', 'clear']
+      }
+    }
+  },
+  brush: {},
+  legend: {
+    data: ['女性', '男性'],
+    left: 'center',
+    bottom: 10
+  },
+  xAxis: [
+    {
+      type: 'value',
+      scale: true,
+      axisLabel: {
+        formatter: '{value} cm'
+      },
+      splitLine: {
+        show: false
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      scale: true,
+      axisLabel: {
+        formatter: '{value} kg'
+      },
+      splitLine: {
+        show: false
+      }
+    }
+  ],
+  series: [
+    {
+      name: '女性',
+      type: 'scatter',
+      emphasis: {
+        focus: 'series'
+      },
+      // prettier-ignore
+      data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6],
+                [170.0, 59.0], [159.1, 47.6], [166.0, 69.8], [176.2, 66.8], [160.2, 75.2],
+                [172.5, 55.2], [170.9, 54.2], [172.9, 62.5], [153.4, 42.0], [160.0, 50.0],
+                [147.2, 49.8], [168.2, 49.2], [175.0, 73.2], [157.0, 47.8], [167.6, 68.8],
+                [159.5, 50.6], [175.0, 82.5], [166.8, 57.2], [176.5, 87.8], [170.2, 72.8],
+                [174.0, 54.5], [173.0, 59.8], [179.9, 67.3], [170.5, 67.8], [160.0, 47.0],
+                [154.4, 46.2], [162.0, 55.0], [176.5, 83.0], [160.0, 54.4], [152.0, 45.8],
+                [162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
+                [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3],
+                [167.6, 58.3], [165.1, 56.2], [160.0, 50.2], [170.0, 72.9], [157.5, 59.8],
+                [167.6, 61.0], [160.7, 69.1], [163.2, 55.9], [152.4, 46.5], [157.5, 54.3],
+                [168.3, 54.8], [180.3, 60.7], [165.5, 60.0], [165.0, 62.0], [164.5, 60.3],
+                [156.0, 52.7], [160.0, 74.3], [163.0, 62.0], [165.7, 73.1], [161.0, 80.0],
+                [162.0, 54.7], [166.0, 53.2], [174.0, 75.7], [172.7, 61.1], [167.6, 55.7],
+                [151.1, 48.7], [164.5, 52.3], [163.5, 50.0], [152.0, 59.3], [169.0, 62.5],
+                [164.0, 55.7], [161.2, 54.8], [155.0, 45.9], [170.0, 70.6], [176.2, 67.2],
+                [170.0, 69.4], [162.5, 58.2], [170.3, 64.8], [164.1, 71.6], [169.5, 52.8],
+                [163.2, 59.8], [154.5, 49.0], [159.8, 50.0], [173.2, 69.2], [170.0, 55.9],
+                [161.4, 63.4], [169.0, 58.2], [166.2, 58.6], [159.4, 45.7], [162.5, 52.2],
+                [159.0, 48.6], [162.8, 57.8], [159.0, 55.6], [179.8, 66.8], [162.9, 59.4],
+                [161.0, 53.6], [151.1, 73.2], [168.2, 53.4], [168.9, 69.0], [173.2, 58.4],
+                [171.8, 56.2], [178.0, 70.6], [164.3, 59.8], [163.0, 72.0], [168.5, 65.2],
+                [166.8, 56.6], [172.7, 105.2], [163.5, 51.8], [169.4, 63.4], [167.8, 59.0],
+                [159.5, 47.6], [167.6, 63.0], [161.2, 55.2], [160.0, 45.0], [163.2, 54.0],
+                [162.2, 50.2], [161.3, 60.2], [149.5, 44.8], [157.5, 58.8], [163.2, 56.4],
+                [172.7, 62.0], [155.0, 49.2], [156.5, 67.2], [164.0, 53.8], [160.9, 54.4],
+                [162.8, 58.0], [167.0, 59.8], [160.0, 54.8], [160.0, 43.2], [168.9, 60.5],
+                [158.2, 46.4], [156.0, 64.4], [160.0, 48.8], [167.1, 62.2], [158.0, 55.5],
+                [167.6, 57.8], [156.0, 54.6], [162.1, 59.2], [173.4, 52.7], [159.8, 53.2],
+                [170.5, 64.5], [159.2, 51.8], [157.5, 56.0], [161.3, 63.6], [162.6, 63.2],
+                [160.0, 59.5], [168.9, 56.8], [165.1, 64.1], [162.6, 50.0], [165.1, 72.3],
+                [166.4, 55.0], [160.0, 55.9], [152.4, 60.4], [170.2, 69.1], [162.6, 84.5],
+                [170.2, 55.9], [158.8, 55.5], [172.7, 69.5], [167.6, 76.4], [162.6, 61.4],
+                [167.6, 65.9], [156.2, 58.6], [175.2, 66.8], [172.1, 56.6], [162.6, 58.6],
+                [160.0, 55.9], [165.1, 59.1], [182.9, 81.8], [166.4, 70.7], [165.1, 56.8],
+                [177.8, 60.0], [165.1, 58.2], [175.3, 72.7], [154.9, 54.1], [158.8, 49.1],
+                [172.7, 75.9], [168.9, 55.0], [161.3, 57.3], [167.6, 55.0], [165.1, 65.5],
+                [175.3, 65.5], [157.5, 48.6], [163.8, 58.6], [167.6, 63.6], [165.1, 55.2],
+                [165.1, 62.7], [168.9, 56.6], [162.6, 53.9], [164.5, 63.2], [176.5, 73.6],
+                [168.9, 62.0], [175.3, 63.6], [159.4, 53.2], [160.0, 53.4], [170.2, 55.0],
+                [162.6, 70.5], [167.6, 54.5], [162.6, 54.5], [160.7, 55.9], [160.0, 59.0],
+                [157.5, 63.6], [162.6, 54.5], [152.4, 47.3], [170.2, 67.7], [165.1, 80.9],
+                [172.7, 70.5], [165.1, 60.9], [170.2, 63.6], [170.2, 54.5], [170.2, 59.1],
+                [161.3, 70.5], [167.6, 52.7], [167.6, 62.7], [165.1, 86.3], [162.6, 66.4],
+                [152.4, 67.3], [168.9, 63.0], [170.2, 73.6], [175.2, 62.3], [175.2, 57.7],
+                [160.0, 55.4], [165.1, 104.1], [174.0, 55.5], [170.2, 77.3], [160.0, 80.5],
+                [167.6, 64.5], [167.6, 72.3], [167.6, 61.4], [154.9, 58.2], [162.6, 81.8],
+                [175.3, 63.6], [171.4, 53.4], [157.5, 54.5], [165.1, 53.6], [160.0, 60.0],
+                [174.0, 73.6], [162.6, 61.4], [174.0, 55.5], [162.6, 63.6], [161.3, 60.9],
+                [156.2, 60.0], [149.9, 46.8], [169.5, 57.3], [160.0, 64.1], [175.3, 63.6],
+                [169.5, 67.3], [160.0, 75.5], [172.7, 68.2], [162.6, 61.4], [157.5, 76.8],
+                [176.5, 71.8], [164.4, 55.5], [160.7, 48.6], [174.0, 66.4], [163.8, 67.3]
+            ],
+      markArea: {
+        silent: true,
+        itemStyle: {
+          color: 'transparent',
+          borderWidth: 1,
+          borderType: 'dashed'
+        },
+        data: [
+          [
+            {
+              name: '女性数据范围',
+              xAxis: 'min',
+              yAxis: 'min'
+            },
+            {
+              xAxis: 'max',
+              yAxis: 'max'
+            }
+          ]
+        ]
+      },
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        lineStyle: {
+          type: 'solid'
+        },
+        data: [{ type: 'average', name: 'AVG' }, { xAxis: 160 }]
+      }
+    },
+    {
+      name: '男性',
+      type: 'scatter',
+      emphasis: {
+        focus: 'series'
+      },
+      // prettier-ignore
+      data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],
+                [181.5, 74.8], [184.0, 86.4], [184.5, 78.4], [175.0, 62.0], [184.0, 81.6],
+                [180.0, 76.6], [177.8, 83.6], [192.0, 90.0], [176.0, 74.6], [174.0, 71.0],
+                [184.0, 79.6], [192.7, 93.8], [171.5, 70.0], [173.0, 72.4], [176.0, 85.9],
+                [176.0, 78.8], [180.5, 77.8], [172.7, 66.2], [176.0, 86.4], [173.5, 81.8],
+                [178.0, 89.6], [180.3, 82.8], [180.3, 76.4], [164.5, 63.2], [173.0, 60.9],
+                [183.5, 74.8], [175.5, 70.0], [188.0, 72.4], [189.2, 84.1], [172.8, 69.1],
+                [170.0, 59.5], [182.0, 67.2], [170.0, 61.3], [177.8, 68.6], [184.2, 80.1],
+                [186.7, 87.8], [171.4, 84.7], [172.7, 73.4], [175.3, 72.1], [180.3, 82.6],
+                [182.9, 88.7], [188.0, 84.1], [177.2, 94.1], [172.1, 74.9], [167.0, 59.1],
+                [169.5, 75.6], [174.0, 86.2], [172.7, 75.3], [182.2, 87.1], [164.1, 55.2],
+                [163.0, 57.0], [171.5, 61.4], [184.2, 76.8], [174.0, 86.8], [174.0, 72.2],
+                [177.0, 71.6], [186.0, 84.8], [167.0, 68.2], [171.8, 66.1], [182.0, 72.0],
+                [167.0, 64.6], [177.8, 74.8], [164.5, 70.0], [192.0, 101.6], [175.5, 63.2],
+                [171.2, 79.1], [181.6, 78.9], [167.4, 67.7], [181.1, 66.0], [177.0, 68.2],
+                [174.5, 63.9], [177.5, 72.0], [170.5, 56.8], [182.4, 74.5], [197.1, 90.9],
+                [180.1, 93.0], [175.5, 80.9], [180.6, 72.7], [184.4, 68.0], [175.5, 70.9],
+                [180.6, 72.5], [177.0, 72.5], [177.1, 83.4], [181.6, 75.5], [176.5, 73.0],
+                [175.0, 70.2], [174.0, 73.4], [165.1, 70.5], [177.0, 68.9], [192.0, 102.3],
+                [176.5, 68.4], [169.4, 65.9], [182.1, 75.7], [179.8, 84.5], [175.3, 87.7],
+                [184.9, 86.4], [177.3, 73.2], [167.4, 53.9], [178.1, 72.0], [168.9, 55.5],
+                [157.2, 58.4], [180.3, 83.2], [170.2, 72.7], [177.8, 64.1], [172.7, 72.3],
+                [165.1, 65.0], [186.7, 86.4], [165.1, 65.0], [174.0, 88.6], [175.3, 84.1],
+                [185.4, 66.8], [177.8, 75.5], [180.3, 93.2], [180.3, 82.7], [177.8, 58.0],
+                [177.8, 79.5], [177.8, 78.6], [177.8, 71.8], [177.8, 116.4], [163.8, 72.2],
+                [188.0, 83.6], [198.1, 85.5], [175.3, 90.9], [166.4, 85.9], [190.5, 89.1],
+                [166.4, 75.0], [177.8, 77.7], [179.7, 86.4], [172.7, 90.9], [190.5, 73.6],
+                [185.4, 76.4], [168.9, 69.1], [167.6, 84.5], [175.3, 64.5], [170.2, 69.1],
+                [190.5, 108.6], [177.8, 86.4], [190.5, 80.9], [177.8, 87.7], [184.2, 94.5],
+                [176.5, 80.2], [177.8, 72.0], [180.3, 71.4], [171.4, 72.7], [172.7, 84.1],
+                [172.7, 76.8], [177.8, 63.6], [177.8, 80.9], [182.9, 80.9], [170.2, 85.5],
+                [167.6, 68.6], [175.3, 67.7], [165.1, 66.4], [185.4, 102.3], [181.6, 70.5],
+                [172.7, 95.9], [190.5, 84.1], [179.1, 87.3], [175.3, 71.8], [170.2, 65.9],
+                [193.0, 95.9], [171.4, 91.4], [177.8, 81.8], [177.8, 96.8], [167.6, 69.1],
+                [167.6, 82.7], [180.3, 75.5], [182.9, 79.5], [176.5, 73.6], [186.7, 91.8],
+                [188.0, 84.1], [188.0, 85.9], [177.8, 81.8], [174.0, 82.5], [177.8, 80.5],
+                [171.4, 70.0], [185.4, 81.8], [185.4, 84.1], [188.0, 90.5], [188.0, 91.4],
+                [182.9, 89.1], [176.5, 85.0], [175.3, 69.1], [175.3, 73.6], [188.0, 80.5],
+                [188.0, 82.7], [175.3, 86.4], [170.5, 67.7], [179.1, 92.7], [177.8, 93.6],
+                [175.3, 70.9], [182.9, 75.0], [170.8, 93.2], [188.0, 93.2], [180.3, 77.7],
+                [177.8, 61.4], [185.4, 94.1], [168.9, 75.0], [185.4, 83.6], [180.3, 85.5],
+                [174.0, 73.9], [167.6, 66.8], [182.9, 87.3], [160.0, 72.3], [180.3, 88.6],
+                [167.6, 75.5], [186.7, 101.4], [175.3, 91.1], [175.3, 67.3], [175.9, 77.7],
+                [175.3, 81.8], [179.1, 75.5], [181.6, 84.5], [177.8, 76.6], [182.9, 85.0],
+                [177.8, 102.5], [184.2, 77.3], [179.1, 71.8], [176.5, 87.9], [188.0, 94.3],
+                [174.0, 70.9], [167.6, 64.5], [170.2, 77.3], [167.6, 72.3], [188.0, 87.3],
+                [174.0, 80.0], [176.5, 82.3], [180.3, 73.6], [167.6, 74.1], [188.0, 85.9],
+                [180.3, 73.2], [167.6, 76.3], [183.0, 65.9], [183.0, 90.9], [179.1, 89.1],
+                [170.2, 62.3], [177.8, 82.7], [179.1, 79.1], [190.5, 98.2], [177.8, 84.1],
+                [180.3, 83.2], [180.3, 83.2]
+            ],
+      markArea: {
+        silent: true,
+        itemStyle: {
+          color: 'transparent',
+          borderWidth: 1,
+          borderType: 'dashed'
+        },
+        data: [
+          [
+            {
+              name: '男性数据范围',
+              xAxis: 'min',
+              yAxis: 'min'
+            },
+            {
+              xAxis: 'max',
+              yAxis: 'max'
+            }
+          ]
+        ]
+      },
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        lineStyle: {
+          type: 'solid'
+        },
+        data: [{ type: 'average', name: 'Average' }, { xAxis: 170 }]
+      }
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="K-线图-candlestick"><a href="#K-线图-candlestick" class="headerlink" title="K 线图 candlestick"></a>K 线图 candlestick</h4><div id="echarts1976" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts1976'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  xAxis: {
+    data: ['2017-10-24', '2017-10-25', '2017-10-26', '2017-10-27']
+  },
+  yAxis: {},
+  series: [
+    {
+      type: 'candlestick',
+      data: [
+        [20, 34, 10, 38],
+        [40, 35, 30, 50],
+        [31, 38, 33, 44],
+        [38, 15, 5, 42]
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h3 id="雷达图-radar"><a href="#雷达图-radar" class="headerlink" title="雷达图 radar"></a>雷达图 radar</h3><div id="echarts2604" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts2604'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '基本雷达图'
+  },
+  legend: {
+    data: ['已分配预算', '实际支出']
+  },
+  radar: {
+    // shape: 'circle',
+    indicator: [
+      { name: '销售额', max: 6500 },
+      { name: '管理', max: 16000 },
+      { name: '信息技术', max: 30000 },
+      { name: '客户支持', max: 38000 },
+      { name: '发展', max: 52000 },
+      { name: '营销', max: 25000 }
+    ]
+  },
+  series: [
+    {
+      name: 'Budget vs spending',
+      type: 'radar',
+      data: [
+        {
+          value: [4200, 3000, 20000, 35000, 50000, 18000],
+          name: '已分配预算'
+        },
+        {
+          value: [5000, 14000, 28000, 26000, 42000, 21000],
+          name: '实际支出'
+        }
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h3 id="盒须图-boxplot"><a href="#盒须图-boxplot" class="headerlink" title="盒须图 boxplot"></a>盒须图 boxplot</h3><blockquote>
+<p>1、基础盒须图</p>
+</blockquote>
+<div id="echarts7483" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts7483'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: [
+    {
+      text: '迈克尔逊-莫雷实验',
+      left: 'center'
+    },
+    {
+      text: '上边的: Q3 + 1.5 * IQR \n下方的: Q1 - 1.5 * IQR',
+      borderColor: '#999',
+      borderWidth: 1,
+      textStyle: {
+        fontWeight: 'normal',
+        fontSize: 14,
+        lineHeight: 20
+      },
+      left: '10%',
+      top: '90%'
+    }
+  ],
+  dataset: [
+    {
+      // prettier-ignore
+      source: [
+                [850, 740, 900, 1070, 930, 850, 950, 980, 980, 880, 1000, 980, 930, 650, 760, 810, 1000, 1000, 960, 960],
+                [960, 940, 960, 940, 880, 800, 850, 880, 900, 840, 830, 790, 810, 880, 880, 830, 800, 790, 760, 800],
+                [880, 880, 880, 860, 720, 720, 620, 860, 970, 950, 880, 910, 850, 870, 840, 840, 850, 840, 840, 840],
+                [890, 810, 810, 820, 800, 770, 760, 740, 750, 760, 910, 920, 890, 860, 880, 720, 840, 850, 850, 780],
+                [890, 840, 780, 810, 760, 810, 790, 810, 820, 850, 870, 870, 810, 740, 810, 940, 950, 800, 810, 870]
+            ]
+    },
+    {
+      transform: {
+        type: 'boxplot',
+        config: { itemNameFormatter: '表达 {value}' }
+      }
+    },
+    {
+      fromDatasetIndex: 1,
+      fromTransformResult: 1
+    }
+  ],
+  tooltip: {
+    trigger: 'item',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  grid: {
+    left: '10%',
+    right: '10%',
+    bottom: '15%'
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: true,
+    nameGap: 30,
+    splitArea: {
+      show: false
+    },
+    splitLine: {
+      show: false
+    }
+  },
+  yAxis: {
+    type: 'value',
+    name: 'km/s minus 299,000',
+    splitArea: {
+      show: true
+    }
+  },
+  series: [
+    {
+      name: 'boxplot',
+      type: 'boxplot',
+      datasetIndex: 1
+    },
+    {
+      name: 'outlier',
+      type: 'scatter',
+      datasetIndex: 2
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="关系图-graph"><a href="#关系图-graph" class="headerlink" title="关系图 graph"></a>关系图 graph</h4><div id="echarts1750" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts1750'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '基本图'
+  },
+  tooltip: {},
+  animationDurationUpdate: 1500,
+  animationEasingUpdate: 'quinticInOut',
+  series: [
+    {
+      type: 'graph',
+      layout: 'none',
+      symbolSize: 50,
+      roam: true,
+      label: {
+        show: true
+      },
+      edgeSymbol: ['circle', 'arrow'],
+      edgeSymbolSize: [4, 10],
+      edgeLabel: {
+        fontSize: 20
+      },
+      data: [
+        {
+          name: '节点 1',
+          x: 300,
+          y: 300
+        },
+        {
+          name: '节点 2',
+          x: 800,
+          y: 300
+        },
+        {
+          name: '节点 3',
+          x: 550,
+          y: 100
+        },
+        {
+          name: '节点 4',
+          x: 550,
+          y: 500
+        }
+      ],
+      // links: [],
+      links: [
+        {
+          source: 0,
+          target: 1,
+          symbolSize: [5, 20],
+          label: {
+            show: true
+          },
+          lineStyle: {
+            width: 5,
+            curveness: 0.2
+          }
+        },
+        {
+          source: '节点 2',
+          target: '节点 1',
+          label: {
+            show: true
+          },
+          lineStyle: {
+            curveness: 0.2
+          }
+        },
+        {
+          source: '节点 1',
+          target: '节点 3'
+        },
+        {
+          source: '节点 2',
+          target: '节点 3'
+        },
+        {
+          source: '节点 2',
+          target: '节点 4'
+        },
+        {
+          source: '节点 1',
+          target: '节点 4'
+        }
+      ],
+      lineStyle: {
+        opacity: 0.9,
+        width: 2,
+        curveness: 0
+      }
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="树图-tree"><a href="#树图-tree" class="headerlink" title="树图 tree"></a>树图 tree</h4><div id="echarts5385" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts5385'));
+
+        // 指定图表的配置项和数据
+        var option = myChart.showLoading();
+const data = {
+  name: '张开',
+  children: [
+    {
+      name: '数据',
+      children: [
+        {
+          name: 'converters',
+          children: [
+            { name: 'Converters', value: 721 },
+            { name: 'DelimitedTextConverter', value: 4294 }
+          ]
+        },
+        {
+          name: 'DataUtil',
+          value: 3322
+        }
+      ]
+    },
+    {
+      name: '显示',
+      children: [
+        { name: 'DirtySprite', value: 8833 },
+        { name: 'LineSprite', value: 1732 },
+        { name: 'RectSprite', value: 3623 }
+      ]
+    },
+    {
+      name: '弯曲',
+      children: [{ name: 'FlareVis', value: 4116 }]
+    },
+    {
+      name: '查询',
+      children: [
+        { name: 'AggregateExpression', value: 1616 },
+        { name: 'And', value: 1027 },
+        { name: 'Arithmetic', value: 3891 },
+        { name: 'Average', value: 891 },
+        { name: 'BinaryExpression', value: 2893 },
+        { name: 'Comparison', value: 5103 },
+        { name: 'CompositeExpression', value: 3677 },
+        { name: 'Count', value: 781 },
+        { name: 'DateUtil', value: 4141 },
+        { name: 'Distinct', value: 933 },
+        { name: 'Expression', value: 5130 },
+        { name: 'ExpressionIterator', value: 3617 },
+        { name: 'Fn', value: 3240 },
+        { name: 'If', value: 2732 },
+        { name: 'IsA', value: 2039 },
+        { name: 'Literal', value: 1214 },
+        { name: 'Match', value: 3748 },
+        { name: 'Maximum', value: 843 },
+        {
+          name: 'methods',
+          children: [
+            { name: 'add', value: 593 },
+            { name: 'and', value: 330 },
+            { name: 'average', value: 287 },
+            { name: 'count', value: 277 },
+            { name: 'distinct', value: 292 },
+            { name: 'div', value: 595 },
+            { name: 'eq', value: 594 },
+            { name: 'fn', value: 460 },
+            { name: 'gt', value: 603 },
+            { name: 'gte', value: 625 },
+            { name: 'iff', value: 748 },
+            { name: 'isa', value: 461 },
+            { name: 'lt', value: 597 },
+            { name: 'lte', value: 619 },
+            { name: 'max', value: 283 },
+            { name: 'min', value: 283 },
+            { name: 'mod', value: 591 },
+            { name: 'mul', value: 603 },
+            { name: 'neq', value: 599 },
+            { name: 'not', value: 386 },
+            { name: 'or', value: 323 },
+            { name: 'orderby', value: 307 },
+            { name: 'range', value: 772 },
+            { name: 'select', value: 296 },
+            { name: 'stddev', value: 363 },
+            { name: 'sub', value: 600 },
+            { name: 'sum', value: 280 },
+            { name: 'update', value: 307 },
+            { name: 'variance', value: 335 },
+            { name: 'where', value: 299 },
+            { name: 'xor', value: 354 },
+            { name: '_', value: 264 }
+          ]
+        },
+        { name: 'Minimum', value: 843 },
+        { name: 'Not', value: 1554 },
+        { name: 'Or', value: 970 },
+        { name: 'Query', value: 13896 },
+        { name: 'Range', value: 1594 },
+        { name: 'StringUtil', value: 4130 },
+        { name: 'Sum', value: 791 },
+        { name: 'Variable', value: 1124 },
+        { name: 'Variance', value: 1876 },
+        { name: 'Xor', value: 1101 }
+      ]
+    },
+    {
+      name: '规模',
+      children: [
+        { name: 'IScaleMap', value: 2105 },
+        { name: 'LinearScale', value: 1316 },
+        { name: 'LogScale', value: 3151 },
+        { name: 'OrdinalScale', value: 3770 },
+        { name: 'QuantileScale', value: 2435 },
+        { name: 'QuantitativeScale', value: 4839 },
+        { name: 'RootScale', value: 1756 },
+        { name: 'Scale', value: 4268 },
+        { name: 'ScaleType', value: 1821 },
+        { name: 'TimeScale', value: 5833 }
+      ]
+    }
+  ]
+};
+var data2 = {
+  name: '张开',
+  children: [
+    {
+      name: '弯曲',
+      children: [{ name: '光斑视图', value: 4116 }]
+    },
+    {
+      name: '规模',
+      children: [
+        { name: '以色列地图', value: 2105 },
+        { name: '线条比例', value: 1316 },
+        { name: 'LogScale', value: 3151 },
+        { name: '对数刻度', value: 3770 },
+        { name: '分位数比例', value: 2435 },
+        { name: '定量量表', value: 4839 },
+        { name: '根比例', value: 1756 },
+        { name: '规模', value: 4268 },
+        { name: '缩放类型', value: 1821 },
+        { name: '时间刻度', value: 5833 }
+      ]
+    },
+    {
+      name: '显示',
+      children: [{ name: 'DirtySprite', value: 8833 }]
+    }
+  ]
+};
+myChart.hideLoading();
+myChart.setOption(
+  (option = {
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'mousemove'
+    },
+    legend: {
+      top: '2%',
+      left: '3%',
+      orient: 'vertical',
+      data: [
+        {
+          name: 'tree1',
+          icon: 'rectangle'
+        },
+        {
+          name: 'tree2',
+          icon: 'rectangle'
+        }
+      ],
+      borderColor: '#c23531'
+    },
+    series: [
+      {
+        type: 'tree',
+        name: 'tree1',
+        data: [data],
+        top: '5%',
+        left: '7%',
+        bottom: '2%',
+        right: '60%',
+        symbolSize: 7,
+        label: {
+          position: 'left',
+          verticalAlign: 'middle',
+          align: 'right'
+        },
+        leaves: {
+          label: {
+            position: 'right',
+            verticalAlign: 'middle',
+            align: 'left'
+          }
+        },
+        emphasis: {
+          focus: 'descendant'
+        },
+        expandAndCollapse: true,
+        animationDuration: 550,
+        animationDurationUpdate: 750
+      },
+      {
+        type: 'tree',
+        name: 'tree2',
+        data: [data2],
+        top: '20%',
+        left: '60%',
+        bottom: '22%',
+        right: '18%',
+        symbolSize: 7,
+        label: {
+          position: 'left',
+          verticalAlign: 'middle',
+          align: 'right'
+        },
+        leaves: {
+          label: {
+            position: 'right',
+            verticalAlign: 'middle',
+            align: 'left'
+          }
+        },
+        expandAndCollapse: true,
+        emphasis: {
+          focus: 'descendant'
+        },
+        animationDuration: 550,
+        animationDurationUpdate: 750
+      }
+    ]
+  })
+);
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="旭日图-sunburst"><a href="#旭日图-sunburst" class="headerlink" title="旭日图 sunburst"></a>旭日图 sunburst</h4><div id="echarts3865" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts3865'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  silent: true,
+  series: [
+    {
+      radius: ['15%', '80%'],
+      type: 'sunburst',
+      sort: undefined,
+      emphasis: {
+        focus: 'ancestor'
+      },
+      data: [
+        {
+          value: 8,
+          children: [
+            {
+              value: 4,
+              children: [
+                {
+                  value: 2
+                },
+                {
+                  value: 1
+                },
+                {
+                  value: 1
+                },
+                {
+                  value: 0.5
+                }
+              ]
+            },
+            {
+              value: 2
+            }
+          ]
+        },
+        {
+          value: 4,
+          children: [
+            {
+              children: [
+                {
+                  value: 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 4,
+          children: [
+            {
+              children: [
+                {
+                  value: 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 3,
+          children: [
+            {
+              children: [
+                {
+                  value: 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      label: {
+        color: '#000',
+        textBorderColor: '#fff',
+        textBorderWidth: 2,
+        formatter: function (param) {
+          var depth = param.treePathInfo.length;
+          if (depth === 2) {
+            return '径向的';
+          } else if (depth === 3) {
+            return '切向的';
+          } else if (depth === 4) {
+            return '0';
+          }
+          return '';
+        }
+      },
+      levels: [
+        {},
+        {
+          itemStyle: {
+            color: '#CD4949'
+          },
+          label: {
+            rotate: '径向的'
+          }
+        },
+        {
+          itemStyle: {
+            color: '#F47251'
+          },
+          label: {
+            rotate: '切向的'
+          }
+        },
+        {
+          itemStyle: {
+            color: '#FFC75F'
+          },
+          label: {
+            rotate: 0
+          }
+        }
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="平行坐标系-parallel"><a href="#平行坐标系-parallel" class="headerlink" title="平行坐标系 parallel"></a>平行坐标系 parallel</h4><div id="echarts9220" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts9220'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  parallelAxis: [
+    { dim: 0, name: '价格' },
+    { dim: 1, name: '净重' },
+    { dim: 2, name: '数量' },
+    {
+      dim: 3,
+      name: '分数',
+      type: 'category',
+      data: ['优秀的', '好的', '很好的', '不好的']
+    }
+  ],
+  series: {
+    type: 'parallel',
+    lineStyle: {
+      width: 4
+    },
+    data: [
+      [12.99, 100, 82, 'Good'],
+      [9.99, 80, 77, 'OK'],
+      [20, 120, 60, 'Excellent']
+    ]
+  }
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="桑基图-sankey"><a href="#桑基图-sankey" class="headerlink" title="桑基图 sankey"></a>桑基图 sankey</h4><div id="echarts4704" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts4704'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  backgroundColor: '#fff',
+  title: {
+    subtext: '数据来自GitHub上的列表路径1234',
+    left: 'center'
+  },
+  series: [
+    {
+      type: 'sankey',
+      left: 50.0,
+      top: 20.0,
+      right: 150.0,
+      bottom: 25.0,
+      data: [
+        {
+          name: 'Werne',
+          itemStyle: {
+            color: '#f18bbf',
+            borderColor: '#f18bbf'
+          }
+        },
+        {
+          name: 'Duesseldorf',
+          itemStyle: {
+            color: '#0078D7',
+            borderColor: '#0078D7'
+          }
+        },
+        {
+          name: 'Cambridge',
+          itemStyle: {
+            color: '#3891A7',
+            borderColor: '#3891A7'
+          }
+        },
+        {
+          name: 'Colma',
+          itemStyle: {
+            color: '#0037DA',
+            borderColor: '#0037DA'
+          }
+        },
+        {
+          name: 'W. York',
+          itemStyle: {
+            color: '#C0BEAF',
+            borderColor: '#C0BEAF'
+          }
+        },
+        {
+          name: 'Frankfurt am Main',
+          itemStyle: {
+            color: '#EA005E',
+            borderColor: '#EA005E'
+          }
+        },
+        {
+          name: 'Metz',
+          itemStyle: {
+            color: '#D13438',
+            borderColor: '#D13438'
+          }
+        },
+        {
+          name: 'Orleans',
+          itemStyle: {
+            color: '#567C73',
+            borderColor: '#567C73'
+          }
+        },
+        {
+          name: 'Saint-Denis',
+          itemStyle: {
+            color: '#9ed566',
+            borderColor: '#9ed566'
+          }
+        },
+        {
+          name: 'Hof',
+          itemStyle: {
+            color: '#2BCC7F',
+            borderColor: '#2BCC7F'
+          }
+        },
+        {
+          name: 'Cliffside',
+          itemStyle: {
+            color: '#809B48',
+            borderColor: '#809B48'
+          }
+        },
+        {
+          name: 'Leeds',
+          itemStyle: {
+            color: '#9B2D1F',
+            borderColor: '#9B2D1F'
+          }
+        },
+        {
+          name: 'Victoria',
+          itemStyle: {
+            color: '#604878',
+            borderColor: '#604878'
+          }
+        },
+        {
+          name: 'Erlangen',
+          itemStyle: {
+            color: '#A5644E',
+            borderColor: '#A5644E'
+          }
+        },
+        {
+          name: 'Saint Germain en Laye',
+          itemStyle: {
+            color: '#2D3F3A',
+            borderColor: '#2D3F3A'
+          }
+        },
+        {
+          name: 'Roissy en Brie',
+          itemStyle: {
+            color: '#761721',
+            borderColor: '#761721'
+          }
+        },
+        {
+          name: 'Wokingham',
+          itemStyle: {
+            color: '#B1BADD',
+            borderColor: '#B1BADD'
+          }
+        },
+        {
+          name: 'Runcorn',
+          itemStyle: {
+            color: '#B0CCB0',
+            borderColor: '#B0CCB0'
+          }
+        },
+        {
+          name: 'Newton',
+          itemStyle: {
+            color: '#8164A3',
+            borderColor: '#8164A3'
+          }
+        },
+        {
+          name: 'Morangis',
+          itemStyle: {
+            color: '#8E562E',
+            borderColor: '#8E562E'
+          }
+        },
+        {
+          name: 'Metchosin',
+          itemStyle: {
+            color: '#C1504D',
+            borderColor: '#C1504D'
+          }
+        },
+        {
+          name: 'Kirkby',
+          itemStyle: {
+            color: '#CCAF0A',
+            borderColor: '#CCAF0A'
+          }
+        },
+        {
+          name: 'London',
+          itemStyle: {
+            color: '#956251',
+            borderColor: '#956251'
+          }
+        },
+        {
+          name: 'Offenbach',
+          itemStyle: {
+            color: '#C17529',
+            borderColor: '#C17529'
+          }
+        },
+        {
+          name: 'Warrington',
+          itemStyle: {
+            color: '#CEC597',
+            borderColor: '#CEC597'
+          }
+        },
+        {
+          name: 'Vancouver',
+          itemStyle: {
+            color: '#9F2936',
+            borderColor: '#9F2936'
+          }
+        },
+        {
+          name: 'SuperiorCard',
+          itemStyle: {
+            color: 'rgba(128,155,72,255)',
+            borderColor: 'rgba(128,155,72,255)'
+          }
+        },
+        {
+          name: 'Lille',
+          itemStyle: {
+            color: '#ac7430',
+            borderColor: '#ac7430'
+          }
+        },
+        {
+          name: 'Hamburg',
+          itemStyle: {
+            color: '#00BCF2',
+            borderColor: '#00BCF2'
+          }
+        },
+        {
+          name: 'Langley',
+          itemStyle: {
+            color: '#CD7B38',
+            borderColor: '#CD7B38'
+          }
+        },
+        {
+          name: 'Les Ulis',
+          itemStyle: {
+            color: '#424242',
+            borderColor: '#424242'
+          }
+        },
+        {
+          name: 'Saarbrücken',
+          itemStyle: {
+            color: '#f63185',
+            borderColor: '#f63185'
+          }
+        },
+        {
+          name: 'N. Vancouver',
+          itemStyle: {
+            color: '#9CBC59',
+            borderColor: '#9CBC59'
+          }
+        },
+        {
+          name: 'Chalk Riber',
+          itemStyle: {
+            color: '#4F4BD9',
+            borderColor: '#4F4BD9'
+          }
+        },
+        {
+          name: 'Esher-Molesey',
+          itemStyle: {
+            color: '#3EC562',
+            borderColor: '#3EC562'
+          }
+        },
+        {
+          name: 'Chatou',
+          itemStyle: {
+            color: '#F06F2E',
+            borderColor: '#F06F2E'
+          }
+        },
+        {
+          name: 'Hannover',
+          itemStyle: {
+            color: '#C3986D',
+            borderColor: '#C3986D'
+          }
+        },
+        {
+          name: 'Roncq',
+          itemStyle: {
+            color: '#4D291C',
+            borderColor: '#4D291C'
+          }
+        },
+        {
+          name: 'Ingolstadt',
+          itemStyle: {
+            color: '#009c7a',
+            borderColor: '#009c7a'
+          }
+        },
+        {
+          name: 'Drancy',
+          itemStyle: {
+            color: '#986F0B',
+            borderColor: '#986F0B'
+          }
+        },
+        {
+          name: 'Langford',
+          itemStyle: {
+            color: '#3C8EA4',
+            borderColor: '#3C8EA4'
+          }
+        },
+        {
+          name: 'Lebanon',
+          itemStyle: {
+            color: '#4F82BE',
+            borderColor: '#4F82BE'
+          }
+        },
+        {
+          name: 'Maidenhead',
+          itemStyle: {
+            color: '#D38017',
+            borderColor: '#D38017'
+          }
+        },
+        {
+          name: 'Stoke-on-Trent',
+          itemStyle: {
+            color: '#A8CDD7',
+            borderColor: '#A8CDD7'
+          }
+        },
+        {
+          name: 'Peterborough',
+          itemStyle: {
+            color: '#7A072D',
+            borderColor: '#7A072D'
+          }
+        },
+        {
+          name: 'Suresnes',
+          itemStyle: {
+            color: '#859599',
+            borderColor: '#859599'
+          }
+        },
+        {
+          name: 'Versailles',
+          itemStyle: {
+            color: '#84AA33',
+            borderColor: '#84AA33'
+          }
+        },
+        {
+          name: 'Neunkirchen',
+          itemStyle: {
+            color: '#ff8b67',
+            borderColor: '#ff8b67'
+          }
+        },
+        {
+          name: 'Vista',
+          itemStyle: {
+            color: 'rgba(106,82,134,255)',
+            borderColor: 'rgba(106,82,134,255)'
+          }
+        },
+        {
+          name: 'Westminster',
+          itemStyle: {
+            color: '#1B587C',
+            borderColor: '#1B587C'
+          }
+        },
+        {
+          name: 'Kiel',
+          itemStyle: {
+            color: '#A19574',
+            borderColor: '#A19574'
+          }
+        },
+        {
+          name: 'Newcastle upon Tyne',
+          itemStyle: {
+            color: '#918485',
+            borderColor: '#918485'
+          }
+        },
+        {
+          name: 'Oxon',
+          itemStyle: {
+            color: '#FFA98C',
+            borderColor: '#FFA98C'
+          }
+        },
+        {
+          name: 'West Sussex',
+          itemStyle: {
+            color: '#B0E3C0',
+            borderColor: '#B0E3C0'
+          }
+        },
+        {
+          name: 'Oak Bay',
+          itemStyle: {
+            color: '#4BADC7',
+            borderColor: '#4BADC7'
+          }
+        },
+        {
+          name: 'Milton Keynes',
+          itemStyle: {
+            color: '#BA144C',
+            borderColor: '#BA144C'
+          }
+        },
+        {
+          name: 'Eilenburg',
+          itemStyle: {
+            color: '#F0A22E',
+            borderColor: '#F0A22E'
+          }
+        },
+        {
+          name: 'ColonialVoice',
+          itemStyle: {
+            color: 'rgba(64,105,157,255)',
+            borderColor: 'rgba(64,105,157,255)'
+          }
+        },
+        {
+          name: 'Liverpool',
+          itemStyle: {
+            color: '#A28E6A',
+            borderColor: '#A28E6A'
+          }
+        },
+        {
+          name: 'Calgary',
+          itemStyle: {
+            color: '#9F413E',
+            borderColor: '#9F413E'
+          }
+        },
+        {
+          name: 'CAD',
+          itemStyle: {
+            color: '#40699D',
+            borderColor: '#40699D'
+          }
+        },
+        {
+          name: 'Paris La Defense',
+          itemStyle: {
+            color: '#989391',
+            borderColor: '#989391'
+          }
+        },
+        {
+          name: "Villeneuve-d'Ascq",
+          itemStyle: {
+            color: '#886CE4',
+            borderColor: '#886CE4'
+          }
+        },
+        {
+          name: 'Gloucestershire',
+          itemStyle: {
+            color: '#964305',
+            borderColor: '#964305'
+          }
+        },
+        {
+          name: 'Gateshead',
+          itemStyle: {
+            color: '#485FB5',
+            borderColor: '#485FB5'
+          }
+        },
+        {
+          name: 'Salzgitter',
+          itemStyle: {
+            color: '#87a0c7',
+            borderColor: '#87a0c7'
+          }
+        },
+        {
+          name: 'Woolston',
+          itemStyle: {
+            color: '#FFE2C5',
+            borderColor: '#FFE2C5'
+          }
+        },
+        {
+          name: 'Frankfurt',
+          itemStyle: {
+            color: '#40699D',
+            borderColor: '#40699D'
+          }
+        },
+        {
+          name: 'Münster',
+          itemStyle: {
+            color: '#7e7eb2',
+            borderColor: '#7e7eb2'
+          }
+        },
+        {
+          name: 'York',
+          itemStyle: {
+            color: '#587C7D',
+            borderColor: '#587C7D'
+          }
+        },
+        {
+          name: 'High Wycombe',
+          itemStyle: {
+            color: '#F07F09',
+            borderColor: '#F07F09'
+          }
+        },
+        {
+          name: 'Stuttgart',
+          itemStyle: {
+            color: '#E3008C',
+            borderColor: '#E3008C'
+          }
+        },
+        {
+          name: 'Sooke',
+          itemStyle: {
+            color: '#4E8542',
+            borderColor: '#4E8542'
+          }
+        },
+        {
+          name: 'Essen',
+          itemStyle: {
+            color: '#B58B80',
+            borderColor: '#B58B80'
+          }
+        },
+        {
+          name: 'München',
+          itemStyle: {
+            color: '#4dc0a6',
+            borderColor: '#4dc0a6'
+          }
+        },
+        {
+          name: 'Haney',
+          itemStyle: {
+            color: '#6A5286',
+            borderColor: '#6A5286'
+          }
+        },
+        {
+          name: 'Port Hammond',
+          itemStyle: {
+            color: '#F89746',
+            borderColor: '#F89746'
+          }
+        },
+        {
+          name: 'Saint Ouen',
+          itemStyle: {
+            color: '#744DA9',
+            borderColor: '#744DA9'
+          }
+        },
+        {
+          name: 'Watford',
+          itemStyle: {
+            color: '#E8B7B7',
+            borderColor: '#E8B7B7'
+          }
+        },
+        {
+          name: 'GBP',
+          itemStyle: {
+            color: '#C32D2E',
+            borderColor: '#C32D2E'
+          }
+        },
+        {
+          name: 'Paderborn',
+          itemStyle: {
+            color: '#F0C42E',
+            borderColor: '#F0C42E'
+          }
+        },
+        {
+          name: 'Dunkerque',
+          itemStyle: {
+            color: '#881798',
+            borderColor: '#881798'
+          }
+        },
+        {
+          name: 'Colomiers',
+          itemStyle: {
+            color: '#efa835',
+            borderColor: '#efa835'
+          }
+        },
+        {
+          name: 'Oxford',
+          itemStyle: {
+            color: '#D8B25C',
+            borderColor: '#D8B25C'
+          }
+        },
+        {
+          name: 'Bury',
+          itemStyle: {
+            color: '#FEB80A',
+            borderColor: '#FEB80A'
+          }
+        },
+        {
+          name: 'Royal Oak',
+          itemStyle: {
+            color: '#009DD9',
+            borderColor: '#009DD9'
+          }
+        },
+        {
+          name: 'Shawnee',
+          itemStyle: {
+            color: '#F07F09',
+            borderColor: '#F07F09'
+          }
+        },
+        {
+          name: 'Lancaster',
+          itemStyle: {
+            color: '#D34817',
+            borderColor: '#D34817'
+          }
+        },
+        {
+          name: 'DEM',
+          itemStyle: {
+            color: '#4E342E',
+            borderColor: '#4E342E'
+          }
+        },
+        {
+          name: 'Grevenbroich',
+          itemStyle: {
+            color: '#FFA836',
+            borderColor: '#FFA836'
+          }
+        },
+        {
+          name: 'Distinguish',
+          itemStyle: {
+            color: 'rgba(159,65,62,255)',
+            borderColor: 'rgba(159,65,62,255)'
+          }
+        },
+        {
+          name: 'Cheltenham',
+          itemStyle: {
+            color: '#FF6551',
+            borderColor: '#FF6551'
+          }
+        },
+        {
+          name: 'Reading',
+          itemStyle: {
+            color: '#72A376',
+            borderColor: '#72A376'
+          }
+        },
+        {
+          name: 'Pantin',
+          itemStyle: {
+            color: '#69797E',
+            borderColor: '#69797E'
+          }
+        },
+        {
+          name: 'Kassel',
+          itemStyle: {
+            color: '#e65e20',
+            borderColor: '#e65e20'
+          }
+        },
+        {
+          name: 'Orly',
+          itemStyle: {
+            color: '#6E6A68',
+            borderColor: '#6E6A68'
+          }
+        },
+        {
+          name: 'FRF',
+          itemStyle: {
+            color: '#5ba33b',
+            borderColor: '#5ba33b'
+          }
+        },
+        {
+          name: 'Cergy',
+          itemStyle: {
+            color: '#B4009E',
+            borderColor: '#B4009E'
+          }
+        },
+        {
+          name: 'Paris',
+          itemStyle: {
+            color: '#666666',
+            borderColor: '#666666'
+          }
+        }
+      ],
+      links: [
+        {
+          source: 'FRF',
+          target: 'Colomiers',
+          value: 357.8399963378906
+        },
+        {
+          source: 'SuperiorCard',
+          target: 'FRF',
+          value: 894.5999908447266
+        },
+        {
+          source: 'DEM',
+          target: 'München',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Reading',
+          value: 188.52999836206436
+        },
+        {
+          source: 'CAD',
+          target: 'Shawnee',
+          value: 2346.919983509928
+        },
+        {
+          source: 'GBP',
+          target: 'Kirkby',
+          value: 753.4000000059605
+        },
+        {
+          source: 'FRF',
+          target: 'Roncq',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Peterborough',
+          value: 999.159998036921
+        },
+        {
+          source: 'DEM',
+          target: 'Frankfurt am Main',
+          value: 536.7599945068359
+        },
+        {
+          source: 'GBP',
+          target: 'Oxford',
+          value: 1831.3799968883395
+        },
+        {
+          source: 'Vista',
+          target: 'FRF',
+          value: 1789.1999816894531
+        },
+        {
+          source: 'CAD',
+          target: 'Langley',
+          value: 1274.8199949413538
+        },
+        {
+          source: 'DEM',
+          target: 'Offenbach',
+          value: 357.8399963378906
+        },
+        {
+          source: 'FRF',
+          target: "Villeneuve-d'Ascq",
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Dunkerque',
+          value: 357.8399963378906
+        },
+        {
+          source: 'DEM',
+          target: 'Eilenburg',
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Paris',
+          value: 1073.5199890136719
+        },
+        {
+          source: 'GBP',
+          target: 'Maidenhead',
+          value: 549.8400026857853
+        },
+        {
+          source: 'CAD',
+          target: 'Sooke',
+          value: 1764.499989286065
+        },
+        {
+          source: 'CAD',
+          target: 'Vancouver',
+          value: 1528.580000281334
+        },
+        {
+          source: 'DEM',
+          target: 'Hamburg',
+          value: 357.8399963378906
+        },
+        {
+          source: 'GBP',
+          target: 'London',
+          value: 8619.309983983636
+        },
+        {
+          source: 'CAD',
+          target: 'Oak Bay',
+          value: 1565.109990529716
+        },
+        {
+          source: 'Distinguish',
+          target: 'FRF',
+          value: 2683.7999725341797
+        },
+        {
+          source: 'DEM',
+          target: 'Neunkirchen',
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Cergy',
+          value: 178.9199981689453
+        },
+        {
+          source: 'DEM',
+          target: 'Hof',
+          value: 357.8399963378906
+        },
+        {
+          source: 'FRF',
+          target: 'Paris La Defense',
+          value: 178.9199981689453
+        },
+        {
+          source: 'CAD',
+          target: 'Westminster',
+          value: 1149.7999994903803
+        },
+        {
+          source: 'DEM',
+          target: 'Ingolstadt',
+          value: 536.7599945068359
+        },
+        {
+          source: 'GBP',
+          target: 'Saint Ouen',
+          value: 0.5899999737739563
+        },
+        {
+          source: 'FRF',
+          target: 'Lille',
+          value: 357.8399963378906
+        },
+        {
+          source: 'GBP',
+          target: 'Leeds',
+          value: 1356.6899970173836
+        },
+        {
+          source: 'FRF',
+          target: 'Morangis',
+          value: 357.8399963378906
+        },
+        {
+          source: 'GBP',
+          target: 'Orly',
+          value: 0.5899999737739563
+        },
+        {
+          source: 'SuperiorCard',
+          target: 'DEM',
+          value: 1431.3599853515625
+        },
+        {
+          source: 'Vista',
+          target: 'CAD',
+          value: 5369.929964579642
+        },
+        {
+          source: 'GBP',
+          target: 'Paris',
+          value: 0.6399999856948853
+        },
+        {
+          source: 'GBP',
+          target: 'Liverpool',
+          value: 857.1999968588352
+        },
+        {
+          source: 'GBP',
+          target: 'Stoke-on-Trent',
+          value: 1131.7099939212203
+        },
+        {
+          source: 'Distinguish',
+          target: 'DEM',
+          value: 2504.8799743652344
+        },
+        {
+          source: 'CAD',
+          target: 'Langford',
+          value: 2343.4599857851863
+        },
+        {
+          source: 'DEM',
+          target: 'Kassel',
+          value: 536.7599945068359
+        },
+        {
+          source: 'GBP',
+          target: 'High Wycombe',
+          value: 216.83999809622765
+        },
+        {
+          source: 'CAD',
+          target: 'Port Hammond',
+          value: 1711.1399984136224
+        },
+        {
+          source: 'DEM',
+          target: 'Duesseldorf',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Gloucestershire',
+          value: 422.28999888151884
+        },
+        {
+          source: 'Distinguish',
+          target: 'GBP',
+          value: 10384.949975416064
+        },
+        {
+          source: 'FRF',
+          target: 'Roissy en Brie',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'West Sussex',
+          value: 592.1700052022934
+        },
+        {
+          source: 'CAD',
+          target: 'Cliffside',
+          value: 2906.2699892893434
+        },
+        {
+          source: 'GBP',
+          target: 'Newcastle upon Tyne',
+          value: 1448.2899911925197
+        },
+        {
+          source: 'GBP',
+          target: 'Runcorn',
+          value: 1120.4800013303757
+        },
+        {
+          source: 'GBP',
+          target: 'W. York',
+          value: 612.1199932694435
+        },
+        {
+          source: 'DEM',
+          target: 'Kiel',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Woolston',
+          value: 833.3199937939644
+        },
+        {
+          source: 'Distinguish',
+          target: 'CAD',
+          value: 6950.059956334531
+        },
+        {
+          source: 'DEM',
+          target: 'Frankfurt',
+          value: 715.6799926757812
+        },
+        {
+          source: 'CAD',
+          target: 'Colma',
+          value: 0.2199999988079071
+        },
+        {
+          source: 'DEM',
+          target: 'Essen',
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Chatou',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Cheltenham',
+          value: 573.0499979257584
+        },
+        {
+          source: 'SuperiorCard',
+          target: 'GBP',
+          value: 8228.39999615401
+        },
+        {
+          source: 'CAD',
+          target: 'Haney',
+          value: 2310.4499812424183
+        },
+        {
+          source: 'FRF',
+          target: 'Saint Ouen',
+          value: 178.9199981689453
+        },
+        {
+          source: 'CAD',
+          target: 'Chalk Riber',
+          value: 0.9200000166893005
+        },
+        {
+          source: 'DEM',
+          target: 'Salzgitter',
+          value: 178.9199981689453
+        },
+        {
+          source: 'ColonialVoice',
+          target: 'FRF',
+          value: 1610.2799835205078
+        },
+        {
+          source: 'DEM',
+          target: 'Stuttgart',
+          value: 357.8399963378906
+        },
+        {
+          source: 'FRF',
+          target: 'Saint-Denis',
+          value: 178.9199981689453
+        },
+        {
+          source: 'CAD',
+          target: 'Royal Oak',
+          value: 2128.459992274642
+        },
+        {
+          source: 'FRF',
+          target: 'Les Ulis',
+          value: 715.6799926757812
+        },
+        {
+          source: 'FRF',
+          target: 'Drancy',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Esher-Molesey',
+          value: 911.4700058028102
+        },
+        {
+          source: 'SuperiorCard',
+          target: 'CAD',
+          value: 7388.099954992533
+        },
+        {
+          source: 'GBP',
+          target: 'Bury',
+          value: 903.9400005489588
+        },
+        {
+          source: 'GBP',
+          target: 'Watford',
+          value: 1326.5300009772182
+        },
+        {
+          source: 'CAD',
+          target: 'Victoria',
+          value: 827.3899968340993
+        },
+        {
+          source: 'DEM',
+          target: 'Saarbrücken',
+          value: 178.9199981689453
+        },
+        {
+          source: 'GBP',
+          target: 'Lancaster',
+          value: 685.6899967193604
+        },
+        {
+          source: 'FRF',
+          target: 'Pantin',
+          value: 178.9199981689453
+        },
+        {
+          source: 'CAD',
+          target: 'Newton',
+          value: 1781.909985654056
+        },
+        {
+          source: 'GBP',
+          target: 'Oxon',
+          value: 493.6499986946583
+        },
+        {
+          source: 'CAD',
+          target: 'Calgary',
+          value: 361.3899962902069
+        },
+        {
+          source: 'DEM',
+          target: 'Münster',
+          value: 715.6799926757812
+        },
+        {
+          source: 'DEM',
+          target: 'Grevenbroich',
+          value: 536.7599945068359
+        },
+        {
+          source: 'DEM',
+          target: 'Paderborn',
+          value: 357.8399963378906
+        },
+        {
+          source: 'GBP',
+          target: 'York',
+          value: 3172.9999914616346
+        },
+        {
+          source: 'CAD',
+          target: 'Metchosin',
+          value: 1750.7899813987315
+        },
+        {
+          source: 'FRF',
+          target: 'Suresnes',
+          value: 357.8399963378906
+        },
+        {
+          source: 'FRF',
+          target: 'Versailles',
+          value: 894.5999908447266
+        },
+        {
+          source: 'DEM',
+          target: 'Erlangen',
+          value: 536.7599945068359
+        },
+        {
+          source: 'CAD',
+          target: 'Lebanon',
+          value: 0.8700000047683716
+        },
+        {
+          source: 'GBP',
+          target: 'Wokingham',
+          value: 812.6600027084351
+        },
+        {
+          source: 'GBP',
+          target: 'Cambridge',
+          value: 500.36999743431807
+        },
+        {
+          source: 'ColonialVoice',
+          target: 'GBP',
+          value: 8040.7799860313535
+        },
+        {
+          source: 'FRF',
+          target: 'Saint Germain en Laye',
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Metz',
+          value: 178.9199981689453
+        },
+        {
+          source: 'FRF',
+          target: 'Orleans',
+          value: 357.8399963378906
+        },
+        {
+          source: 'GBP',
+          target: 'Milton Keynes',
+          value: 1648.2200061008334
+        },
+        {
+          source: 'GBP',
+          target: 'Warrington',
+          value: 2162.8300000429153
+        },
+        {
+          source: 'CAD',
+          target: 'N. Vancouver',
+          value: 1862.4599857926369
+        },
+        {
+          source: 'DEM',
+          target: 'Hannover',
+          value: 178.9199981689453
+        },
+        {
+          source: 'Vista',
+          target: 'GBP',
+          value: 9497.539981640875
+        },
+        {
+          source: 'DEM',
+          target: 'Werne',
+          value: 178.9199981689453
+        },
+        {
+          source: 'ColonialVoice',
+          target: 'DEM',
+          value: 1789.1999816894531
+        },
+        {
+          source: 'ColonialVoice',
+          target: 'CAD',
+          value: 7907.36997512728
+        },
+        {
+          source: 'GBP',
+          target: 'Gateshead',
+          value: 1425.7099913656712
+        },
+        {
+          source: 'Vista',
+          target: 'DEM',
+          value: 1968.1199798583984
+        }
+      ],
+      lineStyle: {
+        color: 'source',
+        curveness: 0.5
+      },
+      itemStyle: {
+        color: '#1f77b4',
+        borderColor: '#1f77b4'
+      },
+      label: {
+        color: 'rgba(0,0,0,0.7)',
+        fontFamily: 'Arial',
+        fontSize: 10
+      }
+    }
+  ],
+  tooltip: {
+    trigger: 'item'
+  }
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="漏斗图-funnel"><a href="#漏斗图-funnel" class="headerlink" title="漏斗图 funnel"></a>漏斗图 funnel</h4><div id="echarts6268" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts6268'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  title: {
+    text: '漏斗'
+  },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a} <br/>{b} : {c}%'
+  },
+  toolbox: {
+    feature: {
+      dataView: { readOnly: false },
+      restore: {},
+      saveAsImage: {}
+    }
+  },
+  legend: {
+    data: ['显示', '点击', '访问', '查询', '顺序']
+  },
+  series: [
+    {
+      name: 'Funnel',
+      type: 'funnel',
+      left: '10%',
+      top: 60,
+      bottom: 60,
+      width: '80%',
+      min: 0,
+      max: 100,
+      minSize: '0%',
+      maxSize: '100%',
+      sort: 'descending',
+      gap: 2,
+      label: {
+        show: true,
+        position: 'inside'
+      },
+      labelLine: {
+        length: 10,
+        lineStyle: {
+          width: 1,
+          type: 'solid'
+        }
+      },
+      itemStyle: {
+        borderColor: '#fff',
+        borderWidth: 1
+      },
+      emphasis: {
+        label: {
+          fontSize: 20
+        }
+      },
+      data: [
+        { value: 60, name: '访问' },
+        { value: 40, name: '查询' },
+        { value: 20, name: '顺序' },
+        { value: 80, name: '点击' },
+        { value: 100, name: '显示' }
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="仪表盘-gauge"><a href="#仪表盘-gauge" class="headerlink" title="仪表盘 gauge"></a>仪表盘 gauge</h4><div id="echarts5630" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts5630'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  series: [
+    {
+      type: 'gauge',
+      progress: {
+        show: true,
+        width: 18
+      },
+      axisLine: {
+        lineStyle: {
+          width: 18
+        }
+      },
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        length: 15,
+        lineStyle: {
+          width: 2,
+          color: '#999'
+        }
+      },
+      axisLabel: {
+        distance: 25,
+        color: '#999',
+        fontSize: 20
+      },
+      anchor: {
+        show: true,
+        showAbove: true,
+        size: 25,
+        itemStyle: {
+          borderWidth: 10
+        }
+      },
+      title: {
+        show: false
+      },
+      detail: {
+        valueAnimation: true,
+        fontSize: 80,
+        offsetCenter: [0, '70%']
+      },
+      data: [
+        {
+          value: 70
+        }
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>
+
+<hr>
+<h4 id="主题河流图-themeRiver"><a href="#主题河流图-themeRiver" class="headerlink" title="主题河流图 themeRiver"></a>主题河流图 themeRiver</h4><div id="echarts4544" style="width: 85%;height: 400px;margin: 0 auto"></div>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echarts4544'));
+
+        // 指定图表的配置项和数据
+        var option = option = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'line',
+      lineStyle: {
+        color: 'rgba(0,0,0,0.2)',
+        width: 1,
+        type: 'solid'
+      }
+    }
+  },
+  legend: {
+    data: ['DQ', 'TY', 'SS', 'QG', 'SY', 'DD']
+  },
+  singleAxis: {
+    top: 50,
+    bottom: 50,
+    axisTick: {},
+    axisLabel: {},
+    type: 'time',
+    axisPointer: {
+      animation: true,
+      label: {
+        show: true
+      }
+    },
+    splitLine: {
+      show: true,
+      lineStyle: {
+        type: 'dashed',
+        opacity: 0.2
+      }
+    }
+  },
+  series: [
+    {
+      type: 'themeRiver',
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 20,
+          shadowColor: 'rgba(0, 0, 0, 0.8)'
+        }
+      },
+      data: [
+        ['2015/11/08', 10, 'DQ'],
+        ['2015/11/09', 15, 'DQ'],
+        ['2015/11/10', 35, 'DQ'],
+        ['2015/11/11', 38, 'DQ'],
+        ['2015/11/12', 22, 'DQ'],
+        ['2015/11/13', 16, 'DQ'],
+        ['2015/11/14', 7, 'DQ'],
+        ['2015/11/15', 2, 'DQ'],
+        ['2015/11/16', 17, 'DQ'],
+        ['2015/11/17', 33, 'DQ'],
+        ['2015/11/18', 40, 'DQ'],
+        ['2015/11/19', 32, 'DQ'],
+        ['2015/11/20', 26, 'DQ'],
+        ['2015/11/21', 35, 'DQ'],
+        ['2015/11/22', 40, 'DQ'],
+        ['2015/11/23', 32, 'DQ'],
+        ['2015/11/24', 26, 'DQ'],
+        ['2015/11/25', 22, 'DQ'],
+        ['2015/11/26', 16, 'DQ'],
+        ['2015/11/27', 22, 'DQ'],
+        ['2015/11/28', 10, 'DQ'],
+        ['2015/11/08', 35, 'TY'],
+        ['2015/11/09', 36, 'TY'],
+        ['2015/11/10', 37, 'TY'],
+        ['2015/11/11', 22, 'TY'],
+        ['2015/11/12', 24, 'TY'],
+        ['2015/11/13', 26, 'TY'],
+        ['2015/11/14', 34, 'TY'],
+        ['2015/11/15', 21, 'TY'],
+        ['2015/11/16', 18, 'TY'],
+        ['2015/11/17', 45, 'TY'],
+        ['2015/11/18', 32, 'TY'],
+        ['2015/11/19', 35, 'TY'],
+        ['2015/11/20', 30, 'TY'],
+        ['2015/11/21', 28, 'TY'],
+        ['2015/11/22', 27, 'TY'],
+        ['2015/11/23', 26, 'TY'],
+        ['2015/11/24', 15, 'TY'],
+        ['2015/11/25', 30, 'TY'],
+        ['2015/11/26', 35, 'TY'],
+        ['2015/11/27', 42, 'TY'],
+        ['2015/11/28', 42, 'TY'],
+        ['2015/11/08', 21, 'SS'],
+        ['2015/11/09', 25, 'SS'],
+        ['2015/11/10', 27, 'SS'],
+        ['2015/11/11', 23, 'SS'],
+        ['2015/11/12', 24, 'SS'],
+        ['2015/11/13', 21, 'SS'],
+        ['2015/11/14', 35, 'SS'],
+        ['2015/11/15', 39, 'SS'],
+        ['2015/11/16', 40, 'SS'],
+        ['2015/11/17', 36, 'SS'],
+        ['2015/11/18', 33, 'SS'],
+        ['2015/11/19', 43, 'SS'],
+        ['2015/11/20', 40, 'SS'],
+        ['2015/11/21', 34, 'SS'],
+        ['2015/11/22', 28, 'SS'],
+        ['2015/11/23', 26, 'SS'],
+        ['2015/11/24', 37, 'SS'],
+        ['2015/11/25', 41, 'SS'],
+        ['2015/11/26', 46, 'SS'],
+        ['2015/11/27', 47, 'SS'],
+        ['2015/11/28', 41, 'SS'],
+        ['2015/11/08', 10, 'QG'],
+        ['2015/11/09', 15, 'QG'],
+        ['2015/11/10', 35, 'QG'],
+        ['2015/11/11', 38, 'QG'],
+        ['2015/11/12', 22, 'QG'],
+        ['2015/11/13', 16, 'QG'],
+        ['2015/11/14', 7, 'QG'],
+        ['2015/11/15', 2, 'QG'],
+        ['2015/11/16', 17, 'QG'],
+        ['2015/11/17', 33, 'QG'],
+        ['2015/11/18', 40, 'QG'],
+        ['2015/11/19', 32, 'QG'],
+        ['2015/11/20', 26, 'QG'],
+        ['2015/11/21', 35, 'QG'],
+        ['2015/11/22', 40, 'QG'],
+        ['2015/11/23', 32, 'QG'],
+        ['2015/11/24', 26, 'QG'],
+        ['2015/11/25', 22, 'QG'],
+        ['2015/11/26', 16, 'QG'],
+        ['2015/11/27', 22, 'QG'],
+        ['2015/11/28', 10, 'QG'],
+        ['2015/11/08', 10, 'SY'],
+        ['2015/11/09', 15, 'SY'],
+        ['2015/11/10', 35, 'SY'],
+        ['2015/11/11', 38, 'SY'],
+        ['2015/11/12', 22, 'SY'],
+        ['2015/11/13', 16, 'SY'],
+        ['2015/11/14', 7, 'SY'],
+        ['2015/11/15', 2, 'SY'],
+        ['2015/11/16', 17, 'SY'],
+        ['2015/11/17', 33, 'SY'],
+        ['2015/11/18', 40, 'SY'],
+        ['2015/11/19', 32, 'SY'],
+        ['2015/11/20', 26, 'SY'],
+        ['2015/11/21', 35, 'SY'],
+        ['2015/11/22', 4, 'SY'],
+        ['2015/11/23', 32, 'SY'],
+        ['2015/11/24', 26, 'SY'],
+        ['2015/11/25', 22, 'SY'],
+        ['2015/11/26', 16, 'SY'],
+        ['2015/11/27', 22, 'SY'],
+        ['2015/11/28', 10, 'SY'],
+        ['2015/11/08', 10, 'DD'],
+        ['2015/11/09', 15, 'DD'],
+        ['2015/11/10', 35, 'DD'],
+        ['2015/11/11', 38, 'DD'],
+        ['2015/11/12', 22, 'DD'],
+        ['2015/11/13', 16, 'DD'],
+        ['2015/11/14', 7, 'DD'],
+        ['2015/11/15', 2, 'DD'],
+        ['2015/11/16', 17, 'DD'],
+        ['2015/11/17', 33, 'DD'],
+        ['2015/11/18', 4, 'DD'],
+        ['2015/11/19', 32, 'DD'],
+        ['2015/11/20', 26, 'DD'],
+        ['2015/11/21', 35, 'DD'],
+        ['2015/11/22', 40, 'DD'],
+        ['2015/11/23', 32, 'DD'],
+        ['2015/11/24', 26, 'DD'],
+        ['2015/11/25', 22, 'DD'],
+        ['2015/11/26', 16, 'DD'],
+        ['2015/11/27', 22, 'DD'],
+        ['2015/11/28', 10, 'DD']
+      ]
+    }
+  ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+</script>]]></content>
+      <categories>
+        <category>Hexo博客</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题侧边栏菜单美化</title>
+    <url>/posts/d30b7621.html</url>
+    <content><![CDATA[<p>本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升菜单栏视觉美感。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>在blog&#x2F;source&#x2F;_data文件夹中新建一个styles.styl文件，然后添加下面的代码：</p>
+<blockquote>
+<p>侧边栏菜单样式</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* 侧边栏菜单样式 */</span><br><span class="line">.site-nav li &#123;</span><br><span class="line">    width: 48%;</span><br><span class="line">&#125;</span><br><span class="line">.menu .menu-item a, .menu .menu-item span.exturl &#123;</span><br><span class="line">    padding-left: 10px;</span><br><span class="line">    padding-right: 15px;</span><br><span class="line">    border-radius: 15px;</span><br><span class="line">    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5) inset;</span><br><span class="line">    font-size: 15px;</span><br><span class="line">    border: 1px solid #000;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    text-overflow: ellipsis;</span><br><span class="line">    white-space: nowrap;</span><br><span class="line">    margin-left: 12.5%;</span><br><span class="line">    margin-bottom: 10px; </span><br><span class="line">&#125;</span><br><span class="line">.site-nav ul &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-wrap: wrap;</span><br><span class="line">    justify-content: start;</span><br><span class="line">    width: 100%;</span><br><span class="line">    margin: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>菜单图标颜色及大小</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* 菜单图标颜色及大小 */</span><br><span class="line">.fa&#123;</span><br><span class="line">  font-size: 15px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 菜单栏 */</span><br><span class="line">.fa-house-user&#123;</span><br><span class="line">  color: #e74c3c;</span><br><span class="line">&#125;</span><br><span class="line">.fa-archive&#123;</span><br><span class="line">  color: #1abc9c;</span><br><span class="line">&#125;</span><br><span class="line">.fa-tags&#123;</span><br><span class="line">  color: orange;</span><br><span class="line">&#125;</span><br><span class="line">.fa-chalkboard&#123;</span><br><span class="line">  color: #3498db;</span><br><span class="line">&#125;</span><br><span class="line">.fa-link&#123;</span><br><span class="line">  color: #6a3427;</span><br><span class="line">&#125;</span><br><span class="line">.fa-images&#123;</span><br><span class="line">  color: #FF00FF;</span><br><span class="line">&#125;</span><br><span class="line">.fa-envelope&#123;</span><br><span class="line">  color: #FC427B;</span><br><span class="line">&#125;</span><br><span class="line">.fa-zhihu&#123;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line">.fa-map&#123;</span><br><span class="line">  color: #0000FF;</span><br><span class="line">&#125;</span><br><span class="line">.fa-calculator&#123;</span><br><span class="line">  color: #DfA710;</span><br><span class="line">&#125;</span><br><span class="line">.fa-bookmark&#123;</span><br><span class="line">  color: #00FF00;</span><br><span class="line">&#125;</span><br><span class="line">.fa-address-card&#123;</span><br><span class="line">  color: #9b59b6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题分类页美</title>
+    <url>/posts/f35df3b8.html</url>
+    <content><![CDATA[<p>本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升分类页视觉美感。以下提供两套不同分格样式代码，任选其中一种即可。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>在blog&#x2F;source&#x2F;_data文件夹中新建一个styles.styl文件，然后添加下面的代码：</p>
+<blockquote>
+<p>样式一</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* 卡片式分类样式 */</span><br><span class="line">.category-all-page &#123;</span><br><span class="line">  .category-all-title &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-all &#123;</span><br><span class="line">    margin-top: 20px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list &#123;</span><br><span class="line">    list-style: none;</span><br><span class="line">    margin: 0;</span><br><span class="line">    padding: 0;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-item &#123;</span><br><span class="line">    border-radius 10px;</span><br><span class="line">    margin: 15px  20px;</span><br><span class="line">    padding: 20px 20px 20px 30px;</span><br><span class="line">    height: 40px;</span><br><span class="line">    line-height: 40px;</span><br><span class="line">    width: 40%;</span><br><span class="line">    max-width: 280px;</span><br><span class="line">    min-width: 200px;</span><br><span class="line"></span><br><span class="line">    text-align: left </span><br><span class="line">    display inline-block</span><br><span class="line"></span><br><span class="line">    background: #F5DEB3;</span><br><span class="line">    box-shadow: 0 1px 2px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.07),0 4px 8px rgba(0,0,0,0.07),0 8px 16px rgba(0,0,0,0.07),0 16px 32px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-count &#123;</span><br><span class="line">      display: block;</span><br><span class="line">      position relative</span><br><span class="line"></span><br><span class="line">      float right </span><br><span class="line">      height: 30px;</span><br><span class="line">      width: 50px;</span><br><span class="line">      line-height: 30px;</span><br><span class="line">      top: 50%;</span><br><span class="line">      transform: translateY(-50%);</span><br><span class="line">      border-radius: 20px;</span><br><span class="line">      text-align: center </span><br><span class="line">      color: $orange;</span><br><span class="line">      background: #7B68EE;</span><br><span class="line">      box-shadow: 0 1px 2px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.07),0 4px 8px rgba(0,0,0,0.07),0 8px 16px rgba(0,0,0,0.07),0 16px 32px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)</span><br><span class="line">      &amp;:before &#123;</span><br><span class="line">        content: &#x27;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &amp;:after &#123;</span><br><span class="line">        content: &#x27;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-child &#123;</span><br><span class="line">    padding-left: 10px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">.category-list-link &#123;</span><br><span class="line">  border-bottom: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>样式二</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* 按钮式分类样式 */</span><br><span class="line">.category-list-link:hover&#123;</span><br><span class="line">  transform: scale(1.1);</span><br><span class="line">  box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);</span><br><span class="line">  border-radius: 15px;</span><br><span class="line">  padding: 6px 16px;</span><br><span class="line">  margin-left: 0px;</span><br><span class="line">  font-size: 16px;</span><br><span class="line">  transition-duration: 0.15s;</span><br><span class="line">  //display:flex;</span><br><span class="line">&#125;</span><br><span class="line">.category-list a&#123;</span><br><span class="line">  color:#6f42c1;</span><br><span class="line">&#125;</span><br><span class="line">a.category-list-link:before&#123;</span><br><span class="line">  top: 10px;</span><br><span class="line">  width: 18px;</span><br><span class="line">  height: 18px;</span><br><span class="line">  content: &quot;📚&quot;;</span><br><span class="line">  margin-right: 5px;</span><br><span class="line">  font: normal normal normal 14px/1 FontAwesome;</span><br><span class="line">  font-size: 15px;</span><br><span class="line">  line-height: 18px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题添加站点字数统计和阅读时长统计</title>
+    <url>/posts/371694b6.html</url>
+    <content><![CDATA[<p>本文教程主要针对Hexo博客NexT主题，在博客底部添加站点字数统计和阅读时长统计。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>1.下载hexo-symbols-count-time插件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-symbols-count-time --save</span><br></pre></td></tr></table></figure>
+
+<p>2、在blog&#x2F;_config.next.yml文件中，将total后面的false改为true即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Post wordcount display settings</span><br><span class="line"># Dependencies: https://github.com/next-theme/hexo-word-counter</span><br><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: true</span><br><span class="line">  item_text_total: false</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题添加自定义“返回顶部”和“返回底部”按钮</title>
+    <url>/posts/8d64bc5b.html</url>
+    <content><![CDATA[<p>本文教程主要针对Hexo博客NexT主题，通过第三方插件即可实现个性化返回顶部和返回底部功能。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>1.下载hexo-cake-moon-menu插件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cake-moon-menu</span><br></pre></td></tr></table></figure>
+
+<p>2、在blog&#x2F;_config.next.yml文件中找到主题自带的back2top，将enable后面的true设置为false，然后再添加下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">moon_menu:</span><br><span class="line">  back2top:</span><br><span class="line">    enable: true</span><br><span class="line">    icon: fas fa-chevron-up</span><br><span class="line">    order: -1</span><br><span class="line">  back2bottom:</span><br><span class="line">    enable: true</span><br><span class="line">    icon: fas fa-chevron-down</span><br><span class="line">    order: -2</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+</search>
