@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="zh-CN"><head>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
@@ -19,28 +21,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"daolin.us.kg","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":258,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://daolin.us.kg/categories/index.html">
+    <meta name="description" content="本文教程主要针对Hexo博客NexT主题，通过一系列修改，让版面更好看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NexT主题启用菜单栏及更改图标颜色">
+<meta property="og:url" content="https://daolin.us.kg/posts/3776876a.html">
 <meta property="og:site_name" content="私人小站⛽">
-<meta property="og:description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+<meta property="og:description" content="本文教程主要针对Hexo博客NexT主题，通过一系列修改，让版面更好看。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-27T07:39:43.000Z">
-<meta property="article:modified_time" content="2024-11-27T10:27:03.534Z">
+<meta property="article:published_time" content="2024-11-30T07:57:41.000Z">
+<meta property="article:modified_time" content="2024-11-30T09:42:58.986Z">
 <meta property="article:author" content="记录客">
+<meta property="article:tag" content="博客搭建">
+<meta property="article:tag" content="主题配置">
+<meta property="article:tag" content="经验技巧">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://daolin.us.kg/categories/">
+<link rel="canonical" href="https://daolin.us.kg/posts/3776876a.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://daolin.us.kg/categories/index.html","path":"categories/index.html","title":"分类"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://daolin.us.kg/posts/3776876a.html","path":"posts/3776876a.html","title":"NexT主题启用菜单栏及更改图标颜色"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>分类 | 私人小站⛽
-</title>
+<title>NexT主题启用菜单栏及更改图标颜色 | 私人小站⛽</title>
   <script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script>
   
 
@@ -50,13 +54,13 @@
 
 
 
-<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'"><link rel="stylesheet" type="text/css" href="/css/injector/main.css"><link rel="preload" as="style" href="/css/injector/light.css"><link rel="preload" as="style" href="/css/injector/dark.css">
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'"><link rel="stylesheet" type="text/css" href="/css/injector/main.css" /><link rel="preload" as="style" href="/css/injector/light.css" /><link rel="preload" as="style" href="/css/injector/dark.css" />
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
 
 <!--Hey! This is the original version
@@ -67,11 +71,13 @@ of Simple CSS Waves-->
 <!--Content before waves-->
 <div class="inner-header flex">
 <!--Just the logo.. Don't mind this-->
-<svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" xml:space="preserve">
-<path fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" d="M57,283"></path>
-<g><path fill="#fff" d="M250.4,0.8C112.7,0.8,1,112.4,1,250.2c0,137.7,111.7,249.4,249.4,249.4c137.7,0,249.4-111.7,249.4-249.4
+<svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" xml:space="preserve">
+<path fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" d="M57,283" />
+<g><path fill="#fff"
+d="M250.4,0.8C112.7,0.8,1,112.4,1,250.2c0,137.7,111.7,249.4,249.4,249.4c137.7,0,249.4-111.7,249.4-249.4
 C499.8,112.4,388.1,0.8,250.4,0.8z M383.8,326.3c-62,0-101.4-14.1-117.6-46.3c-17.1-34.1-2.3-75.4,13.2-104.1
-c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3,62.4c-19.8,19.1-51.6,26.9-100.2,24.6l1.8-39.7		c35.9,1.6,59.7-2.9,70.8-13.6c8.9-8.6,11.1-22.9,13.5-39.6c6.3-42,14.8-99.4,141.4-99.4h41L333,166c-12.6,16-45.4,68.2-31.2,96.2	c9.2,18.3,41.5,25.6,91.2,24.2l1.1,39.8C390.5,326.2,387.1,326.3,383.8,326.3z"></path>
+c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3,62.4c-19.8,19.1-51.6,26.9-100.2,24.6l1.8-39.7		c35.9,1.6,59.7-2.9,70.8-13.6c8.9-8.6,11.1-22.9,13.5-39.6c6.3-42,14.8-99.4,141.4-99.4h41L333,166c-12.6,16-45.4,68.2-31.2,96.2	c9.2,18.3,41.5,25.6,91.2,24.2l1.1,39.8C390.5,326.2,387.1,326.3,383.8,326.3z" />
 </g>
 </svg>
 <h1>博客美化经验总结站🌴</h1>
@@ -79,15 +85,16 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
 
 <!--Waves Container-->
 <div>
-<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 <defs>
-<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
 </defs>
 <g class="parallax">
-<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7"></use>
-<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)"></use>
-<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)"></use>
-<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff"></use>
+<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
 </g>
 </svg>
 </div>
@@ -96,7 +103,7 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
 
   <main class="main">
     <div class="column">
-      <header class="header" itemscope="" itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
         <span class="toggle-line"></span>
@@ -142,7 +149,9 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
           <i class="fa fa-search"></i>
         </span>
         <div class="search-input-container">
-          <input autocomplete="off" autocapitalize="off" maxlength="80" placeholder="搜索..." spellcheck="false" type="search" class="search-input">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
         </div>
         <span class="popup-btn-close" role="button">
           <i class="fa fa-times-circle"></i>
@@ -161,7 +170,7 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -174,12 +183,14 @@ c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E8%8F%9C%E5%8D%95%E6%A0%8F"><span class="nav-number">1.</span> <span class="nav-text">启用菜单栏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E4%BA%88%E8%8F%9C%E5%8D%95%E5%8F%AF%E7%94%A8%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">赋予菜单可用值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E4%BE%A7%E8%BE%B9%E6%A0%8F%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">切换侧边栏模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E7%94%A8styl"><span class="nav-number">4.</span> <span class="nav-text">启用styl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%BE%E6%A0%87%E9%A2%9C%E8%89%B2"><span class="nav-number">5.</span> <span class="nav-text">添加图标颜色</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="记录客" src="/images/avatar.gif">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="记录客"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">记录客</p>
   <div class="site-description" itemprop="description">📔博客搭建 | 📃主题美化 | 📚经验总结</div>
 </div>
@@ -243,7 +254,7 @@ translateInitilization();
         </div>
         <ul class="links-of-blogroll-list">
             <li class="links-of-blogroll-item">
-              <a href="http://www.nxcity.gov.cn/zw229/bmxxgkml/nxxxzzf85128512/dlzrmzf7080/gzdt79127912/" title="http://www.nxcity.gov.cn/zw229/bmxxgkml/nxxxzzf85128512/dlzrmzf7080/gzdt79127912/" rel="noopener" target="_blank">🇨🇳 道林镇人民政府</a>
+              <a href="http://www.nxcity.gov.cn/zw229/bmxxgkml/nxxxzzf85128512/dlzrmzf7080/gzdt79127912/" title="http:&#x2F;&#x2F;www.nxcity.gov.cn&#x2F;zw229&#x2F;bmxxgkml&#x2F;nxxxzzf85128512&#x2F;dlzrmzf7080&#x2F;gzdt79127912&#x2F;" rel="noopener" target="_blank">🇨🇳 道林镇人民政府</a>
             </li>
       <!-- canvas粒子时钟 -->
         
@@ -252,8 +263,8 @@ translateInitilization();
  -->
 <div id="">
   <canvas id="canvas" style="width:60%;">
-</canvas></div>
-<script async="">
+</div>
+<script async>
 (function(){
   var WINDOW_WIDTH = 820;
   		var WINDOW_HEIGHT = 250;
@@ -555,197 +566,177 @@ translateInitilization();
 
     </div>
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
 
 
-    
-    
-    
-    <div class="post-block" lang="zh-CN"><header class="post-header">
+  
 
-<h1 class="post-title" itemprop="name headline">分类
-</h1>
 
-<div class="post-meta-container">
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/3776876a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="记录客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="私人小站⛽">
+      <meta itemprop="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NexT主题启用菜单栏及更改图标颜色 | 私人小站⛽">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NexT主题启用菜单栏及更改图标颜色
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-30 15:57:41" itemprop="dateCreated datePublished" datetime="2024-11-30T15:57:41+08:00">2024-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NexT%E4%B8%BB%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">NexT主题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
 </div>
 
-</header>
 
-      
-      
-      
-      <div class="post-body">
-        <div id="categories-chart" data-parent="true" style="height: 300px; padding: 10px;"></div>
-  <script id="categoriesChart">
-    var color = '#007AFF'
-    var categoriesChart = echarts.init(document.getElementById('categories-chart'), 'light');
-    var categoryParentFlag = false
-    var categoriesOption = {
-      title: {
-        text: '文章分类统计图',
-        x: 'center',
-        textStyle: {
-          color: color
-        }
-      },
-      legend: {
-        top: 'bottom',
-        data: ["NexT主题","Hexo博客"],
-        textStyle: {
-          color: color
-        }
-      },
-      tooltip: {
-        trigger: 'item'
-      },
-      series: []
-    };
-    categoriesOption.series.push(
-      categoryParentFlag ? 
-      {
-        nodeClick :false,
-        name: '文章篇数',
-        type: 'sunburst',
-        radius: ['15%', '90%'],
-        center: ['50%', '55%'],
-        sort: 'desc',
-        data: [{"name":"NexT主题","value":8,"path":"categories/NexT主题/","id":"cm43znmhq000cy0s60tidbptu","parentId":"0"},{"name":"Hexo博客","value":1,"path":"categories/Hexo博客/","id":"cm43znmgu0004y0s63rcrfoyu","parentId":"0"}],
-        itemStyle: {
-          borderColor: '#fff',
-          borderWidth: 2,
-          emphasis: {
-            focus: 'ancestor',
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(255, 255, 255, 0.5)'
-          }
-        }
-      }
-      :
-      {
-        name: '文章篇数',
-        type: 'pie',
-        radius: [30, 80],
-        roseType: 'area',
-        label: {
-          color: color,
-          formatter: '{b} : {c} ({d}%)'
-        },
-        data: [{"name":"NexT主题","value":8,"path":"categories/NexT主题/","id":"cm43znmhq000cy0s60tidbptu","parentId":"0"},{"name":"Hexo博客","value":1,"path":"categories/Hexo博客/","id":"cm43znmgu0004y0s63rcrfoyu","parentId":"0"}],
-        itemStyle: {
-          emphasis: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(255, 255, 255, 0.5)'
-          }
-        }
-      }
-    )
-    categoriesChart.setOption(categoriesOption);
-    window.addEventListener('resize', () => { 
-      categoriesChart.resize();
-    });
-    categoriesChart.on('click', 'series', (event) => {
-      if(event.data.path) window.location.href = '/' + event.data.path;
-    });
-  </script><div class="category-all-page">
-  <div class="category-all-title">
-    目前共计 2 个分类
-  </div>
-  <div class="category-all">
-    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo%E5%8D%9A%E5%AE%A2/">Hexo博客</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/NexT%E4%B8%BB%E9%A2%98/">NexT主题</a><span class="category-list-count">8</span></li></ul>
-  </div>
-</div>
+        </div>
+      </header>
 
-      </div>
-        <script type="text/javascript">
-     var alltags = document.getElementsByClassName('tag-cloud-tags');
-     var tags = alltags[0].getElementsByTagName('a');
-     for (var i = tags.length - 1; i >= 0; i--) {
-       var golden_ratio = 0.618033988749895;
-       var s = 0.5;
-       var v = 0.999;
-       var h = golden_ratio + Math.random()*0.8 - 0.5;
-       var h_i = parseInt(h * 6);
-       var f = h * 6 - h_i;
-       var p = v * (1 - s);
-       var q = v * (1 - f * s);
-       var t = v * (1 - (1 - f) * s);
-       var r, g, b;
-       switch (h_i) {
-          case 0:
-              r = v;
-              g = t;
-              b = p;
-              break;
-          case 1:
-              r = q;
-              g = v;
-              b = p;
-              break;
-          case 2:
-              r = p;
-              g = v;
-              b = t;
-              break;
-          case 3 :
-              r = p;
-              g = q;
-              b = v;
-              break;
-          case 4:
-              r = t;
-              g = p;
-              b = v;
-              break;
-          case 5:
-              r = v;
-              g = p;
-              b = q;
-              break;
-          default:
-              r = 1;
-              g = 1;
-              b = 1;
-        }
-       tags[i].style.background = "rgba("+parseInt(r*255)+","+parseInt(g*255)+","+parseInt(b*255)+","+0.5+")";
-     }
-</script>
- 
-<style>
-  .tag-cloud-tags{
-    text-align: center;
-    counter-reset: tags;
-  }
-  .tag-cloud-tags a{
-    display: inline-block;
-    border: 0px;
-    border-radius: 10px;
-    padding: 0px 10px;
-    margin: 8px;
-    color: rgba(34, 34, 34, 0.8);
     
-  }
-/* 文字前添加相应的符号，content后的Unicode可以自定义*/
-  .tag-cloud-tags a:before{
-    font-family: 'Font Awesome 5 Free';
-    content: "\f02b";
-    font-weight: 900;
-  }
- 
-  .tag-cloud-tags a:hover{
-     box-shadow: 0px 5px 15px 0px rgba(0,0,0,.4);
-     transform: scale(1.1);
-     transition-duration: 0.15s;
-  }
-</style>
-      
-      
-      
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文教程主要针对Hexo博客NexT主题，通过一系列修改，让版面更好看。<span id="more"></span></p>
+<h3 id="启用菜单栏"><a href="#启用菜单栏" class="headerlink" title="启用菜单栏"></a>启用菜单栏</h3><p>在blog&#x2F;_config.next.yml文件中找到menu（菜单），然后删除前面的 # 号；对于不想要开启的功能选项，直接在前面添加 # 号即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || fa fa-home</span><br><span class="line">  about: /about/ || fa fa-user</span><br><span class="line">  tags: /tags/ || fa fa-tags</span><br><span class="line">  categories: /categories/ || fa fa-th</span><br><span class="line">  archives: /archives/ || fa fa-archive</span><br><span class="line">  #schedule: /schedule/ || fa fa-calendar</span><br><span class="line">  #sitemap: /sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: /404/ || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
+
+<h3 id="赋予菜单可用值"><a href="#赋予菜单可用值" class="headerlink" title="赋予菜单可用值"></a>赋予菜单可用值</h3><p>在启用菜单后，还需要为每个开启的菜单项赋予可用值才能正常使用。如标签：在Open Git Bash here界面输入hexo new page tags，回车，此时在blog的source文件夹里会生成对应的文件夹（tags）。与此同时，在tags文件夹里也会生成一个index.md文件，在index.md文件里添加type: tags即可。</p>
+<blockquote>
+<p>标签示例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2024-01-16 20:03:53</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>分类示例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 分类</span><br><span class="line">date: 2024-01-16 20:04:14</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>归档示例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 归档</span><br><span class="line">date: 2024-01-16 20:04:54</span><br><span class="line">type: archives</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>关于示例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 关于</span><br><span class="line">date: 2024-01-16 20:06:40</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换侧边栏模式"><a href="#切换侧边栏模式" class="headerlink" title="切换侧边栏模式"></a>切换侧边栏模式</h3><p>在blog&#x2F;_config.next.yml文件中找到Schemes，然后在Schemes里选择开启任意一种风格模式，只需将前面的 # 号删除即可。注：NexT主题有四种不同风格模式可选，但一次只能开启其中一种。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br><span class="line">scheme: Gemini</span><br></pre></td></tr></table></figure>
+
+<h3 id="启用styl"><a href="#启用styl" class="headerlink" title="启用styl"></a>启用styl</h3><p>在blog&#x2F;_config.next.yml文件中找到custom，删除style前面的 # 号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #style: source/_data/styles.styl</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加图标颜色"><a href="#添加图标颜色" class="headerlink" title="添加图标颜色"></a>添加图标颜色</h3><p>在blog&#x2F;source&#x2F;_data&#x2F;styles.styl文件中<sub>（没有该文件的，新建一个）</sub>添加下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">/* 图标颜色及大小 */</span><br><span class="line">.fa&#123;</span><br><span class="line">  font-size: 15px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 菜单栏 */</span><br><span class="line">.fa-house-user&#123;</span><br><span class="line">  color: #e74c3c;</span><br><span class="line">&#125;</span><br><span class="line">.fa-archive&#123;</span><br><span class="line">  color: #1abc9c;</span><br><span class="line">&#125;</span><br><span class="line">.fa-tags&#123;</span><br><span class="line">  color: orange;</span><br><span class="line">&#125;</span><br><span class="line">.fa-chalkboard&#123;</span><br><span class="line">  color: #3498db;</span><br><span class="line">&#125;</span><br><span class="line">.fa-link&#123;</span><br><span class="line">  color: #6a3427;</span><br><span class="line">&#125;</span><br><span class="line">.fa-images&#123;</span><br><span class="line">  color: #FF00FF;</span><br><span class="line">&#125;</span><br><span class="line">.fa-envelope&#123;</span><br><span class="line">  color: #FC427B;</span><br><span class="line">&#125;</span><br><span class="line">.fa-zhihu&#123;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line">.fa-map&#123;</span><br><span class="line">  color: #0000FF;</span><br><span class="line">&#125;</span><br><span class="line">.fa-calculator&#123;</span><br><span class="line">  color: #DfA710;</span><br><span class="line">&#125;</span><br><span class="line">.fa-bookmark&#123;</span><br><span class="line">  color: #00FF00;</span><br><span class="line">&#125;</span><br><span class="line">.fa-address-card&#123;</span><br><span class="line">  color: #9b59b6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：此处菜单栏图标需与_config.next.yml文件menu保持一致，否则不会显示彩色图标。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || fas fa-house-user</span><br><span class="line">  archives: /archives/ || fa fa-archive</span><br><span class="line">  categories: /categories/ || fa fa-th</span><br><span class="line">  tags: /tags/ || fa fa-tags</span><br><span class="line">  photos: /photos || fa fa-images</span><br><span class="line">  map: /map || fa fa-map</span><br><span class="line">  bookmark: /bookmark/ || fa fa-bookmark</span><br><span class="line">  link: /links/ || fa fa-link</span><br><span class="line">  calculator: /calculator/ || fa fa-calculator</span><br><span class="line">  about: /about/ || fa fa-address-card</span><br><span class="line">  #schedule: /schedule/ || fa fa-calendar</span><br><span class="line">  #sitemap: /sitemap.xml || fa fa-sitemap</span><br><span class="line">  #commonweal: /404/ || fa fa-heartbeat</span><br></pre></td></tr></table></figure>
     </div>
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #0000FF;font-size:14px;">-------------本文已到底啦 <i class="fa-solid fa-handshake"></i> 感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+    
+    
+    
 
-    
-    
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="记录客 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> 博客搭建</a>
+              <a href="/tags/%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 主题配置</a>
+              <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7/" rel="tag"><i class="fa fa-tag"></i> 经验技巧</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/d30b7621.html" rel="prev" title="NexT主题侧边栏菜单美化">
+                  <i class="fa fa-angle-left"></i> NexT主题侧边栏菜单美化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/4e105e05.html" rel="next" title="NexT主题添加首页轮播图">
+                  NexT主题添加首页轮播图 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+<!-- 旋转魔方 -->
+
 
 
 </div>
@@ -755,7 +746,7 @@ translateInitilization();
     <div class="footer-inner">
 
   <div class="copyright">
-    © 
+    &copy; 
     <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa-brands fa-apple"></i>
@@ -774,11 +765,11 @@ translateInitilization();
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-      <span>站点阅读时长 ≈</span>
+      <span>站点阅读时长 &asymp;</span>
     <span title="站点阅读时长">42 分钟</span>
   </span>
 </div><p id="hitokoto">获取中...</p>
-<script src="https://v1.hitokoto.cn/?encode=js&amp;select=%23hitokoto" defer=""></script>
+<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
 
     </div>
   </footer>
@@ -834,10 +825,10 @@ translateInitilization();
   <div class="moon-menu-items">
     
     <div id="moon-menu-item-back2bottom" class="moon-menu-item">
-      <i class="fas fa-chevron-down"></i>    </div>
+      <i class='fas fa-chevron-down'></i>    </div>
     
     <div id="moon-menu-item-back2top" class="moon-menu-item">
-      <i class="fas fa-chevron-up"></i>    </div>
+      <i class='fas fa-chevron-up'></i>    </div>
     
   </div>
   <div class="moon-menu-button">
@@ -846,11 +837,10 @@ translateInitilization();
       <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
     </svg>
     <div class="moon-menu-content">
-      <div class="moon-menu-icon"><i class="fas fa-ellipsis-v"></i></div>
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
       <div class="moon-menu-text"></div>
     </div>
   </div>
 </div><script src="/js/injector.js"></script>
-
-
-</div></body></html>
+</body>
+</html>
