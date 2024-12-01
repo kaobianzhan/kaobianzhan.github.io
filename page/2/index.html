@@ -21,30 +21,25 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"daolin.us.kg","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":258,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升分类页视觉美感。以下提供两套不同分格样式代码，任选其中一种即可。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="NexT主题分类页美化">
-<meta property="og:url" content="https://daolin.us.kg/posts/3f341a03.html">
+    <meta name="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+<meta property="og:type" content="website">
+<meta property="og:title" content="私人小站⛽">
+<meta property="og:url" content="https://daolin.us.kg/page/2/index.html">
 <meta property="og:site_name" content="私人小站⛽">
-<meta property="og:description" content="本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升分类页视觉美感。以下提供两套不同分格样式代码，任选其中一种即可。">
+<meta property="og:description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-28T08:54:58.000Z">
-<meta property="article:modified_time" content="2024-11-30T09:42:58.986Z">
 <meta property="article:author" content="记录客">
-<meta property="article:tag" content="博客搭建">
-<meta property="article:tag" content="主题配置">
-<meta property="article:tag" content="经验技巧">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://daolin.us.kg/posts/3f341a03.html">
+<link rel="canonical" href="https://daolin.us.kg/page/2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://daolin.us.kg/posts/3f341a03.html","path":"posts/3f341a03.html","title":"NexT主题分类页美化"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>NexT主题分类页美化 | 私人小站⛽</title>
+<title>私人小站⛽</title>
   <script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script>
   
 
@@ -116,7 +111,7 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">私人小站⛽</p>
+      <h1 class="site-title">私人小站⛽</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一个记录博客美化过程的站点🇨🇳</p>
@@ -170,7 +165,7 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,7 +178,6 @@ viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">操作方法</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -566,17 +560,606 @@ translateInitilization();
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner index posts-expand">
 
 
   
+
+<!--
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap.min.js@3.3.5/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+.glyphicon-chevron-left:before{
+	/* content: "《" */
+}
+.glyphicon-chevron-right:before{
+	/* content: "》" */
+}
+
+.right-siders{
+   border-radius: 5px;
+   /*margin-top: 5px;
+   margin-bottom: 10px;*/
+}
+
+.my-carousel{
+    /*height: 10%;*/
+    margin-bottom: 12px;
+}
+
+.my-carousel:hover{
+  margin-left: 5px;
+  //padding: 5px 1px;
+  border-radius: 5px;
+  transform: scale(1.1);
+  box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);
+}
+
+@media (max-width: 767px){
+	.rights{
+		display: none;
+	}
+	.carousel{
+		width: 100% !important;
+		height: 100% !important;
+	}
+	.slide{
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	.carousel-control .glyphicon-chevron-left,
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-prev,
+  .carousel-control .icon-next {
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    font-size: 30px;
+  }
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .icon-prev {
+    margin-left: -10px;
+  }
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-next {
+   /* margin-right: -10px; */
+  }
+
+}
+
+.carousel{
+	width: 65%;
+	height: 100%;
+	position: relative;
+}
+
+.carousel-inner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.carousel-inner > .item {
+  display: none;
+  position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  line-height: 1;
+}
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-inner > .item {
+    -webkit-transition: -webkit-transform 0.6s ease-in-out;
+    -moz-transition: -moz-transform 0.6s ease-in-out;
+    -o-transition: -o-transform 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    perspective: 1000px;
+  }
+  .carousel-inner > .item.next,
+  .carousel-inner > .item.active.right {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    left: 0;
+  }
+  .carousel-inner > .item.prev,
+  .carousel-inner > .item.active.left {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    left: 0;
+  }
+  .carousel-inner > .item.next.left,
+  .carousel-inner > .item.prev.right,
+  .carousel-inner > .item.active {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    left: 0;
+  }
+}
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+.carousel-inner > .active {
+  left: 0;
+}
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.carousel-inner > .next {
+  left: 100%;
+}
+.carousel-inner > .prev {
+  left: -100%;
+}
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+.carousel-inner > .active.left {
+  left: -100%;
+}
+.carousel-inner > .active.right {
+  left: 100%;
+}
+.carousel-control {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  /*width: 5%;*/
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
+}
+.carousel-control.left {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000, endColorstr=#00000000, GradientType=1);
+}
+.carousel-control.right {
+  left: auto;
+  right: 0;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00000000, endColorstr=#80000000, GradientType=1);
+}
+.carousel-control:hover,
+.carousel-control:focus {
+  outline: 0;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+.carousel-control .icon-prev,
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  z-index: 5;
+  display: inline-block;
+}
+/*
+.carousel-control .icon-prev,
+.carousel-control .glyphicon-chevron-left {
+  left: 50%;
+  margin-left: -10px;
+}
+*/
+
+.carousel-control .icon-prev,
+.carousel-control .glyphicon-chevron-left {
+  background: url('/images/icon-slides.png');
+  background-position-y: -20px;
+  left: 9px;
+}
+
+/*
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-right {
+  right: 50%;
+  margin-right: -10px;
+}
+*/
+
+.carousel-control .icon-next,
+.carousel-control .glyphicon-chevron-right {
+  background: url('/images/icon-slides.png');
+  background-position-x: -50px;
+  background-position-y: -20px;
+  right: 0px;
+}
+
+.carousel-control .icon-prev,
+.carousel-control .icon-next {
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  font-family: serif;
+}
+
+.carousel-control .icon-prev:before {
+  content: 2039;
+}
+.carousel-control .icon-next:before {
+  content: 203a;
+}
+
+.carousel-indicators {
+  opacity: 0.5;
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  z-index: 15;
+  width: 60%;
+  margin-left: -30%;
+  padding-left: 0;
+  list-style: none;
+  text-align: center;
+}
+.carousel-indicators li {
+  display: inline-block;
+  width: 30px;
+  height: 3px;
+  margin: 5px;
+  text-indent: -999px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, .24);
+}
+.carousel-indicators .active {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+}
+.carousel-caption {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 20px;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.carousel-caption .btn {
+  text-shadow: none;
+}
+@media screen and (min-width: 768px) {
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-prev,
+  .carousel-control .icon-next {
+    width: 30px;
+    height: 30px;
+    margin-top: -10px;
+    font-size: 30px;
+  }
+  .carousel-control .glyphicon-chevron-left,
+  .carousel-control .icon-prev {
+    margin-left: -10px;
+  }
+  .carousel-control .glyphicon-chevron-right,
+  .carousel-control .icon-next {
+   /* margin-right: -10px; */
+  }
+  .carousel-caption {
+    left: 20%;
+    right: 20%;
+    padding-bottom: 30px;
+  }
+  .carousel-indicators {
+    bottom: -20px;
+  }
+}
+</style>
+
+<div width="100%" height="24%" style="border: 0px; overflow: hidden; border-radius: 15px; margin-bottom: 25px;" scrolling="no">
+
+	<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3500" style="float:left">
+
+      <!-- 轮播（Carousel）指标 -->
+      <ol class="carousel-indicators">
+      
+      
+        <li data-target="#myCarousel" data-slide-to="0"></li>
+        
+      
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        
+      
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        
+      
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        
+      
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+        
+      
+        <li data-target="#myCarousel" data-slide-to="5"></li>
+        
+      
+      </ol>
+
+      <!-- 轮播（Carousel）项目 -->
+      <div class="carousel-inner" style="height: 24%; border-radius: 15px; width: 100%;">
+       
+       
+          
+          <a class="item active" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A51" target="_blank" style="height: 100%;">
+            
+            <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/07/22/9ee462e2bde02f92.jpg" class="nofancybox"  style="width: 100%; height: 100%" >
+          </a>
+          
+          
+      
+          
+            <a class="item" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A52" target="_blank" style="height: 100%;">
+              <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/07/22/097500460071ade6.jpg" class="nofancybox"  style="width: 100%; height: 100%;" >
+            </a>
+        
+      
+          
+            <a class="item" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A53" target="_blank" style="height: 100%;">
+              <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/07/22/8bef8823812794f8.jpg" class="nofancybox"  style="width: 100%; height: 100%;" >
+            </a>
+        
+      
+          
+            <a class="item" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A54" target="_blank" style="height: 100%;">
+              <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/09/06/57a881ede179f66b.jpg" class="nofancybox"  style="width: 100%; height: 100%;" >
+            </a>
+        
+      
+          
+            <a class="item" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A55" target="_blank" style="height: 100%;">
+              <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/09/06/22171c4607efb49d.jpg" class="nofancybox"  style="width: 100%; height: 100%;" >
+            </a>
+        
+      
+          
+            <a class="item" href="/%E6%96%87%E7%AB%A0%E9%93%BE%E6%8E%A56" target="_blank" style="height: 100%;">
+              <img src="https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/09/06/cee26e59e31104b2.jpg" class="nofancybox"  style="width: 100%; height: 100%;" >
+            </a>
+        
+      
+      </div>
+
+      <!-- 轮播（Carousel）导航 -->
+      <a class="left carousel-control" data-target="#myCarousel" href="javascript:void(0);" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      </a>
+      <a class="right carousel-control" data-target="#myCarousel" href="javascript:void(0);" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      </a>
+
+	  </div>
+
+	<div  class="rights" style="width: 30%; height: 24%; margin-right: 15px;margin-left: 0px;float: right;">
+
+  	   <!-- 天气插件 -->
+  	   <!-- 会有http的链接
+       <iframe width="300px" scrolling="no" height="50px" frameborder="0" allowtransparency="true" src="https://i.tianqi.com/index.php?c=code&id=12&color=%23&bdc=%23&icon=1&py=beijing&num=2&site=12"></iframe>
+       -->
+
+       <!-- https://tianqi.2345.com/plugin/setting.htm -->
+       <!-- <iframe allowtransparency="true" frameborder="0" width="290" height="75" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=2&t=0&v=0&d=2&bd=0&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=290&h=75&align=left"></iframe> -->
+       <iframe allowtransparency="true" frameborder="0" width="300" height="55" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=2&z=3&t=1&v=2&d=1&bd=0&k=000000&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=300&h=55&align=left"></iframe>
+
+    <!--公告栏-->
+<div style="width:100%;height:140px;color:#222222;background:#ddffff;border-radius:15px;margin-top:10px;overflow:hidden">
+            <div style="line-height: 35px;text-align: center;background:#74ca83">
+              <strong>📢 通知</strong>
+            </div>
+            <div style="line-height: 20px;text-align: center;padding-top:10px;">
+            <p><font color="red">🎉欢迎访问我的博客小站🏡</font></p>
+              <p><font color="blue">📃本站主题NexT<sup>8.21.0</sup>，由Hexo<sup>7.3.0</sup>强力驱动🚀</font></p>
+            </div>
+</div>
+<br>
+
+<div style="line-height: 2px;text-align: center;width:100%;background:white;padding:5px;border-radius:15px;border-left:15px solid #ddffff;background:#ddffff;box-sizing:border-box;">
+<div class="page-friends page-common">
+<ul class="readers-list clearfix">
+
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a target="_blank" rel="noopener" href="https://www.123pan.com/s/APfKVv-niF5H.html"><div>♻源码</div></a></li>
+<li class="wow slideInUp animated" style="visibility: visible; animation-name: slideInUp;"><a target="_blank" rel="noopener" href="https://www.123pan.com/s/APfKVv-nAF5H.html"><div>📜文献</div></a></li>
+<style>
+    .clearfix {zoom:1;}
+    .clearfix:after {content:'.';display:block;visibility:hidden;height:0;clear:both;}
+    .readers-list {list-style:none;}
+    .readers-list *{margin:0;padding:0;}
+    .readers-list li{position:relative;float:left;margin-top:20px!important;padding:0 10px;}
+    .readers-list li a{display:block;border-radius:15px;padding-left:5px;transition:all .3s;color: white;}
+    .readers-list li a div{padding:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:999;}
+    .readers-list li a div:first-child{border-bottom:1px dashed #eee;font-size:1em;color:#CC3299;}
+    .readers-list li a:hover {
+	-webkit-transform: translateY(-6px);
+	transform: translateY(-6px);
+	box-shadow: 0 26px 40px -24px rgba(0,0,0,0.3);
+  background-color: #FFFF99;
+}
+    .link-title {
+	position: relative;
+	left: -19px;
+	display: inline-block;
+	margin: 20px 0;
+	font-size: 15px;
+	padding: 0 30px 0 25px;
+	height: 45px;
+	line-height: 45px;
+	border-radius: 0 350px 35px 0;
+	background: #CC3299;
+	color: #fff;
+    }
+    @media(min-width:768px){
+        .readers-list li{width:40%;}
+    }
+    @media(max-width:767px){
+        .readers-list li{width:100%;}
+    }
+
+    .page-common ul li, .page-common ol li {
+        margin-bottom: 20px;
+    }
+    .page-friends ul {
+        padding: 0;
+        margin: 0;
+    }
+</style>
+</div>
+</div>
+
+   </div>
+
+</div>
+
+
+    
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/d30b7621.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="记录客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="私人小站⛽">
+      <meta itemprop="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 私人小站⛽">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/d30b7621.html" class="post-title-link" itemprop="url">NexT主题侧边栏菜单美化</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-28 16:56:15" itemprop="dateCreated datePublished" datetime="2024-11-28T16:56:15+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NexT%E4%B8%BB%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">NexT主题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>742</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升菜单栏视觉美感。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/d30b7621.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+<div>
+  
+</div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+<!-- 旋转魔方 -->
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/3f341a03.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,13 +1173,13 @@ translateInitilization();
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="NexT主题分类页美化 | 私人小站⛽">
+      <meta itemprop="name" content="undefined | 私人小站⛽">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          NexT主题分类页美化
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3f341a03.html" class="post-title-link" itemprop="url">NexT主题分类页美化</a>
+        </h2>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -643,24 +1226,19 @@ translateInitilization();
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升分类页视觉美感。以下提供两套不同分格样式代码，任选其中一种即可。<span id="more"></span></p>
-<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p>在blog&#x2F;source&#x2F;_data&#x2F;styles.styl文件中<sub>（没有该文件的，新建一个）</sub>添加下面的代码：</p>
-<blockquote>
-<p>样式一</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">/* 卡片式分类样式 */</span><br><span class="line">.category-all-page &#123;</span><br><span class="line">  .category-all-title &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-all &#123;</span><br><span class="line">    margin-top: 20px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list &#123;</span><br><span class="line">    list-style: none;</span><br><span class="line">    margin: 0;</span><br><span class="line">    padding: 0;</span><br><span class="line">    text-align: center;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-item &#123;</span><br><span class="line">    border-radius 10px;</span><br><span class="line">    margin: 15px  20px;</span><br><span class="line">    padding: 20px 20px 20px 30px;</span><br><span class="line">    height: 40px;</span><br><span class="line">    line-height: 40px;</span><br><span class="line">    width: 40%;</span><br><span class="line">    max-width: 280px;</span><br><span class="line">    min-width: 200px;</span><br><span class="line"></span><br><span class="line">    text-align: left </span><br><span class="line">    display inline-block</span><br><span class="line"></span><br><span class="line">    background: #F5DEB3;</span><br><span class="line">    box-shadow: 0 1px 2px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.07),0 4px 8px rgba(0,0,0,0.07),0 8px 16px rgba(0,0,0,0.07),0 16px 32px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-count &#123;</span><br><span class="line">      display: block;</span><br><span class="line">      position relative</span><br><span class="line"></span><br><span class="line">      float right </span><br><span class="line">      height: 30px;</span><br><span class="line">      width: 50px;</span><br><span class="line">      line-height: 30px;</span><br><span class="line">      top: 50%;</span><br><span class="line">      transform: translateY(-50%);</span><br><span class="line">      border-radius: 20px;</span><br><span class="line">      text-align: center </span><br><span class="line">      color: $orange;</span><br><span class="line">      background: #7B68EE;</span><br><span class="line">      box-shadow: 0 1px 2px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.07),0 4px 8px rgba(0,0,0,0.07),0 8px 16px rgba(0,0,0,0.07),0 16px 32px rgba(0,0,0,0.07),0 32px 64px rgba(0,0,0,0.07)</span><br><span class="line">      &amp;:before &#123;</span><br><span class="line">        content: &#x27;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &amp;:after &#123;</span><br><span class="line">        content: &#x27;&#x27;;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .category-list-child &#123;</span><br><span class="line">    padding-left: 10px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">.category-list-link &#123;</span><br><span class="line">  border-bottom: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>样式二</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/* 按钮式分类样式 */</span><br><span class="line">.category-list-link:hover&#123;</span><br><span class="line">  transform: scale(1.1);</span><br><span class="line">  box-shadow: 10px 10px 15px 2px rgba(0,0,0,.12), 0 0 6px 0 rgba(104, 104, 105, 0.1);</span><br><span class="line">  border-radius: 15px;</span><br><span class="line">  padding: 6px 16px;</span><br><span class="line">  margin-left: 0px;</span><br><span class="line">  font-size: 16px;</span><br><span class="line">  transition-duration: 0.15s;</span><br><span class="line">  //display:flex;</span><br><span class="line">&#125;</span><br><span class="line">.category-list a&#123;</span><br><span class="line">  color:#6f42c1;</span><br><span class="line">&#125;</span><br><span class="line">a.category-list-link:before&#123;</span><br><span class="line">  top: 10px;</span><br><span class="line">  width: 18px;</span><br><span class="line">  height: 18px;</span><br><span class="line">  content: &quot;📚&quot;;</span><br><span class="line">  margin-right: 5px;</span><br><span class="line">  font: normal normal normal 14px/1 FontAwesome;</span><br><span class="line">  font-size: 15px;</span><br><span class="line">  line-height: 18px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody">
+          <p>本文教程主要针对Hexo博客NexT主题，通过自定义CSS，可以提升分类页视觉美感。以下提供两套不同分格样式代码，任选其中一种即可。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/3f341a03.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 <div>
-  
-    <div>
-    
-        <div style="text-align:center;color: #0000FF;font-size:14px;">-------------本文已到底啦 <i class="fa-solid fa-handshake"></i> 感谢您的阅读-------------</div>
-    
-</div>
   
 </div>
     
@@ -668,40 +1246,8 @@ translateInitilization();
     
 
     <footer class="post-footer">
-          <div class="reward-container">
-  <div>请我一杯咖啡吧！</div>
-  <button>
-    赞赏
-  </button>
-  <div class="post-reward">
-      <div>
-        <img src="/images/wechatpay.png" alt="记录客 微信">
-        <span>微信</span>
-      </div>
-
-  </div>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> 博客搭建</a>
-              <a href="/tags/%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 主题配置</a>
-              <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7/" rel="tag"><i class="fa fa-tag"></i> 经验技巧</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/posts/371694b6.html" rel="prev" title="NexT主题添加站点字数统计和阅读时长统计">
-                  <i class="fa fa-angle-left"></i> NexT主题添加站点字数统计和阅读时长统计
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/posts/d30b7621.html" rel="next" title="NexT主题侧边栏菜单美化">
-                  NexT主题侧边栏菜单美化 <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
+        <div class="post-eof"></div>
+      
     </footer>
   </article>
 </div>
@@ -711,7 +1257,219 @@ translateInitilization();
 
 <!-- 旋转魔方 -->
 
+    
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/371694b6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="记录客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="私人小站⛽">
+      <meta itemprop="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 私人小站⛽">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/371694b6.html" class="post-title-link" itemprop="url">NexT主题添加站点字数统计和阅读时长统计</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-28 16:43:27" itemprop="dateCreated datePublished" datetime="2024-11-28T16:43:27+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NexT%E4%B8%BB%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">NexT主题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>324</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文教程主要针对Hexo博客NexT主题，在博客底部添加站点字数统计和阅读时长统计。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/371694b6.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+<div>
+  
+</div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+<!-- 旋转魔方 -->
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/8d64bc5b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="记录客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="私人小站⛽">
+      <meta itemprop="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 私人小站⛽">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/8d64bc5b.html" class="post-title-link" itemprop="url">NexT主题添加自定义“返回顶部”和“返回底部”按钮</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-28 16:36:45" itemprop="dateCreated datePublished" datetime="2024-11-28T16:36:45+08:00">2024-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NexT%E4%B8%BB%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">NexT主题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>310</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文教程主要针对Hexo博客NexT主题，通过第三方插件即可实现个性化返回顶部和返回底部功能。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/8d64bc5b.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+<div>
+  
+</div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+<!-- 旋转魔方 -->
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 </div>
   </main>

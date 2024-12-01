@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-material.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"daolin.us.kg","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.21.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":258,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"mac"},"fold":{"enable":true,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文教程主要针对Hexo博客NexT主题，通过添加相关代码文件，实现旋转小魔方功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NexT主题右下角添加旋转小魔方">
+<meta property="og:url" content="https://daolin.us.kg/posts/e105d9f9.html">
+<meta property="og:site_name" content="私人小站⛽">
+<meta property="og:description" content="本文教程主要针对Hexo博客NexT主题，通过添加相关代码文件，实现旋转小魔方功能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-01T02:05:20.000Z">
+<meta property="article:modified_time" content="2024-12-01T03:05:01.345Z">
+<meta property="article:author" content="记录客">
+<meta property="article:tag" content="博客搭建">
+<meta property="article:tag" content="主题配置">
+<meta property="article:tag" content="经验技巧">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://daolin.us.kg/posts/e105d9f9.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://daolin.us.kg/posts/e105d9f9.html","path":"posts/e105d9f9.html","title":"NexT主题右下角添加旋转小魔方"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NexT主题右下角添加旋转小魔方 | 私人小站⛽</title>
+  <script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'"><link rel="stylesheet" type="text/css" href="/css/injector/main.css" /><link rel="preload" as="style" href="/css/injector/light.css" /><link rel="preload" as="style" href="/css/injector/dark.css" />
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+<!--Hey! This is the original version
+of Simple CSS Waves-->
+
+<div class="header">
+
+<!--Content before waves-->
+<div class="inner-header flex">
+<!--Just the logo.. Don't mind this-->
+<svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" xml:space="preserve">
+<path fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" d="M57,283" />
+<g><path fill="#fff"
+d="M250.4,0.8C112.7,0.8,1,112.4,1,250.2c0,137.7,111.7,249.4,249.4,249.4c137.7,0,249.4-111.7,249.4-249.4
+C499.8,112.4,388.1,0.8,250.4,0.8z M383.8,326.3c-62,0-101.4-14.1-117.6-46.3c-17.1-34.1-2.3-75.4,13.2-104.1
+c-22.4,3-38.4,9.2-47.8,18.3c-11.2,10.9-13.6,26.7-16.3,45c-3.1,20.8-6.6,44.4-25.3,62.4c-19.8,19.1-51.6,26.9-100.2,24.6l1.8-39.7		c35.9,1.6,59.7-2.9,70.8-13.6c8.9-8.6,11.1-22.9,13.5-39.6c6.3-42,14.8-99.4,141.4-99.4h41L333,166c-12.6,16-45.4,68.2-31.2,96.2	c9.2,18.3,41.5,25.6,91.2,24.2l1.1,39.8C390.5,326.2,387.1,326.3,383.8,326.3z" />
+</g>
+</svg>
+<h1>博客美化经验总结站🌴</h1>
+</div>
+
+<!--Waves Container-->
+<div>
+<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+<defs>
+<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+</defs>
+<g class="parallax">
+<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+</g>
+</svg>
+</div>
+<!--Waves end-->
+
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">私人小站⛽</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个记录博客美化过程的站点🇨🇳</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fas fa-house-user fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">3</span></a></li><li class="menu-item menu-item-photos"><a href="/photos" rel="section"><i class="fa fa-images fa-fw"></i>相册</a></li><li class="menu-item menu-item-map"><a href="/map" rel="section"><i class="fa fa-map fa-fw"></i>地图</a></li><li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a></li><li class="menu-item menu-item-link"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-calculator"><a href="/calculator/" rel="section"><i class="fa fa-calculator fa-fw"></i>计算器</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-address-card fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">操作方法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="记录客"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">记录客</p>
+  <div class="site-description" itemprop="description">📔博客搭建 | 📃主题美化 | 📚经验总结</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width:100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" rel="tag">主题配置</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7/" rel="tag">经验技巧</a><span class="tag-list-count">14</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+<div class="translate-style">
+🌐 语言：<a id="translateLink" href="javascript:translatePage();">繁體
+</a>
+</div>
+<script type="text/javascript" src="/js/tw_cn.js"></script>
+<script type="text/javascript">
+var defaultEncoding = 2;
+var translateDelay = 0;
+var cookieDomain = "https://shouluke.github.io/";
+var msgToTraditionalChinese = "▶ 繁體";
+var msgToSimplifiedChinese = "◀ 简体";
+var translateButtonId = "translateLink";
+translateInitilization();
+</script>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="http://www.nxcity.gov.cn/zw229/bmxxgkml/nxxxzzf85128512/dlzrmzf7080/gzdt79127912/" title="http:&#x2F;&#x2F;www.nxcity.gov.cn&#x2F;zw229&#x2F;bmxxgkml&#x2F;nxxxzzf85128512&#x2F;dlzrmzf7080&#x2F;gzdt79127912&#x2F;" rel="noopener" target="_blank">🇨🇳 道林镇人民政府</a>
+            </li>
+      <!-- canvas粒子时钟 -->
+        
+        <!-- canvas粒子时钟 https://www.cnblogs.com/xiaohuochai/p/6368039.html
+  https://www.html5tricks.com/html5-canvas-dance-time.html
+ -->
+<div id="">
+  <canvas id="canvas" style="width:60%;">
+</div>
+<script async>
+(function(){
+  var WINDOW_WIDTH = 820;
+  		var WINDOW_HEIGHT = 250;
+  		var RADIUS = 7;
+  		var NUMBER_GAP = 10;
+  		var u=0.65;
+  		var context;
+  		var balls = [];
+  		const colors = ["#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"]; //彩色小球的颜色
+  		var currentNums = [];
+  		var digit =
+                  [
+                      [
+                          [0,0,1,1,1,0,0],
+                          [0,1,1,0,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,0,1,1,0],
+                          [0,0,1,1,1,0,0]
+                      ],//0
+                      [
+                          [0,0,0,1,1,0,0],
+                          [0,1,1,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [1,1,1,1,1,1,1]
+                      ],//1
+                      [
+                          [0,1,1,1,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,1,1,0,0,0],
+                          [0,1,1,0,0,0,0],
+                          [1,1,0,0,0,0,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,1,1,1,1,1]
+                      ],//2
+                      [
+                          [1,1,1,1,1,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,1,1,1,0,0],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,1,1,0]
+                      ],//3
+                      [
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,1,0],
+                          [0,0,1,1,1,1,0],
+                          [0,1,1,0,1,1,0],
+                          [1,1,0,0,1,1,0],
+                          [1,1,1,1,1,1,1],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,1,1]
+                      ],//4
+                      [
+                          [1,1,1,1,1,1,1],
+                          [1,1,0,0,0,0,0],
+                          [1,1,0,0,0,0,0],
+                          [1,1,1,1,1,1,0],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,1,1,0]
+                      ],//5
+                      [
+                          [0,0,0,0,1,1,0],
+                          [0,0,1,1,0,0,0],
+                          [0,1,1,0,0,0,0],
+                          [1,1,0,0,0,0,0],
+                          [1,1,0,1,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,1,1,0]
+                      ],//6
+                      [
+                          [1,1,1,1,1,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,0,1,1,0,0],
+                          [0,0,1,1,0,0,0],
+                          [0,0,1,1,0,0,0],
+                          [0,0,1,1,0,0,0],
+                          [0,0,1,1,0,0,0]
+                      ],//7
+                      [
+                          [0,1,1,1,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,1,1,0]
+                      ],//8
+                      [
+                          [0,1,1,1,1,1,0],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [1,1,0,0,0,1,1],
+                          [0,1,1,1,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,0,1,1],
+                          [0,0,0,0,1,1,0],
+                          [0,0,0,1,1,0,0],
+                          [0,1,1,0,0,0,0]
+                      ],//9
+                      [
+                          [0,0,0,0],
+                          [0,0,0,0],
+                          [0,1,1,0],
+                          [0,1,1,0],
+                          [0,0,0,0],
+                          [0,0,0,0],
+                          [0,1,1,0],
+                          [0,1,1,0],
+                          [0,0,0,0],
+                          [0,0,0,0]
+                      ]//:
+                  ];
+
+  		function drawDatetime(cxt){
+  			var nums = [];
+
+  			context.fillStyle="#005eac"
+  			var date = new Date();
+  			var offsetX = 70, offsetY = 30;
+  			var hours = date.getHours();
+  			var num1 = Math.floor(hours/10);
+  			var num2 = hours%10;
+  			nums.push({num: num1});
+  			nums.push({num: num2});
+  			nums.push({num: 10});
+  			var minutes = date.getMinutes();
+  			var num1 = Math.floor(minutes/10);
+  			var num2 = minutes%10;
+  			nums.push({num: num1});
+  			nums.push({num: num2});
+  			nums.push({num: 10});
+  			var seconds = date.getSeconds();
+  			var num1 = Math.floor(seconds/10);
+  			var num2 = seconds%10;
+  			nums.push({num: num1});
+  			nums.push({num: num2});
+
+  			for(var x = 0;x<nums.length;x++){
+  				nums[x].offsetX = offsetX;
+  				offsetX = drawSingleNumber(offsetX,offsetY, nums[x].num,cxt);
+  				if(x<nums.length-1){
+  					if((nums[x].num!=10) &&(nums[x+1].num!=10)){
+  						offsetX+=NUMBER_GAP;
+  					}
+  				}
+  			}
+
+  			if(currentNums.length ==0){
+  				currentNums = nums;
+  			}else{
+  				for(var index = 0;index<currentNums.length;index++){
+  					if(currentNums[index].num!=nums[index].num){
+  						addBalls(nums[index]);
+  						currentNums[index].num=nums[index].num;
+  					}
+  				}
+  			}
+  			renderBalls(cxt);
+  			updateBalls();
+
+  			return date;
+  		}
+
+  		function addBalls (item) {
+  			var num = item.num;
+  			var numMatrix = digit[num];
+  			for(var y = 0;y<numMatrix.length;y++){
+  				for(var x = 0;x<numMatrix[y].length;x++){
+  					if(numMatrix[y][x]==1){
+  						var ball={
+  							offsetX:item.offsetX+RADIUS+RADIUS*2*x,
+  							offsetY:30+RADIUS+RADIUS*2*y,
+  							color:colors[Math.floor(Math.random()*colors.length)],
+  							g:1.5+Math.random(),
+  							vx:Math.pow(-1, Math.ceil(Math.random()*10))*4+Math.random(),
+  							vy:-5
+  						}
+  						balls.push(ball);
+  					}
+  				}
+  			}
+  		}
+
+  		function renderBalls(cxt){
+  			for(var index = 0;index<balls.length;index++){
+  				cxt.beginPath();
+  				cxt.fillStyle=balls[index].color;
+  				cxt.arc(balls[index].offsetX, balls[index].offsetY, RADIUS, 0, 2*Math.PI);
+  				cxt.fill();
+  			}
+  		}
+
+  		function updateBalls () {
+  			var i =0;
+  			for(var index = 0;index<balls.length;index++){
+  				var ball = balls[index];
+  				ball.offsetX += ball.vx;
+  				ball.offsetY += ball.vy;
+  				ball.vy+=ball.g;
+  				if(ball.offsetY > (WINDOW_HEIGHT-RADIUS)){
+  					ball.offsetY= WINDOW_HEIGHT-RADIUS;
+  					ball.vy=-ball.vy*u;
+  				}
+  				if(ball.offsetX>RADIUS&&ball.offsetX<(WINDOW_WIDTH-RADIUS)){
+
+  					balls[i]=balls[index];
+  					i++;
+  				}
+  			}
+  			for(;i<balls.length;i++){
+  				balls.pop();
+  			}
+  		}
+  		function drawSingleNumber(offsetX, offsetY, num, cxt){
+  			var numMatrix = digit[num];
+  			for(var y = 0;y<numMatrix.length;y++){
+  				for(var x = 0;x<numMatrix[y].length;x++){
+  					if(numMatrix[y][x]==1){
+  						cxt.beginPath();
+  						cxt.arc(offsetX+RADIUS+RADIUS*2*x,offsetY+RADIUS+RADIUS*2*y,RADIUS,0,2*Math.PI);
+  						cxt.fill();
+  					}
+  				}
+  			}
+  			cxt.beginPath();
+  			offsetX += numMatrix[0].length*RADIUS*2;
+  			return offsetX;
+  		}
+
+  		var canvas = document.getElementById("canvas");
+  		canvas.width=WINDOW_WIDTH;
+  		canvas.height=WINDOW_HEIGHT;
+  		context = canvas.getContext("2d");
+
+  		var currentDate = new Date();
+
+  		setInterval(function(){
+  			context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+  			drawDatetime(context);
+  		}, 50)
+})();
+</script>
+      
+        </ul>
+<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("05/05/2024 11:26:00");
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "🌏 本站已艰难运行了 "+'<font style=color:#afb4db>'+dnum+'</font>'+" 天 ";
+            document.getElementById("times").innerHTML = '<font style=color:#f391a9>'+hnum+'</font>' + " 小时 " + '<font style=color:#fdb933>'+mnum+'</font>' + " 分 " + '<font style=color:#a3cf62>'+snum+'</font>' + " 秒";
+        }
+    setInterval("createtime()",250);
+</script>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://daolin.us.kg/posts/e105d9f9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="记录客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="私人小站⛽">
+      <meta itemprop="description" content="📔博客搭建 | 📃主题美化 | 📚经验总结">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NexT主题右下角添加旋转小魔方 | 私人小站⛽">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NexT主题右下角添加旋转小魔方
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-12-01 10:05:20" itemprop="dateCreated datePublished" datetime="2024-12-01T10:05:20+08:00">2024-12-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NexT%E4%B8%BB%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">NexT主题</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本文教程主要针对Hexo博客NexT主题，通过添加相关代码文件，实现旋转小魔方功能。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><blockquote>
+<p>迷你小魔方（cube-mini）</p>
+</blockquote>
+<p>1、在blog&#x2F;themes&#x2F;next&#x2F;layout&#x2F;_macro文件夹里新建一个cube-mini.njk文件，然后添加下面的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .cube_container &#123;</span><br><span class="line">      width: 50px;</span><br><span class="line">      height: 60px;</span><br><span class="line">      margin: 0 auto;</span><br><span class="line">      position: fixed;</span><br><span class="line">      z-index: 999;</span><br><span class="line">      -webkit-perspective: 1000px;</span><br><span class="line">              perspective: 1000px;</span><br><span class="line">      right: 0px;</span><br><span class="line">      bottom: 0px;</span><br><span class="line">      -webkit-transform: translate(-50%, -50%);</span><br><span class="line">              transform: translate(-50%, -50%);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .cube &#123;</span><br><span class="line">      /*</span><br><span class="line">      width: 100%;</span><br><span class="line">      height: 100%;</span><br><span class="line">      */</span><br><span class="line">      width: 0%; /* 大角度旋转 */</span><br><span class="line">      position: absolute;</span><br><span class="line">      -webkit-transform-style: preserve-3d;</span><br><span class="line">      transform-style: preserve-3d;</span><br><span class="line">      -webkit-transform: rotateX(-15deg) rotateY(-20deg) translateZ(-100px);</span><br><span class="line">      transform: rotateX(-15deg) rotateY(-20deg) translateZ(-100px);</span><br><span class="line">      -webkit-transform-origin: center center -100px;</span><br><span class="line">      transform-origin: center center -100px;</span><br><span class="line">      -webkit-animation: around 5s cubic-bezier(0.94, -0.6, 0.45, 1.31) infinite;</span><br><span class="line">      animation: around 5s cubic-bezier(0.94, -0.6, 0.45, 1.31) infinite;</span><br><span class="line">    &#125;</span><br><span class="line">    .cube div &#123;</span><br><span class="line">      width: 50px;</span><br><span class="line">      height: 50px;</span><br><span class="line">      display: block;</span><br><span class="line">      margin: 0;</span><br><span class="line">      position: absolute;</span><br><span class="line">    &#125;</span><br><span class="line">    .cube div a &#123;</span><br><span class="line">      color: white;</span><br><span class="line">      font-size: 12px;</span><br><span class="line">      text-decoration: none;</span><br><span class="line">      text-align: center;</span><br><span class="line">      position: fixed;</span><br><span class="line">      top: 50%;</span><br><span class="line">      left: 45%;</span><br><span class="line">      -webkit-transform: translate(-50%, -50%);</span><br><span class="line">              transform: translate(-50%, -50%);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .front &#123;</span><br><span class="line">      -webkit-transform: rotateY(0deg) translateZ(25px);</span><br><span class="line">              transform: rotateY(0deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(0, 191, 255, 0.7);</span><br><span class="line">      border: 1px solid rgba(0, 191, 255, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .back &#123;</span><br><span class="line">      -webkit-transform: rotateX(180deg) translateZ(25px);</span><br><span class="line">              transform: rotateX(180deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(124, 252, 0, 0.7);</span><br><span class="line">      border: 1px solid rgba(124, 252, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .left &#123;</span><br><span class="line">      -webkit-transform: rotateY(-90deg) translateZ(25px);</span><br><span class="line">              transform: rotateY(-90deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(255, 215, 0, 0.7);</span><br><span class="line">      border: 1px solid rgba(255, 215, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .right &#123;</span><br><span class="line">      -webkit-transform: rotateY(90deg) translateZ(25px);</span><br><span class="line">              transform: rotateY(90deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(255, 69, 0, 0.7);</span><br><span class="line">      border: 1px solid rgba(255, 69, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .top &#123;</span><br><span class="line">      -webkit-transform: rotateX(90deg) translateZ(25px);</span><br><span class="line">              transform: rotateX(90deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(255, 0, 157, 0.7);</span><br><span class="line">      border: 1px solid rgba(255, 0, 157, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .bottom &#123;</span><br><span class="line">      -webkit-transform: rotateX(-90deg) translateZ(25px);</span><br><span class="line">              transform: rotateX(-90deg) translateZ(25px);</span><br><span class="line">      background-color: rgba(184, 111, 220, 0.7);</span><br><span class="line">      border: 1px solid rgba(184, 111, 220, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     @-webkit-keyframes around &#123;</span><br><span class="line">      100% &#123;</span><br><span class="line">        -webkit-transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">                transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @keyframes around &#123;</span><br><span class="line">      100% &#123;</span><br><span class="line">        -webkit-transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">        transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;cube_container&quot;&gt;</span><br><span class="line">	  &lt;div class=&quot;cube&quot;&gt;</span><br><span class="line">	    &lt;div class=&quot;front&quot;&gt;&lt;a onclick=&quot;back2top()&quot; rel=&quot;nofollow&quot;&gt; 欢迎光临 &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;back&quot;&gt;&lt;a onclick=&quot;back2top()&quot; rel=&quot;nofollow&quot;&gt; 欢迎光临 &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;right&quot;&gt;&lt;a onclick=&quot;back2top()&quot; rel=&quot;nofollow&quot;&gt; 欢迎光临 &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;left&quot;&gt;&lt;a onclick=&quot;back2top()&quot; role=&quot;button&quot; rel=&quot;nofollow&quot;&gt; 欢迎光临 &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;top&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;  &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;bottom&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot;&gt;  &lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">  function back2top()&#123;</span><br><span class="line">    $(&#x27;html, body&#x27;).animate(&#123;scrollTop: 0&#125;, 500);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、在blog&#x2F;themes&#x2F;next&#x2F;layout&#x2F;_macro&#x2F;post.njk文件的底部添加下面内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 旋转魔方 --&gt;</span><br><span class="line">&#123;% if theme.cube.enable %&#125;</span><br><span class="line">   &#123;% if theme.cube.type == &quot;mini&quot; %&#125;</span><br><span class="line">      &#123;% include &#x27;cube-mini.njk&#x27; %&#125;</span><br><span class="line">   &#123;% elseif theme.cube.type == &quot;hollow&quot; %&#125;</span><br><span class="line">      &#123;% include &#x27;cube-hollow.njk&#x27; %&#125;</span><br><span class="line">   &#123;% endif %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3、在blog&#x2F;_config.next.yml文件中添加下面的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 网站右下角旋转魔方</span><br><span class="line">cube:</span><br><span class="line">  enable: true</span><br><span class="line">  type: mini # mini | hollow</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>&ensp;&ensp;&ensp;&ensp;旋转小魔方有cube-mini、cube-mini_bak、cube-hollow、cube-hollow_bak四种风格可选，其中cube-mini、cube-mini_bak为文字＋链接风格，cube-hollow、cube-hollow_bak为文字＋图片风格。四个风格旋转小魔方，一次只能选择一个魔方。在NexT主题的_config.yml文件中提供了mini和hollow两种风格，所以，在_macro文件夹里需要新建cube-mini.njk和cube-hollow.njk，然后在里面添加不同风格的代码。至于另外两个风格mini_bak和hollow_bak，既可以单独创建文件，也可以将代码粘贴到cube-mini.njk里，覆盖掉原有代码。以下是另外三个小魔方代码：</p>
+<blockquote>
+<p>旋转小魔方代码（cube-mini_bak风格，记得把里面的链接替换成自己的）：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .cube_container &#123;</span><br><span class="line">      width: 100px;</span><br><span class="line">      height: 100px;</span><br><span class="line">      margin: 0 auto;</span><br><span class="line">      position: fixed;</span><br><span class="line">      z-index: 999;</span><br><span class="line">      -webkit-perspective: 1000px;</span><br><span class="line">              perspective: 1000px;</span><br><span class="line">      right: 0px;</span><br><span class="line">      bottom: 0px;</span><br><span class="line">      -webkit-transform: translate(-50%, -50%);</span><br><span class="line">              transform: translate(-50%, -50%);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    .cube &#123;</span><br><span class="line">      width: 100%;</span><br><span class="line">      height: 100%;</span><br><span class="line">      position: absolute;</span><br><span class="line">      -webkit-transform-style: preserve-3d;</span><br><span class="line">      transform-style: preserve-3d;</span><br><span class="line">      -webkit-transform: rotateX(-15deg) rotateY(-20deg) translateZ(-100px);</span><br><span class="line">      transform: rotateX(-15deg) rotateY(-20deg) translateZ(-100px);</span><br><span class="line">      -webkit-transform-origin: center center -100px;</span><br><span class="line">      transform-origin: center center -100px;</span><br><span class="line">      -webkit-animation: around 5s cubic-bezier(0.94, -0.6, 0.45, 1.31) infinite;</span><br><span class="line">      animation: around 5s cubic-bezier(0.94, -0.6, 0.45, 1.31) infinite;</span><br><span class="line">    &#125;</span><br><span class="line">    .cube div &#123;</span><br><span class="line">      width: 120px;</span><br><span class="line">      height: 120px;</span><br><span class="line">      display: block;</span><br><span class="line">      margin: 0;</span><br><span class="line">      position: absolute;</span><br><span class="line">    &#125;</span><br><span class="line">    .cube div a &#123;</span><br><span class="line">      color: white;</span><br><span class="line">      font-size: 8em;</span><br><span class="line">      text-decoration: none;</span><br><span class="line">      text-align: center;</span><br><span class="line">      position: fixed;</span><br><span class="line">      top: 50%;</span><br><span class="line">      left: 50%;</span><br><span class="line">      -webkit-transform: translate(-50%, -50%);</span><br><span class="line">              transform: translate(-50%, -50%);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .front &#123;</span><br><span class="line">      -webkit-transform: rotateY(0deg) translateZ(60px);</span><br><span class="line">              transform: rotateY(0deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(0, 191, 255, 0.7);</span><br><span class="line">      border: 2px solid rgba(0, 191, 255, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .back &#123;</span><br><span class="line">      -webkit-transform: rotateX(180deg) translateZ(60px);</span><br><span class="line">              transform: rotateX(180deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(124, 252, 0, 0.7);</span><br><span class="line">      border: 2px solid rgba(124, 252, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .left &#123;</span><br><span class="line">      -webkit-transform: rotateY(-90deg) translateZ(60px);</span><br><span class="line">              transform: rotateY(-90deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(255, 215, 0, 0.7);</span><br><span class="line">      border: 2px solid rgba(255, 215, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .right &#123;</span><br><span class="line">      -webkit-transform: rotateY(90deg) translateZ(60px);</span><br><span class="line">              transform: rotateY(90deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(255, 69, 0, 0.7);</span><br><span class="line">      border: 2px solid rgba(255, 69, 0, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .top &#123;</span><br><span class="line">      -webkit-transform: rotateX(90deg) translateZ(60px);</span><br><span class="line">              transform: rotateX(90deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(255, 0, 157, 0.7);</span><br><span class="line">      border: 2px solid rgba(255, 0, 157, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line">    .cube .bottom &#123;</span><br><span class="line">      -webkit-transform: rotateX(-90deg) translateZ(60px);</span><br><span class="line">              transform: rotateX(-90deg) translateZ(60px);</span><br><span class="line">      background-color: rgba(184, 111, 220, 0.7);</span><br><span class="line">      border: 2px solid rgba(184, 111, 220, 0.7);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     @-webkit-keyframes around &#123;</span><br><span class="line">      100% &#123;</span><br><span class="line">        -webkit-transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">                transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @keyframes around &#123;</span><br><span class="line">      100% &#123;</span><br><span class="line">        -webkit-transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">        transform: rotateX(-15deg) rotateY(-380deg) translateZ(-100px);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;cube_container&quot;&gt;</span><br><span class="line">	  &lt;div class=&quot;cube&quot;&gt;</span><br><span class="line">	    &lt;div class=&quot;front&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;back&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;right&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;left&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;top&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	    &lt;div class=&quot;bottom&quot;&gt;&lt;a href=&quot;https://kaobian.github.io&quot; target=&quot;_blank&quot; rel=&quot;nofollow&quot; style=&quot;font-size:28px;&quot;&gt;欢迎光临&lt;/a&gt;&lt;/div&gt;</span><br><span class="line">	  &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>旋转小魔方代码（cube-hollowk风格，记得把图片替换成自己的）：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  /*最外层容器样式*/</span><br><span class="line">  .wrap &#123;</span><br><span class="line">    width: 0px;</span><br><span class="line">    height: 0px;</span><br><span class="line">    /*margin: 80px;*/</span><br><span class="line">    /*position: relative;*/</span><br><span class="line">    position: fixed;</span><br><span class="line">    bottom: 120px;</span><br><span class="line">    right: 80px;</span><br><span class="line">    z-index: 999;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*包裹所有容器样式*/</span><br><span class="line">  .cube &#123;</span><br><span class="line">    width: 0px;</span><br><span class="line">    height: 0px;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    -webkit-transform-style: preserve-3d;</span><br><span class="line">    transform-style: preserve-3d;</span><br><span class="line">    transform: rotateX(-30deg) rotateY(-80deg);</span><br><span class="line">    animation: rotate linear 10s infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @-webkit-keyframes rotate &#123;</span><br><span class="line">    from &#123;</span><br><span class="line">      transform: rotateX(0deg) rotateY(0deg);</span><br><span class="line">    &#125;</span><br><span class="line">    to &#123;</span><br><span class="line">      transform: rotateX(360deg) rotateY(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube div &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    opacity: 0.8;</span><br><span class="line">    transition: all .4s;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*定义所有图片样式*/</span><br><span class="line">  .pic &#123;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(25px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_back &#123;</span><br><span class="line">    transform: translateZ(-25px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(25px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(25px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(25px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(25px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*定义小正方体样式*/</span><br><span class="line">  .cube span &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    width: 25px;</span><br><span class="line">    height: 25px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 12px;</span><br><span class="line">    left: 12px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_pic &#123;</span><br><span class="line">    width: 25px;</span><br><span class="line">    height:25px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(12px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_back &#123;</span><br><span class="line">    transform: translateZ(-12px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(12px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(12px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(12px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(12px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*鼠标移入后样式*/</span><br><span class="line">  .cube:hover .out_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_back &#123;</span><br><span class="line">    transform: translateZ(-50px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;wrap&quot;&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!--包裹所有元素的容器--&gt;</span><br><span class="line">		&lt;div class=&quot;cube&quot;&gt;</span><br><span class="line">			&lt;!--前面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_front&quot;&gt;</span><br><span class="line">			  &lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">				  &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/18/f9a2ddb82c3c4832.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--后面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_back&quot;&gt;</span><br><span class="line">				&lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">          &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/d23d380131137ad4.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--左面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_left&quot;&gt;</span><br><span class="line">        &lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">				  &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/08a925f92f6a1bec.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--右面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_right&quot;&gt;</span><br><span class="line">				&lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">          &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/10984df83f09d62c.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--上面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_top&quot;&gt;</span><br><span class="line">				&lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">          &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/8fcd0ff343790b5c.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--下面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_bottom&quot;&gt;</span><br><span class="line">				&lt;a onclick=&quot;back2top()&quot;&gt;</span><br><span class="line">          &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/f307c8433acda0ad.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">        &lt;/a&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">			&lt;!--小正方体 --&gt;</span><br><span class="line">			&lt;span class=&quot;in_front&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/0b40871a3de1d053.png&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_back&quot;&gt;</span><br><span class="line">			     &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/2f3a68f69459c71a.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_left&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/d2ad53ce846a9800.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_right&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/13ed63bf49467720.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_top&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/a4e12d637b3c3428.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_bottom&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/6c1cfd99f0a72c8a.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  function back2top()&#123;</span><br><span class="line">    $(&#x27;html, body&#x27;).animate(&#123;scrollTop: 0&#125;, 500);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>旋转小魔方代码（cube-hollow_bak风格，记得把图片替换成自己的）：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  /*最外层容器样式*/</span><br><span class="line">  .wrap &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    margin: 200px;</span><br><span class="line">    /*position: relative;*/</span><br><span class="line">    margin: 100px;</span><br><span class="line">    position: fixed;</span><br><span class="line">    bottom: 0px;</span><br><span class="line">    right: 0px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*包裹所有容器样式*/</span><br><span class="line">  .cube &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    transform-style: preserve-3d;</span><br><span class="line">    transform: rotateX(-30deg) rotateY(-80deg);</span><br><span class="line">    animation: rotate linear 20s infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @-webkit-keyframes rotate &#123;</span><br><span class="line">    from &#123;</span><br><span class="line">      transform: rotateX(0deg) rotateY(0deg);</span><br><span class="line">    &#125;</span><br><span class="line">    to &#123;</span><br><span class="line">      transform: rotateX(360deg) rotateY(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube div &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    opacity: 0.8;</span><br><span class="line">    transition: all .4s;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*定义所有图片样式*/</span><br><span class="line">  .pic &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(100px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_back &#123;</span><br><span class="line">    transform: translateZ(-100px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(100px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(100px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(100px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .out_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(100px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*定义小正方体样式*/</span><br><span class="line">  .cube span &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50px;</span><br><span class="line">    left: 50px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_pic &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_back &#123;</span><br><span class="line">    transform: translateZ(-50px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube .in_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(50px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  /*鼠标移入后样式*/</span><br><span class="line">  .cube:hover .out_front &#123;</span><br><span class="line">    transform: rotateY(0deg) translateZ(200px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_back &#123;</span><br><span class="line">    transform: translateZ(-200px) rotateY(180deg);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_left &#123;</span><br><span class="line">    transform: rotateY(-90deg) translateZ(200px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_right &#123;</span><br><span class="line">    transform: rotateY(90deg) translateZ(200px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_top &#123;</span><br><span class="line">    transform: rotateX(90deg) translateZ(200px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .cube:hover .out_bottom &#123;</span><br><span class="line">    transform: rotateX(-90deg) translateZ(200px);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;wrap&quot;&gt;</span><br><span class="line"></span><br><span class="line">		&lt;!--包裹所有元素的容器--&gt;</span><br><span class="line">		&lt;div class=&quot;cube&quot;&gt;</span><br><span class="line">			&lt;!--前面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_front&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/18/f9a2ddb82c3c4832.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--后面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_back&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/d23d380131137ad4.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--左面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_left&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/08a925f92f6a1bec.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--右面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_right&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/10984df83f09d62c.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--上面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_top&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/8fcd0ff343790b5c.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">			&lt;!--下面图片 --&gt;</span><br><span class="line">			&lt;div class=&quot;out_bottom&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/f307c8433acda0ad.jpg&quot; class=&quot;pic&quot; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">			&lt;!--小正方体 --&gt;</span><br><span class="line">			&lt;span class=&quot;in_front&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/19/0b40871a3de1d053.png&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_back&quot;&gt;</span><br><span class="line">			     &lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/2f3a68f69459c71a.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_left&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/d2ad53ce846a9800.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_right&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/13ed63bf49467720.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_top&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/a4e12d637b3c3428.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">			&lt;span class=&quot;in_bottom&quot;&gt;</span><br><span class="line">				&lt;img src=&quot;https://images.weserv.nl/?url=https://s3.bmp.ovh/imgs/2024/02/20/6c1cfd99f0a72c8a.jpg&quot; class=&quot;in_pic&quot; /&gt;</span><br><span class="line">			&lt;/span&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #0000FF;font-size:14px;">-------------本文已到底啦 <i class="fa-solid fa-handshake"></i> 感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="记录客 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag"><i class="fa fa-tag"></i> 博客搭建</a>
+              <a href="/tags/%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 主题配置</a>
+              <a href="/tags/%E7%BB%8F%E9%AA%8C%E6%8A%80%E5%B7%A7/" rel="tag"><i class="fa fa-tag"></i> 经验技巧</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/2e648fb1.html" rel="prev" title="NexT主题添加进度条加载动画效果">
+                  <i class="fa fa-angle-left"></i> NexT主题添加进度条加载动画效果
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+<!-- 旋转魔方 -->
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa-brands fa-apple"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">记录客</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">88k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:20</span>
+  </span>
+</div><p id="hitokoto">获取中...</p>
+<script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js","integrity":"sha256-YbM1pG3wWnzhyYN49g5fPnen+2CKEFaZfopkkwSpNtY="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/wavedrom.min.js","integrity":"sha256-INLAoJc6quTNfiMWkGZniYO2cxE8mHpddnLow1m6RFs="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.5.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div id="moon-menu-item-back2bottom" class="moon-menu-item">
+      <i class='fas fa-chevron-down'></i>    </div>
+    
+    <div id="moon-menu-item-back2top" class="moon-menu-item">
+      <i class='fas fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>
