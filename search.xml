@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>NexT主题添加返回顶部和返回底部功能按钮</title>
-    <url>/posts/4e9d51da.html</url>
-    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.27.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
-<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、下载安装<code>hexo-cake-moon-menu</code>插件</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cake-moon-menu</span><br></pre></td></tr></table></figure>
-
-<p><strong>二、添加文件并修改主题</strong></p>
-<p>在<code>blog/_config.next.yml</code>文件中找到主题自带的<code>back2top</code>，将<code>enable</code>后面的<code>true</code>设置为<code>false</code>，然后添加下面的代码：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 自定义返回顶部 + 返回底部按钮</span><br><span class="line"><span class="attr">moon_menu</span>:</span><br><span class="line">  <span class="attr">back2top</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-up</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">1</span></span><br><span class="line">  <span class="attr">back2bottom</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-down</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">2</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>NexT主题</category>
-      </categories>
-      <tags>
-        <tag>博客搭建</tag>
-        <tag>主题配置</tag>
-        <tag>经验技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo添加鼠标右键菜单</title>
     <url>/posts/f0704dfc.html</url>
     <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.27.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
@@ -38,9 +19,9 @@
         <category>Hexo框架</category>
       </categories>
       <tags>
+        <tag>鼠标右键</tag>
         <tag>主题配置</tag>
         <tag>经验技巧</tag>
-        <tag>鼠标右键</tag>
       </tags>
   </entry>
   <entry>
@@ -72,6 +53,25 @@
         <tag>主题配置</tag>
         <tag>经验技巧</tag>
         <tag>深色模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题添加返回顶部和返回底部功能按钮</title>
+    <url>/posts/4e9d51da.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.27.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、下载安装<code>hexo-cake-moon-menu</code>插件</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-cake-moon-menu</span><br></pre></td></tr></table></figure>
+
+<p><strong>二、添加文件并修改主题</strong></p>
+<p>在<code>blog/_config.next.yml</code>文件中找到主题自带的<code>back2top</code>，将<code>enable</code>后面的<code>true</code>设置为<code>false</code>，然后添加下面的代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 自定义返回顶部 + 返回底部按钮</span><br><span class="line"><span class="attr">moon_menu</span>:</span><br><span class="line">  <span class="attr">back2top</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-up</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">1</span></span><br><span class="line">  <span class="attr">back2bottom</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-down</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">2</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
 </search>
