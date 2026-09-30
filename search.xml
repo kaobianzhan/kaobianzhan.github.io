@@ -66,31 +66,6 @@
       </tags>
   </entry>
   <entry>
-    <title>NexT主题在文章底部添加阅读结束语标记</title>
-    <url>/posts/b869e7ef.html</url>
-    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
-<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、新建passage-end-tag.njk文件</strong></p>
-<p>在<code>blog/themes/next/layout/_macro</code>文件夹里新建一个<code>passage-end-tag.njk</code>文件，然后复制粘贴下面的代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &#123;% if not is_index %&#125;</span><br><span class="line">        &lt;<span class="selector-tag">div</span> style=&quot;<span class="attribute">text-align</span>:center;<span class="attribute">color</span>: <span class="number">#0000FF</span>;<span class="attribute">font-size</span>:<span class="number">14px</span>;&quot;&gt;-------------本文已到底啦 &lt;<span class="selector-tag">i</span> class=&quot;fa-solid fa-handshake&quot;&gt;&lt;/<span class="selector-tag">i</span>&gt; 感谢您的阅读-------------&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如果想换颜色，可以在<code>color:</code>后面替换颜色代码，如<code>color: #ccc</code>（灰色）换成<code>#0000FF</code>（蓝色）。图标及字体都可以更换，只需替换对应代码即可。</p>
-<p><strong>二、代码文件引入</strong></p>
-<p>在<code>blog/node_modules/hexo-theme-next/source/layout/_macro/post.njk</code>文件的<code>&#123;### POST BODY ###&#125;</code>最底部添加下面的代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> <span class="keyword">not</span> is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">&#x27;passage-end-tag.njk&#x27;</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>三、主题文件添加</strong></p>
-<p>在blog&#x2F;_config.next.yml文件中添加下面的代码</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"># 文章末尾添加结束语标记</span><br><span class="line">passage_end_tag:</span><br><span class="line">  enabled: <span class="literal">true</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>NexT主题</category>
-      </categories>
-      <tags>
-        <tag>博客搭建</tag>
-        <tag>主题配置</tag>
-        <tag>经验技巧</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>NexT主题归档、分类、标签页中引入ECharts统计图</title>
     <url>/posts/d4fec37a.html</url>
     <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
@@ -127,6 +102,31 @@
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1、分类和标签不宜添加太多，影响美观；</p>
 <p>2、主题开启<code>pjax</code>后，可能会导致<code>ECharts</code>统计图表不显示，最好是关闭主题中的<code>pjax</code>。</p>
 ]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题在文章底部添加阅读结束语标记</title>
+    <url>/posts/b869e7ef.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、新建passage-end-tag.njk文件</strong></p>
+<p>在<code>blog/themes/next/layout/_macro</code>文件夹里新建一个<code>passage-end-tag.njk</code>文件，然后复制粘贴下面的代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &#123;% if not is_index %&#125;</span><br><span class="line">        &lt;<span class="selector-tag">div</span> style=&quot;<span class="attribute">text-align</span>:center;<span class="attribute">color</span>: <span class="number">#0000FF</span>;<span class="attribute">font-size</span>:<span class="number">14px</span>;&quot;&gt;-------------本文已到底啦 &lt;<span class="selector-tag">i</span> class=&quot;fa-solid fa-handshake&quot;&gt;&lt;/<span class="selector-tag">i</span>&gt; 感谢您的阅读-------------&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果想换颜色，可以在<code>color:</code>后面替换颜色代码，如<code>color: #ccc</code>（灰色）换成<code>#0000FF</code>（蓝色）。图标及字体都可以更换，只需替换对应代码即可。</p>
+<p><strong>二、代码文件引入</strong></p>
+<p>在<code>blog/node_modules/hexo-theme-next/source/layout/_macro/post.njk</code>文件的<code>&#123;### POST BODY ###&#125;</code>最底部添加下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;% <span class="keyword">if</span> <span class="keyword">not</span> is_index %&#125;</span><br><span class="line">    &#123;% include <span class="string">&#x27;passage-end-tag.njk&#x27;</span> %&#125;</span><br><span class="line">  &#123;% endif %&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>三、主题文件添加</strong></p>
+<p>在blog&#x2F;_config.next.yml文件中添加下面的代码</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"># 文章末尾添加结束语标记</span><br><span class="line">passage_end_tag:</span><br><span class="line">  enabled: <span class="literal">true</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>NexT主题</category>
       </categories>
