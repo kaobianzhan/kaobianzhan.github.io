@@ -9,10 +9,10 @@
 
 <p><strong>二、地图代码文件插入</strong></p>
 <p>在你的博客文章中，插入<code>&#123;% baiduMap 112.735100,28.015580, 湖南省宁乡市道林镇 %&#125;</code>这行代码。将里面的经纬度数字，修改成你所在地经纬度数字；将经纬度后面的文字，改成你自己所在地名字。</p>
-<p>以下是几个常用地图代码：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"># **&lt;center&gt;谷歌地图（需配合加速器使用）&lt;/center&gt;**</span><br><span class="line"></span><br><span class="line">&#123;% googleMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"># **&lt;center&gt;高德地图&lt;/center&gt;**</span><br><span class="line"></span><br><span class="line">&#123;% gaodeMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"># **&lt;center&gt;百度地图&lt;/center&gt;**</span><br><span class="line"></span><br><span class="line">&#123;% baiduMap <span class="number">112.735100</span>,<span class="number">28.015580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"># **&lt;center&gt;GeoQ地图&lt;/center&gt;**</span><br><span class="line">&#123;% geoqMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"># **&lt;center&gt;开放街道地图（需配合加速器使用）&lt;/center&gt;**</span><br><span class="line">&#123;% openstreetMap <span class="number">112.720100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>以下是五个常用地图代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>、谷歌地图（需配合加速器使用）</span><br><span class="line"></span><br><span class="line">&#123;% googleMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、高德地图</span><br><span class="line"></span><br><span class="line">&#123;% gaodeMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>、百度地图</span><br><span class="line"></span><br><span class="line">&#123;% baiduMap <span class="number">112.735100</span>,<span class="number">28.015580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、GeoQ地图</span><br><span class="line"></span><br><span class="line">&#123;% geoqMap <span class="number">112.725100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>、开放街道地图（需配合加速器使用）</span><br><span class="line"></span><br><span class="line">&#123;% openstreetMap <span class="number">112.720100</span>,<span class="number">28.005580</span>, 湖南省宁乡市 %&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>NexT主题</category>
+        <category>Hexo框架</category>
       </categories>
       <tags>
         <tag>博客搭建</tag>
@@ -170,6 +170,47 @@
 <p>三、Hexo文件添加</p>
 <p>在<code>blog/_config.yml</code>文件里添加下面的代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 标签云</span><br><span class="line"><span class="attr">tag_cloud</span>:</span><br><span class="line">  <span class="attr">textFont</span>: <span class="title class_">Trebuchet</span> <span class="variable constant_">MS</span>, <span class="title class_">Helvetica</span></span><br><span class="line">  <span class="attr">textColor</span>: <span class="string">&#x27;#FF0000&#x27;</span></span><br><span class="line">  <span class="attr">textHeight</span>: <span class="number">25</span></span><br><span class="line">  <span class="attr">outlineColor</span>: <span class="string">&#x27;#E2E1D1&#x27;</span></span><br><span class="line">  <span class="attr">maxSpeed</span>: <span class="number">0.03</span></span><br><span class="line">  <span class="attr">pauseOnSelected</span>: <span class="literal">true</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题文章底部添加卡片式推荐相关文章</title>
+    <url>/posts/2903c047.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、下载hexo-article-recommender插件</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-article-recommender --save</span><br></pre></td></tr></table></figure>
+
+<p>NexT主题下载完插件后，无需设置，可直接使用，不过在添加相关文章推荐后，会增加文件生成时间。如果想在相关文章推荐里显示该作者名称，可在文章信息头前言里添加下面的内容。更多设置参考，可访问<a href="">https://i-nmb.cn/hexo-article-recommender.html</a>查看。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">author_name: <span class="string">&quot;作者名称&quot;</span></span><br><span class="line">author_title: <span class="string">&quot;作者描述&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: NexT主题文章底部添加卡片式推荐相关文章</span><br><span class="line">date: <span class="number">2026</span><span class="number">-0</span>9<span class="number">-28</span> <span class="number">0</span>8:<span class="number">15</span>:<span class="number">25</span></span><br><span class="line">categories: NexT主题</span><br><span class="line">tags:</span><br><span class="line">  - 博客搭建</span><br><span class="line">  - 主题配置</span><br><span class="line">  - 经验技巧</span><br><span class="line">author_name: <span class="string">&quot;私人记录&quot;</span></span><br><span class="line">author_title: <span class="string">&quot;记录站点修改，方便日后重建&quot;</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题更改霞鹜文楷体字体</title>
+    <url>/posts/e634311e.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、代码引入</strong></p>
+<p>在<code>blog/themes/next/layout/_partials/head/head.njk</code>文件的<code>&#123;&#123; next_font() &#125;&#125;</code>下面添加以下代码：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css<span class="string">&quot; media=&quot;</span>print<span class="string">&quot; onload=&quot;</span>this.media=<span class="string">&#x27;all&#x27;</span><span class="string">&quot;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>二、主题文件修改</strong></p>
+<p>在<code>blog/_config.next.yml</code>文件中找到<code>font</code>，然后在下面将<code>enable</code>后面的<code>false</code>改成<code>true</code>，将<code>family</code>后面的<code>Lato</code>改成<code>LXGW Wenkai Screen</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">font</span>:</span><br><span class="line">  <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Uri</span> <span class="keyword">of</span> fonts host, e.<span class="property">g</span>. <span class="attr">https</span>:<span class="comment">//fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host</span>:</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Font</span> <span class="attr">options</span>:</span><br><span class="line">  # <span class="string">`external: true`</span> will load <span class="variable language_">this</span> font family <span class="keyword">from</span> <span class="string">`host`</span> above.</span><br><span class="line">  # <span class="string">`family: Times New Roman`</span>. <span class="title class_">Without</span> any quotes.</span><br><span class="line">  # <span class="string">`size: x.x`</span>. <span class="title class_">Use</span> <span class="string">`em`</span> <span class="keyword">as</span> unit. <span class="title class_">Default</span>: <span class="number">1</span> (16px)</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Global</span> font settings used <span class="keyword">for</span> all elements inside &lt;body&gt;.</span><br><span class="line">  <span class="attr">global</span>:</span><br><span class="line">    <span class="attr">external</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">family</span>: <span class="variable constant_">LXGW</span> <span class="title class_">Wenkai</span> <span class="title class_">Screen</span></span><br><span class="line">    <span class="attr">size</span>:</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Font</span> settings <span class="keyword">for</span> site <span class="title function_">title</span> (.<span class="property">site</span>-title).</span><br><span class="line">  <span class="attr">title</span>:</span><br><span class="line">    <span class="attr">external</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">family</span>:</span><br><span class="line">    <span class="attr">size</span>:</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Font</span> settings <span class="keyword">for</span> <span class="title function_">headlines</span> (&lt;h1&gt; to &lt;h6&gt;).</span><br><span class="line">  <span class="attr">headings</span>:</span><br><span class="line">    <span class="attr">external</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">family</span>:</span><br><span class="line">    <span class="attr">size</span>:</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Font</span> settings <span class="keyword">for</span> <span class="title function_">posts</span> (.<span class="property">post</span>-body).</span><br><span class="line">  <span class="attr">posts</span>:</span><br><span class="line">    <span class="attr">external</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">family</span>:</span><br><span class="line"></span><br><span class="line">  # <span class="title class_">Font</span> settings <span class="keyword">for</span> &lt;code&gt; and code blocks.</span><br><span class="line">  <span class="attr">codes</span>:</span><br><span class="line">    <span class="attr">external</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">family</span>:</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>NexT主题</category>
       </categories>
