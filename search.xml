@@ -86,6 +86,22 @@
       </tags>
   </entry>
   <entry>
+    <title>NexT主题修改页面加载时的运动效果</title>
+    <url>/posts/9da1df2e.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>主题文件修改</strong></p>
+<p>在<code>blog/_config.next.yml</code>文件中找到<code>motion</code>，然后对照下面的修改即可。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># <span class="title class_">Use</span> <span class="title class_">Animate</span>.<span class="property">css</span> to animate everything.</span><br><span class="line"># <span class="title class_">For</span> more <span class="attr">information</span>: <span class="attr">https</span>:<span class="comment">//animate.style</span></span><br><span class="line"><span class="attr">motion</span>:</span><br><span class="line">  <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="attr">async</span>: <span class="literal">false</span></span><br><span class="line">  <span class="attr">duration</span>: <span class="number">200</span></span><br><span class="line">  <span class="attr">transition</span>:</span><br><span class="line">    # <span class="title class_">All</span> available transition <span class="attr">variants</span>: <span class="attr">https</span>:<span class="comment">//theme-next.js.org/animate/</span></span><br><span class="line">    <span class="attr">menu_item</span>: bounceIn</span><br><span class="line">    <span class="attr">post_block</span>: zoomInUp</span><br><span class="line">    <span class="attr">post_header</span>: fadeInDown</span><br><span class="line">    <span class="attr">post_body</span>: fadeInDown</span><br><span class="line">    <span class="attr">coll_header</span>: fadeInLeft</span><br><span class="line">    # <span class="title class_">Only</span> <span class="keyword">for</span> <span class="title class_">Pisces</span> | <span class="title class_">Gemini</span>.</span><br><span class="line">    <span class="attr">sidebar</span>: rollIn</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>NexT主题在文章底部添加阅读结束语标记</title>
     <url>/posts/b869e7ef.html</url>
     <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
@@ -462,6 +478,25 @@
 <p><strong>二、主题文件修改与添加</strong></p>
 <p>在<code>blog/_config.next.yml</code>文件中找到主题自带的<code>back2top</code>，先将<code>enable</code>后面的<code>true</code>设置为<code>false</code>，然后添加下面的代码：</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"># 自定义返回顶部 + 返回底部按钮</span><br><span class="line"><span class="attr">moon_menu</span>:</span><br><span class="line">  <span class="attr">back2top</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-up</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">1</span></span><br><span class="line">  <span class="attr">back2bottom</span>:</span><br><span class="line">    <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">    <span class="attr">icon</span>: fas fa-chevron-down</span><br><span class="line">    <span class="attr">order</span>: -<span class="number">2</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>NexT主题</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+        <tag>主题配置</tag>
+        <tag>经验技巧</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NexT主题添加页面加载时进度条效果</title>
+    <url>/posts/90bcbae3.html</url>
+    <content><![CDATA[<p>本方法基于Hexo8.1.2框架的NexT8.29.0主题，可能不适合其它框架或主题。<span id="more"></span></p>
+<h3 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h3><p><strong>一、克隆源代码</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/theme-next/theme-next-pace source/lib/pace</span><br></pre></td></tr></table></figure>
+
+<p><strong>二、修改主题文件</strong></p>
+<p>在<code>blog/_config.next.yml</code>文件中找到<code>pace</code>，将<code>enable</code>后面的<code>false</code>改成<code>true</code>；将<code>theme</code>后面的<code>minimal</code>改成<code>bounce</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Progress</span> bar <span class="keyword">in</span> the top during page loading.</span><br><span class="line"># <span class="title class_">For</span> more <span class="attr">information</span>: <span class="attr">https</span>:<span class="comment">//github.com/CodeByZach/pace</span></span><br><span class="line"><span class="attr">pace</span>:</span><br><span class="line">  <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">  # <span class="title class_">All</span> available <span class="attr">colors</span>:</span><br><span class="line">  # black | blue | green | orange | pink | purple | red | silver | white | yellow</span><br><span class="line">  <span class="attr">color</span>: blue</span><br><span class="line">  # <span class="title class_">All</span> available <span class="attr">themes</span>:</span><br><span class="line">  # big-counter | bounce | barber-shop | center-atom | center-circle | center-radar | center-simple</span><br><span class="line">  # corner-indicator | fill-left | flat-top | flash | loading-bar | mac-osx | material | minimal</span><br><span class="line">  <span class="attr">theme</span>: bounce</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>NexT主题</category>
       </categories>
